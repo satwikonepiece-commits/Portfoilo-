@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SATWIK PATTAGI | CYBERSECURITY ARCHITECT</title>
+    <title>SATWIK PATTAGI | CYBERSECURITY PRACTITIONER</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Courier+Prime:wght@400;700&family=Orbitron:wght@400;700;900&display=swap" rel="stylesheet">
     <style>
@@ -369,6 +369,571 @@
         .command { color: var(--accent-blue); }
         .output { color: var(--accent-pink); }
 
+        /* About Me Section */
+        .about-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+            align-items: center;
+        }
+
+        .about-content h3 {
+            font-size: 2rem;
+            color: var(--accent-blue);
+            margin-bottom: 1.5rem;
+            font-family: 'Orbitron', monospace;
+        }
+
+        .about-content p {
+            color: var(--text-gray);
+            margin-bottom: 1.5rem;
+            line-height: 1.8;
+            font-size: 1.1rem;
+        }
+
+        .about-stats {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1.5rem;
+            margin-top: 2rem;
+        }
+
+        .stat-item {
+            background: linear-gradient(135deg, rgba(0, 217, 255, 0.08), rgba(124, 58, 237, 0.08));
+            border: 1px solid rgba(0, 217, 255, 0.3);
+            border-radius: 10px;
+            padding: 1.5rem;
+            text-align: center;
+        }
+
+        .stat-number {
+            font-size: 2.5rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, var(--accent-blue), var(--accent-pink));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-label {
+            color: var(--text-gray);
+            font-size: 0.9rem;
+        }
+
+        /* Learning Journey Section */
+        .journey-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .journey-card {
+            background: linear-gradient(135deg, rgba(0, 217, 255, 0.08), rgba(124, 58, 237, 0.08));
+            border: 2px solid rgba(0, 217, 255, 0.3);
+            border-radius: 15px;
+            padding: 2.5rem 2rem;
+            text-align: center;
+            transition: all 0.3s;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .journey-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(0, 217, 255, 0.2), transparent);
+            transition: left 0.5s;
+        }
+
+        .journey-card:hover::before {
+            left: 100%;
+        }
+
+        .journey-card:hover {
+            transform: translateY(-10px);
+            border-color: var(--accent-blue);
+            box-shadow: var(--glow-blue);
+        }
+
+        .journey-icon {
+            font-size: 3rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .journey-card h3 {
+            font-size: 1.5rem;
+            color: var(--accent-blue);
+            margin-bottom: 1rem;
+            font-family: 'Orbitron', monospace;
+        }
+
+        .journey-card p {
+            color: var(--text-gray);
+            line-height: 1.6;
+        }
+
+        .progress-container {
+            margin-top: 1.5rem;
+        }
+
+        .progress-label {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 0.5rem;
+            color: var(--text-light);
+            font-size: 0.9rem;
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 8px;
+            background: rgba(0, 217, 255, 0.1);
+            border-radius: 4px;
+            overflow: hidden;
+            border: 1px solid rgba(0, 217, 255, 0.2);
+        }
+
+        .progress-fill {
+            height: 100%;
+            border-radius: 4px;
+            transition: width 0.5s ease;
+        }
+
+        /* Practice Projects */
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+        }
+
+        .project-card {
+            background: linear-gradient(135deg, rgba(0, 217, 255, 0.08), rgba(124, 58, 237, 0.08));
+            border: 2px solid rgba(0, 217, 255, 0.3);
+            border-radius: 15px;
+            padding: 2rem;
+            transition: all 0.3s;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .project-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(0, 217, 255, 0.2), transparent);
+            transition: left 0.5s;
+        }
+
+        .project-card:hover::before {
+            left: 100%;
+        }
+
+        .project-card:hover {
+            transform: translateY(-10px);
+            border-color: var(--accent-blue);
+            box-shadow: var(--glow-blue);
+        }
+
+        .project-header {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .project-icon {
+            font-size: 2.5rem;
+        }
+
+        .project-title {
+            font-size: 1.5rem;
+            color: var(--accent-blue);
+            font-family: 'Orbitron', monospace;
+        }
+
+        .project-description {
+            color: var(--text-gray);
+            margin-bottom: 1.5rem;
+            line-height: 1.6;
+        }
+
+        .project-tech {
+            display: flex;
+            gap: 0.5rem;
+            flex-wrap: wrap;
+            margin-bottom: 1.5rem;
+        }
+
+        .tech-tag {
+            background: rgba(0, 217, 255, 0.2);
+            color: var(--accent-blue);
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            border: 1px solid rgba(0, 217, 255, 0.3);
+        }
+
+        .project-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: var(--accent-pink);
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+
+        .project-link:hover {
+            color: var(--accent-blue);
+            text-shadow: var(--glow-blue);
+        }
+
+        /* Learning Goals */
+        .goals-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .goal-card {
+            background: linear-gradient(135deg, rgba(0, 217, 255, 0.08), rgba(124, 58, 237, 0.08));
+            border: 2px solid rgba(0, 217, 255, 0.3);
+            border-radius: 15px;
+            padding: 2rem;
+            position: relative;
+        }
+
+        .goal-header {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        .goal-icon {
+            font-size: 2rem;
+            color: var(--accent-yellow);
+        }
+
+        .goal-title {
+            font-size: 1.3rem;
+            color: var(--accent-blue);
+            font-family: 'Orbitron', monospace;
+        }
+
+        .goal-description {
+            color: var(--text-gray);
+            line-height: 1.6;
+        }
+
+        /* Call to Action */
+        .cta-section {
+            text-align: center;
+            padding: 4rem 2rem;
+            background: linear-gradient(135deg, rgba(0, 217, 255, 0.1), rgba(124, 58, 237, 0.1));
+            border: 2px solid rgba(0, 217, 255, 0.3);
+            border-radius: 20px;
+            margin-top: 3rem;
+        }
+
+        .cta-section h3 {
+            font-size: 2.5rem;
+            color: var(--accent-blue);
+            margin-bottom: 1rem;
+            font-family: 'Orbitron', monospace;
+        }
+
+        .cta-section p {
+            color: var(--text-gray);
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .status-badge {
+            display: inline-block;
+            background: rgba(255, 215, 0, 0.2);
+            color: var(--accent-yellow);
+            padding: 0.5rem 1.5rem;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            border: 1px solid rgba(255, 215, 0, 0.3);
+            margin-bottom: 1rem;
+            font-family: 'Courier Prime', monospace;
+        }
+
+        /* Portfolio Section */
+        .portfolio-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+
+        .portfolio-card {
+            background: linear-gradient(135deg, rgba(0, 217, 255, 0.08), rgba(124, 58, 237, 0.08));
+            border: 2px solid rgba(0, 217, 255, 0.3);
+            border-radius: 15px;
+            padding: 2rem;
+            transition: all 0.3s;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .portfolio-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(0, 217, 255, 0.2), transparent);
+            transition: left 0.5s;
+        }
+
+        .portfolio-card:hover::before {
+            left: 100%;
+        }
+
+        .portfolio-card:hover {
+            transform: translateY(-10px);
+            border-color: var(--accent-blue);
+            box-shadow: var(--glow-blue);
+        }
+
+        .portfolio-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+
+        .portfolio-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            color: var(--accent-blue);
+            font-family: 'Orbitron', monospace;
+        }
+
+        .portfolio-card p {
+            color: var(--text-gray);
+            margin-bottom: 1.5rem;
+            line-height: 1.6;
+        }
+
+        /* Skills Section */
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+        }
+
+        .skill-box {
+            background: linear-gradient(135deg, rgba(0, 217, 255, 0.08), rgba(124, 58, 237, 0.08));
+            border: 2px solid rgba(0, 217, 255, 0.3);
+            border-radius: 15px;
+            padding: 2rem;
+            transition: all 0.3s;
+        }
+
+        .skill-box:hover {
+            border-color: var(--accent-pink);
+            box-shadow: var(--glow-pink);
+            transform: translateY(-5px);
+        }
+
+        .skill-box h4 {
+            font-size: 1.3rem;
+            margin-bottom: 1.5rem;
+            color: var(--accent-blue);
+            font-family: 'Orbitron', monospace;
+        }
+
+        .skill-list {
+            list-style: none;
+        }
+
+        .skill-list li {
+            padding: 0.8rem 0;
+            color: var(--text-gray);
+            border-bottom: 1px solid rgba(0, 217, 255, 0.1);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .skill-list li:last-child {
+            border-bottom: none;
+        }
+
+        .skill-list li::before {
+            content: '▸';
+            color: var(--accent-green);
+            font-weight: bold;
+        }
+
+        /* Dashboard Styles */
+        .dashboard-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+
+        .dashboard-card {
+            background: linear-gradient(135deg, rgba(0, 217, 255, 0.08), rgba(124, 58, 237, 0.08));
+            border: 2px solid rgba(0, 217, 255, 0.3);
+            border-radius: 15px;
+            padding: 2rem;
+            transition: all 0.3s;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .dashboard-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(0, 217, 255, 0.2), transparent);
+            transition: left 0.5s;
+        }
+
+        .dashboard-card:hover::before {
+            left: 100%;
+        }
+
+        .dashboard-card:hover {
+            transform: translateY(-10px);
+            border-color: var(--accent-blue);
+            box-shadow: var(--glow-blue);
+        }
+
+        .dashboard-icon {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .dashboard-card h3 {
+            font-size: 1.5rem;
+            color: var(--accent-blue);
+            margin-bottom: 0.5rem;
+            font-family: 'Orbitron', monospace;
+        }
+
+        .stat-main {
+            font-size: 2.5rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, var(--accent-blue), var(--accent-pink));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-label {
+            color: var(--text-gray);
+            font-size: 0.9rem;
+            margin-bottom: 1rem;
+        }
+
+        .progress-stat {
+            margin-bottom: 1.5rem;
+        }
+
+        .progress-title {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 0.5rem;
+            color: var(--text-light);
+            font-size: 0.9rem;
+        }
+
+        .progress-bar-small {
+            width: 100%;
+            height: 6px;
+            background: rgba(0, 217, 255, 0.1);
+            border-radius: 3px;
+            overflow: hidden;
+            border: 1px solid rgba(0, 217, 255, 0.2);
+        }
+
+        .progress-fill-small {
+            height: 100%;
+            border-radius: 3px;
+            transition: width 0.5s ease;
+        }
+
+        .stat-badge {
+            display: inline-block;
+            background: rgba(0, 217, 255, 0.2);
+            color: var(--accent-blue);
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            margin-top: 0.5rem;
+            border: 1px solid rgba(0, 217, 255, 0.3);
+        }
+
+        .stat-badge.gold {
+            background: rgba(255, 215, 0, 0.2);
+            color: var(--accent-yellow);
+            border-color: rgba(255, 215, 0, 0.3);
+        }
+
+        .dashboard-link {
+            display: inline-block;
+            margin-top: 1rem;
+            padding: 10px 20px;
+            background: rgba(0, 217, 255, 0.2);
+            color: var(--accent-blue);
+            border: 1px solid rgba(0, 217, 255, 0.3);
+            border-radius: 8px;
+            text-decoration: none;
+            transition: all 0.3s;
+            font-size: 0.9rem;
+            font-weight: 600;
+        }
+
+        .dashboard-link:hover {
+            background: var(--accent-blue);
+            color: var(--bg-dark);
+            box-shadow: var(--glow-blue);
+        }
+
+        .stats-summary {
+            background: linear-gradient(135deg, rgba(0, 217, 255, 0.1), rgba(124, 58, 237, 0.1));
+            border: 2px solid rgba(0, 217, 255, 0.3);
+            border-radius: 15px;
+            padding: 2rem;
+            margin-bottom: 3rem;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 2rem;
+            text-align: center;
+        }
+
+        .summary-item h4 {
+            color: var(--accent-pink);
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .summary-item p {
+            color: var(--text-gray);
+            font-size: 0.9rem;
+        }
+
         /* Quiz Game Styles */
         .quiz-container {
             background: linear-gradient(135deg, rgba(0, 217, 255, 0.08), rgba(124, 58, 237, 0.08));
@@ -634,302 +1199,6 @@
             border: 1px solid var(--accent-pink);
         }
 
-        /* Portfolio Section */
-        .portfolio-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 2rem;
-            margin-bottom: 3rem;
-        }
-
-        .portfolio-card {
-            background: linear-gradient(135deg, rgba(0, 217, 255, 0.08), rgba(124, 58, 237, 0.08));
-            border: 2px solid rgba(0, 217, 255, 0.3);
-            border-radius: 15px;
-            padding: 2rem;
-            transition: all 0.3s;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .portfolio-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(0, 217, 255, 0.2), transparent);
-            transition: left 0.5s;
-        }
-
-        .portfolio-card:hover::before {
-            left: 100%;
-        }
-
-        .portfolio-card:hover {
-            transform: translateY(-10px);
-            border-color: var(--accent-blue);
-            box-shadow: var(--glow-blue);
-        }
-
-        .portfolio-icon {
-            font-size: 3rem;
-            margin-bottom: 1rem;
-        }
-
-        .portfolio-card h3 {
-            font-size: 1.5rem;
-            margin-bottom: 1rem;
-            color: var(--accent-blue);
-            font-family: 'Orbitron', monospace;
-        }
-
-        .portfolio-card p {
-            color: var(--text-gray);
-            margin-bottom: 1.5rem;
-            line-height: 1.6;
-        }
-
-        .tech-tags {
-            display: flex;
-            gap: 0.5rem;
-            flex-wrap: wrap;
-            margin-bottom: 1rem;
-        }
-
-        .tech-tag {
-            background: rgba(0, 217, 255, 0.2);
-            color: var(--accent-blue);
-            padding: 0.5rem 1rem;
-            border-radius: 20px;
-            font-size: 0.85rem;
-            border: 1px solid rgba(0, 217, 255, 0.3);
-        }
-
-        .portfolio-link {
-            display: inline-block;
-            color: var(--accent-pink);
-            text-decoration: none;
-            font-weight: 600;
-            transition: all 0.3s;
-        }
-
-        .portfolio-link:hover {
-            color: var(--accent-blue);
-            text-shadow: var(--glow-blue);
-        }
-
-        /* Skills Section */
-        .skills-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 2rem;
-        }
-
-        .skill-box {
-            background: linear-gradient(135deg, rgba(0, 217, 255, 0.08), rgba(124, 58, 237, 0.08));
-            border: 2px solid rgba(0, 217, 255, 0.3);
-            border-radius: 15px;
-            padding: 2rem;
-            transition: all 0.3s;
-        }
-
-        .skill-box:hover {
-            border-color: var(--accent-pink);
-            box-shadow: var(--glow-pink);
-            transform: translateY(-5px);
-        }
-
-        .skill-box h4 {
-            font-size: 1.3rem;
-            margin-bottom: 1.5rem;
-            color: var(--accent-blue);
-            font-family: 'Orbitron', monospace;
-        }
-
-        .skill-list {
-            list-style: none;
-        }
-
-        .skill-list li {
-            padding: 0.8rem 0;
-            color: var(--text-gray);
-            border-bottom: 1px solid rgba(0, 217, 255, 0.1);
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-        }
-
-        .skill-list li:last-child {
-            border-bottom: none;
-        }
-
-        .skill-list li::before {
-            content: '▸';
-            color: var(--accent-green);
-            font-weight: bold;
-        }
-
-        /* Dashboard Styles */
-        .dashboard-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 2rem;
-            margin-bottom: 3rem;
-        }
-
-        .dashboard-card {
-            background: linear-gradient(135deg, rgba(0, 217, 255, 0.08), rgba(124, 58, 237, 0.08));
-            border: 2px solid rgba(0, 217, 255, 0.3);
-            border-radius: 15px;
-            padding: 2rem;
-            transition: all 0.3s;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .dashboard-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(0, 217, 255, 0.2), transparent);
-            transition: left 0.5s;
-        }
-
-        .dashboard-card:hover::before {
-            left: 100%;
-        }
-
-        .dashboard-card:hover {
-            transform: translateY(-10px);
-            border-color: var(--accent-blue);
-            box-shadow: var(--glow-blue);
-        }
-
-        .dashboard-icon {
-            font-size: 2.5rem;
-            margin-bottom: 1rem;
-        }
-
-        .dashboard-card h3 {
-            font-size: 1.5rem;
-            color: var(--accent-blue);
-            margin-bottom: 0.5rem;
-            font-family: 'Orbitron', monospace;
-        }
-
-        .stat-main {
-            font-size: 2.5rem;
-            font-weight: 700;
-            background: linear-gradient(135deg, var(--accent-blue), var(--accent-pink));
-            -webkit-background-clip: text;
-            background-clip: text;
-            color: transparent;
-            margin-bottom: 0.5rem;
-        }
-
-        .stat-label {
-            color: var(--text-gray);
-            font-size: 0.9rem;
-            margin-bottom: 1rem;
-        }
-
-        .progress-stat {
-            margin-bottom: 1.5rem;
-        }
-
-        .progress-title {
-            display: flex;
-            justify-content: space-between;
-            margin-bottom: 0.5rem;
-            color: var(--text-light);
-            font-size: 0.9rem;
-        }
-
-        .progress-bar-small {
-            width: 100%;
-            height: 6px;
-            background: rgba(0, 217, 255, 0.1);
-            border-radius: 3px;
-            overflow: hidden;
-            border: 1px solid rgba(0, 217, 255, 0.2);
-        }
-
-        .progress-fill {
-            height: 100%;
-            border-radius: 3px;
-            transition: width 0.5s ease;
-        }
-
-        .progress-fill.blue { background: linear-gradient(90deg, var(--accent-blue), var(--accent-purple)); }
-        .progress-fill.pink { background: linear-gradient(90deg, var(--accent-pink), var(--accent-red)); }
-        .progress-fill.green { background: linear-gradient(90deg, var(--accent-green), var(--accent-blue)); }
-        .progress-fill.yellow { background: linear-gradient(90deg, var(--accent-yellow), var(--accent-pink)); }
-
-        .stat-badge {
-            display: inline-block;
-            background: rgba(0, 217, 255, 0.2);
-            color: var(--accent-blue);
-            padding: 0.5rem 1rem;
-            border-radius: 20px;
-            font-size: 0.85rem;
-            margin-top: 0.5rem;
-            border: 1px solid rgba(0, 217, 255, 0.3);
-        }
-
-        .stat-badge.gold {
-            background: rgba(255, 215, 0, 0.2);
-            color: var(--accent-yellow);
-            border-color: rgba(255, 215, 0, 0.3);
-        }
-
-        .dashboard-link {
-            display: inline-block;
-            margin-top: 1rem;
-            padding: 10px 20px;
-            background: rgba(0, 217, 255, 0.2);
-            color: var(--accent-blue);
-            border: 1px solid rgba(0, 217, 255, 0.3);
-            border-radius: 8px;
-            text-decoration: none;
-            transition: all 0.3s;
-            font-size: 0.9rem;
-            font-weight: 600;
-        }
-
-        .dashboard-link:hover {
-            background: var(--accent-blue);
-            color: var(--bg-dark);
-            box-shadow: var(--glow-blue);
-        }
-
-        .stats-summary {
-            background: linear-gradient(135deg, rgba(0, 217, 255, 0.1), rgba(124, 58, 237, 0.1));
-            border: 2px solid rgba(0, 217, 255, 0.3);
-            border-radius: 15px;
-            padding: 2rem;
-            margin-bottom: 3rem;
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-            gap: 2rem;
-            text-align: center;
-        }
-
-        .summary-item h4 {
-            color: var(--accent-pink);
-            font-size: 2rem;
-            margin-bottom: 0.5rem;
-        }
-
-        .summary-item p {
-            color: var(--text-gray);
-            font-size: 0.9rem;
-        }
-
         /* Contact Section */
         .contact-grid {
             display: grid;
@@ -1001,15 +1270,6 @@
             min-height: 150px;
         }
 
-        footer {
-            background: rgba(0, 0, 0, 0.3);
-            padding: 3rem 2rem;
-            text-align: center;
-            border-top: 1px solid rgba(0, 217, 255, 0.2);
-            color: var(--text-gray);
-            margin-top: 5rem;
-        }
-
         @keyframes slideIn {
             from {
                 opacity: 0;
@@ -1068,6 +1328,14 @@
                 font-size: 3rem;
             }
 
+            .about-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .about-stats {
+                grid-template-columns: 1fr;
+            }
+
             .contact-grid {
                 grid-template-columns: 1fr;
             }
@@ -1117,23 +1385,27 @@
         </div>
     </nav>
 
-    <!-- Hero Section -->
+    <!-- Home Section -->
     <section class="hero active" id="home">
         <div class="container">
+            <!-- Hero Section -->
             <div class="hero-content">
+                <div class="status-badge">
+                    <i class="fas fa-graduation-cap"></i> CURRENTLY IN PRACTICE & LEARNING
+                </div>
                 <h1>SATWIK PATTAGI</h1>
-                <p>CYBERSECURITY ARCHITECT & DIGITAL SENTINEL</p>
+                <p>CYBERSECURITY PRACTITIONER & ETHICAL HACKING STUDENT</p>
                 <p style="font-size: 1.1rem; margin-bottom: 2rem;">
-                    > I transform vulnerabilities into opportunities<br>
-                    > Building impenetrable digital fortresses<br>
-                    > Every challenge is a puzzle waiting to be solved
+                    > Actively learning and practicing ethical hacking<br>
+                    > Building foundational cybersecurity skills<br>
+                    > Passionate about web security and penetration testing
                 </p>
                 <div class="hero-buttons">
                     <button class="btn" onclick="showSection('portfolio')">
-                        <i class="fas fa-briefcase"></i> EXPLORE PORTFOLIO
+                        <i class="fas fa-briefcase"></i> VIEW MY PRACTICE PROJECTS
                     </button>
                     <button class="btn btn-pink" onclick="showSection('quiz')">
-                        <i class="fas fa-gamepad"></i> CYBER SECURITY QUIZ
+                        <i class="fas fa-gamepad"></i> TEST YOUR CYBER KNOWLEDGE
                     </button>
                 </div>
             </div>
@@ -1141,23 +1413,209 @@
             <div class="hero-terminal">
                 <div class="hacker-terminal">
                     <div class="terminal-header">
-                        <div class="terminal-title"><i class="fas fa-terminal"></i> root@satwik-hacker:~/portfolio</div>
+                        <div class="terminal-title"><i class="fas fa-terminal"></i> student@cyber-practice:~/learning</div>
                         <div class="terminal-controls">
                             <div class="control close"></div>
                             <div class="control minimize"></div>
                             <div class="control maximize"></div>
                         </div>
                     </div>
-                    <div class="terminal-line"><span class="prompt">root@hacker:~$</span> <span class="command">whoami</span></div>
-                    <div class="terminal-line"><span class="output">> cybersecurity_architect</span></div>
-                    <div class="terminal-line"><span class="prompt">root@hacker:~$</span> <span class="command">echo $mission</span></div>
-                    <div class="terminal-line"><span class="output">> secure_the_digital_world()</span></div>
-                    <div class="terminal-line"><span class="prompt">root@hacker:~$</span> <span class="command">./status.sh</span></div>
-                    <div class="terminal-line"><span class="output">> Web Security: [██████████] 100%</span></div>
-                    <div class="terminal-line"><span class="output">> Network Security: [█████████ ] 90%</span></div>
-                    <div class="terminal-line"><span class="output">> Ethical Hacking: [██████████] 100%</span></div>
-                    <div class="terminal-line" style="color: var(--accent-pink);">>>> 🚀 READY TO HACK & PROTECT</div>
+                    <div class="terminal-line"><span class="prompt">student@practice:~$</span> <span class="command">whoami</span></div>
+                    <div class="terminal-line"><span class="output">> cybersecurity_student</span></div>
+                    <div class="terminal-line"><span class="prompt">student@practice:~$</span> <span class="command">echo $status</span></div>
+                    <div class="terminal-line"><span class="output">> actively_learning()</span></div>
+                    <div class="terminal-line"><span class="prompt">student@practice:~$</span> <span class="command">./learning_progress.sh</span></div>
+                    <div class="terminal-line"><span class="output">> Web Security: [████████  ] 80%</span></div>
+                    <div class="terminal-line"><span class="output">> Network Security: [██████    ] 60%</span></div>
+                    <div class="terminal-line"><span class="output">> Ethical Hacking: [████████  ] 80%</span></div>
+                    <div class="terminal-line"><span class="output">> Python Scripting: [█████████ ] 90%</span></div>
+                    <div class="terminal-line" style="color: var(--accent-pink);">>>> 🚀 EAGER TO LEARN & GROW</div>
                 </div>
+            </div>
+
+            <!-- About Me Section -->
+            <div style="margin-top: 6rem;">
+                <h2><i class="fas fa-user-secret"></i> ABOUT MY JOURNEY</h2>
+                <div class="about-grid">
+                    <div class="about-content">
+                        <h3>Cybersecurity Student & Practice Enthusiast</h3>
+                        <p>I'm currently immersed in learning cybersecurity fundamentals and building practical skills through hands-on practice. My focus is on understanding security concepts from the ground up and applying them in real-world scenarios.</p>
+                        <p>I believe in learning by doing, which is why I spend most of my time working on practice labs, CTF challenges, and building security tools. Every day brings new learning opportunities in this rapidly evolving field.</p>
+                        
+                        <div class="about-stats">
+                            <div class="stat-item">
+                                <div class="stat-number">1000+</div>
+                                <div class="stat-label">Hours of Practice</div>
+                            </div>
+                            <div class="stat-item">
+                                <div class="stat-number">50+</div>
+                                <div class="stat-label">Labs Completed</div>
+                            </div>
+                            <div class="stat-item">
+                                <div class="stat-number">15+</div>
+                                <div class="stat-label">Practice Projects</div>
+                            </div>
+                            <div class="stat-item">
+                                <div class="stat-number">Daily</div>
+                                <div class="stat-label">Learning Commitment</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="hacker-terminal">
+                        <div class="terminal-header">
+                            <div class="terminal-title"><i class="fas fa-code"></i> current_focus.sh</div>
+                        </div>
+                        <div class="terminal-line"><span class="prompt">$</span> <span class="command">cat learning_goals.txt</span></div>
+                        <div class="terminal-line"><span class="output">> Master OWASP Top 10 vulnerabilities</span></div>
+                        <div class="terminal-line"><span class="output">> Practice on TryHackMe & PortSwigger</span></div>
+                        <div class="terminal-line"><span class="output">> Build automation tools with Python</span></div>
+                        <div class="terminal-line"><span class="output">> Understand network protocols deeply</span></div>
+                        <div class="terminal-line"><span class="output">> Learn web application security</span></div>
+                        <div class="terminal-line"><span class="output">> Practice CTF challenges regularly</span></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Learning Journey Section -->
+            <div style="margin-top: 6rem;">
+                <h2><i class="fas fa-road"></i> MY LEARNING JOURNEY</h2>
+                <div class="journey-grid">
+                    <div class="journey-card">
+                        <div class="journey-icon">🎯</div>
+                        <h3>Platforms & Practice</h3>
+                        <p>Regular practice on TryHackMe, PortSwigger Academy, and HackTheBox to build hands-on skills in controlled environments.</p>
+                        <div class="progress-container">
+                            <div class="progress-label">
+                                <span>TryHackMe Progress</span>
+                                <span>84%</span>
+                            </div>
+                            <div class="progress-bar">
+                                <div class="progress-fill" style="width: 84%; background: linear-gradient(90deg, var(--accent-blue), var(--accent-purple));"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="journey-card">
+                        <div class="journey-icon">📚</div>
+                        <h3>Study & Research</h3>
+                        <p>Deep diving into cybersecurity concepts through online courses, documentation, and security research papers.</p>
+                        <div class="progress-container">
+                            <div class="progress-label">
+                                <span>PortSwigger Labs</span>
+                                <span>73%</span>
+                            </div>
+                            <div class="progress-bar">
+                                <div class="progress-fill" style="width: 73%; background: linear-gradient(90deg, var(--accent-green), var(--accent-blue));"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="journey-card">
+                        <div class="journey-icon">🔧</div>
+                        <h3>Tool Development</h3>
+                        <p>Building custom security tools and scripts to automate tasks and understand security concepts at a deeper level.</p>
+                        <div class="progress-container">
+                            <div class="progress-label">
+                                <span>Python Mastery</span>
+                                <span>90%</span>
+                            </div>
+                            <div class="progress-bar">
+                                <div class="progress-fill" style="width: 90%; background: linear-gradient(90deg, var(--accent-pink), var(--accent-red));"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Practice Projects -->
+            <div style="margin-top: 6rem;">
+                <h2><i class="fas fa-laptop-code"></i> PRACTICE PROJECTS</h2>
+                <div class="projects-grid">
+                    <div class="project-card">
+                        <div class="project-header">
+                            <div class="project-icon">🔍</div>
+                            <h3 class="project-title">VULNERABILITY SCANNER</h3>
+                        </div>
+                        <p class="project-description">A Python-based web vulnerability scanner that detects common security issues like XSS, SQL injection, and security misconfigurations.</p>
+                        <div class="project-tech">
+                            <span class="tech-tag">Python</span>
+                            <span class="tech-tag">Requests</span>
+                            <span class="tech-tag">BeautifulSoup</span>
+                        </div>
+                        <a href="https://github.com/satwikonepiece-commits" target="_blank" class="project-link">
+                            <i class="fab fa-github"></i> Practice Code
+                        </a>
+                    </div>
+                    
+                    <div class="project-card">
+                        <div class="project-header">
+                            <div class="project-icon">🛡️</div>
+                            <h3 class="project-title">SECURITY AUTOMATION</h3>
+                        </div>
+                        <p class="project-description">Collection of Bash and Python scripts for automating security tasks, log analysis, and system hardening procedures.</p>
+                        <div class="project-tech">
+                            <span class="tech-tag">Bash</span>
+                            <span class="tech-tag">Python</span>
+                            <span class="tech-tag">Linux</span>
+                        </div>
+                        <a href="https://github.com/satwikonepiece-commits" target="_blank" class="project-link">
+                            <i class="fab fa-github"></i> View Scripts
+                        </a>
+                    </div>
+                    
+                    <div class="project-card">
+                        <div class="project-header">
+                            <div class="project-icon">🌐</div>
+                            <h3 class="project-title">WEB SECURITY LABS</h3>
+                        </div>
+                        <p class="project-description">Practice environment with vulnerable web applications to test and understand various attack vectors and defense mechanisms.</p>
+                        <div class="project-tech">
+                            <span class="tech-tag">Docker</span>
+                            <span class="tech-tag">Web Security</span>
+                            <span class="tech-tag">OWASP</span>
+                        </div>
+                        <a href="https://github.com/satwikonepiece-commits" target="_blank" class="project-link">
+                            <i class="fab fa-github"></i> Lab Setup
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Learning Goals -->
+            <div style="margin-top: 6rem;">
+                <h2><i class="fas fa-bullseye"></i> LEARNING GOALS</h2>
+                <div class="goals-grid">
+                    <div class="goal-card">
+                        <div class="goal-header">
+                            <div class="goal-icon">🎓</div>
+                            <h3 class="goal-title">Certification Preparation</h3>
+                        </div>
+                        <p class="goal-description">Working towards industry certifications like CEH, Security+, and OSCP to validate skills and knowledge.</p>
+                    </div>
+                    
+                    <div class="goal-card">
+                        <div class="goal-header">
+                            <div class="goal-icon">🔐</div>
+                            <h3 class="goal-title">Advanced Penetration Testing</h3>
+                        </div>
+                        <p class="goal-description">Mastering advanced penetration testing techniques and methodologies for comprehensive security assessments.</p>
+                    </div>
+                    
+                    <div class="goal-card">
+                        <div class="goal-header">
+                            <div class="goal-icon">⚡</div>
+                            <h3 class="goal-title">Bug Bounty Hunting</h3>
+                        </div>
+                        <p class="goal-description">Developing skills to participate in bug bounty programs and responsibly disclose security vulnerabilities.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Call to Action -->
+            <div class="cta-section">
+                <h3>JOIN ME ON THIS LEARNING JOURNEY</h3>
+                <p>I'm always looking to connect with fellow cybersecurity enthusiasts, learn from experienced professionals, and collaborate on interesting security projects.</p>
+                <button class="btn" onclick="showSection('contact')">
+                    <i class="fas fa-paper-plane"></i> LET'S CONNECT
+                </button>
             </div>
         </div>
     </section>
@@ -1165,214 +1623,142 @@
     <!-- Portfolio Section -->
     <section id="portfolio">
         <div class="container">
-            <h2><i class="fas fa-star"></i> MY PORTFOLIO</h2>
+            <h2><i class="fas fa-briefcase"></i> MY PORTFOLIO</h2>
+            <p style="font-size: 1.2rem; color: var(--text-gray); margin-bottom: 3rem; text-align: center;">
+                Here are some of the practice projects and labs I've been working on to build my cybersecurity skills.
+            </p>
+            
             <div class="portfolio-grid">
                 <div class="portfolio-card">
-                    <div class="portfolio-icon">🎯</div>
-                    <h3>HACKER HUNT</h3>
-                    <p><strong>AI-powered reconnaissance suite</strong> for ethical hackers. Automates attack surface mapping with real-time dashboard, multi-tool integration, and AI-driven risk analysis. Professional security assessment tool for penetration testers and bug bounty hunters.</p>
-                    <div class="tech-tags">
+                    <div class="portfolio-icon">🔍</div>
+                    <h3>Web Vulnerability Scanner</h3>
+                    <p>A Python-based tool that scans websites for common vulnerabilities like XSS, SQL injection, and security misconfigurations. Built for learning web application security testing.</p>
+                    <div class="project-tech">
                         <span class="tech-tag">Python</span>
-                        <span class="tech-tag">AI/ML</span>
-                        <span class="tech-tag">Real-time Dashboard</span>
-                        <span class="tech-tag">Nmap Integration</span>
+                        <span class="tech-tag">Requests</span>
+                        <span class="tech-tag">BeautifulSoup</span>
                     </div>
-                    <a href="https://github.com/satwikonepiece-commits" target="_blank" class="portfolio-link">
-                        <i class="fab fa-github"></i> View on GitHub
-                    </a>
-                </div>
-
-                <div class="portfolio-card">
-                    <div class="portfolio-icon">🔐</div>
-                    <h3>Web Security Auditor</h3>
-                    <p>Comprehensive security audits for web applications, identifying vulnerabilities in authentication, authorization, and data protection mechanisms. OWASP Top 10 focused assessment.</p>
-                    <div class="tech-tags">
-                        <span class="tech-tag">Burp Suite</span>
-                        <span class="tech-tag">OWASP</span>
-                        <span class="tech-tag">Python</span>
-                    </div>
-                    <a href="https://github.com/satwikonepiece-commits" target="_blank" class="portfolio-link">
-                        <i class="fab fa-github"></i> View Project
+                    <a href="https://github.com/satwikonepiece-commits" target="_blank" class="project-link">
+                        <i class="fab fa-github"></i> View Code
                     </a>
                 </div>
 
                 <div class="portfolio-card">
                     <div class="portfolio-icon">🛡️</div>
-                    <h3>Network Security Suite</h3>
-                    <p>Advanced network monitoring and threat detection system. Real-time packet analysis, intrusion detection, and security policy enforcement for enterprise networks.</p>
-                    <div class="tech-tags">
-                        <span class="tech-tag">Wireshark</span>
-                        <span class="tech-tag">Nmap</span>
+                    <h3>Security Automation Scripts</h3>
+                    <p>Collection of Bash and Python scripts for automating security tasks, system hardening, and log analysis. Focused on practical Linux security administration.</p>
+                    <div class="project-tech">
                         <span class="tech-tag">Bash</span>
+                        <span class="tech-tag">Python</span>
+                        <span class="tech-tag">Linux</span>
                     </div>
-                    <a href="https://github.com/satwikonepiece-commits" target="_blank" class="portfolio-link">
-                        <i class="fab fa-github"></i> View Project
-                    </a>
-                </div>
-
-                <div class="portfolio-card">
-                    <div class="portfolio-icon">🔍</div>
-                    <h3>Malware Analysis Lab</h3>
-                    <p>Dedicated environment for analyzing malicious code. Static and dynamic analysis, behavioral monitoring, and threat intelligence gathering with automated reporting.</p>
-                    <div class="tech-tags">
-                        <span class="tech-tag">Reverse Engineering</span>
-                        <span class="tech-tag">IDA Pro</span>
-                        <span class="tech-tag">Sandbox</span>
-                    </div>
-                    <a href="https://github.com/satwikonepiece-commits" target="_blank" class="portfolio-link">
-                        <i class="fab fa-github"></i> View Project
+                    <a href="https://github.com/satwikonepiece-commits" target="_blank" class="project-link">
+                        <i class="fab fa-github"></i> View Scripts
                     </a>
                 </div>
 
                 <div class="portfolio-card">
                     <div class="portfolio-icon">🌐</div>
-                    <h3>API Security Framework</h3>
-                    <p>Secure API testing and validation framework. Authentication bypass detection, rate limiting, and injection vulnerability scanning for modern REST APIs.</p>
-                    <div class="tech-tags">
-                        <span class="tech-tag">REST API</span>
-                        <span class="tech-tag">JSON</span>
-                        <span class="tech-tag">HTTP</span>
+                    <h3>Practice Web Apps</h3>
+                    <p>Intentionally vulnerable web applications built for practicing penetration testing techniques and understanding common web security vulnerabilities.</p>
+                    <div class="project-tech">
+                        <span class="tech-tag">Docker</span>
+                        <span class="tech-tag">Web Security</span>
+                        <span class="tech-tag">OWASP</span>
                     </div>
-                    <a href="https://github.com/satwikonepiece-commits" target="_blank" class="portfolio-link">
-                        <i class="fab fa-github"></i> View Project
+                    <a href="https://github.com/satwikonepiece-commits" target="_blank" class="project-link">
+                        <i class="fab fa-github"></i> Lab Setup
                     </a>
                 </div>
 
                 <div class="portfolio-card">
-                    <div class="portfolio-icon">🎮</div>
-                    <h3>CTF & Training Labs</h3>
-                    <p>Completed challenges on TryHackMe and PortSwigger Academy. Hands-on labs, vulnerability research, and real-world attack simulations for continuous skill development.</p>
-                    <div class="tech-tags">
-                        <span class="tech-tag">TryHackMe</span>
-                        <span class="tech-tag">PortSwigger</span>
+                    <div class="portfolio-icon">🔐</div>
+                    <h3>Cryptography Challenges</h3>
+                    <p>Solutions to various cryptography challenges and CTF problems, demonstrating understanding of encryption algorithms and cryptographic principles.</p>
+                    <div class="project-tech">
+                        <span class="tech-tag">Python</span>
+                        <span class="tech-tag">Cryptography</span>
                         <span class="tech-tag">CTF</span>
                     </div>
-                    <div style="display: flex; gap: 0.5rem; flex-wrap: wrap; margin-top: 1rem;">
-                        <a href="https://tryhackme.com/p/satwiK" target="_blank" class="portfolio-link" style="flex: 1; min-width: 120px; text-align: center;">
-                            <i class="fas fa-gamepad"></i> TryHackMe
-                        </a>
-                        <a href="https://portswigger.net/web-security" target="_blank" class="portfolio-link" style="flex: 1; min-width: 120px; text-align: center;">
-                            <i class="fas fa-lock"></i> PortSwigger
-                        </a>
+                    <a href="https://github.com/satwikonepiece-commits" target="_blank" class="project-link">
+                        <i class="fab fa-github"></i> View Solutions
+                    </a>
+                </div>
+
+                <div class="portfolio-card">
+                    <div class="portfolio-icon">📊</div>
+                    <h3>Security Research Notes</h3>
+                    <p>Comprehensive notes and documentation from studying various cybersecurity topics, tools, and methodologies for continuous learning.</p>
+                    <div class="project-tech">
+                        <span class="tech-tag">Documentation</span>
+                        <span class="tech-tag">Research</span>
+                        <span class="tech-tag">Learning</span>
                     </div>
+                    <a href="https://github.com/satwikonepiece-commits" target="_blank" class="project-link">
+                        <i class="fab fa-github"></i> View Notes
+                    </a>
+                </div>
+
+                <div class="portfolio-card">
+                    <div class="portfolio-icon">🎯</div>
+                    <h3>CTF Write-ups</h3>
+                    <p>Detailed write-ups and solutions for various Capture The Flag challenges completed on platforms like TryHackMe and HackTheBox.</p>
+                    <div class="project-tech">
+                        <span class="tech-tag">CTF</span>
+                        <span class="tech-tag">Write-ups</span>
+                        <span class="tech-tag">Problem Solving</span>
+                    </div>
+                    <a href="https://github.com/satwikonepiece-commits" target="_blank" class="project-link">
+                        <i class="fab fa-github"></i> Read Write-ups
+                    </a>
                 </div>
             </div>
         </div>
     </section>
 
     <!-- Dashboard Section -->
-    <section id="dashboard" style="display: none;">
+    <section id="dashboard">
         <div class="container">
-            <h2><i class="fas fa-tachometer-alt"></i> ACHIEVEMENT DASHBOARD</h2>
+            <h2><i class="fas fa-tachometer-alt"></i> LEARNING DASHBOARD</h2>
             
             <!-- Stats Summary -->
             <div class="stats-summary">
                 <div class="summary-item">
-                    <h4>42</h4>
-                    <p>Projects Completed</p>
+                    <h4>1000+</h4>
+                    <p>Practice Hours</p>
                 </div>
                 <div class="summary-item">
-                    <h4>156</h4>
-                    <p>Labs Solved</p>
+                    <h4>50+</h4>
+                    <p>Labs Completed</p>
                 </div>
                 <div class="summary-item">
-                    <h4>89%</h4>
-                    <p>Success Rate</p>
+                    <h4>15+</h4>
+                    <p>Projects Built</p>
                 </div>
                 <div class="summary-item">
-                    <h4>28</h4>
-                    <p>Bug Bounties</p>
+                    <h4>Daily</h4>
+                    <p>Learning Streak</p>
                 </div>
             </div>
 
             <!-- Dashboard Cards Grid -->
             <div class="dashboard-grid">
-                <!-- GitHub Card -->
-                <div class="dashboard-card">
-                    <div class="dashboard-icon">
-                        <i class="fab fa-github"></i>
-                    </div>
-                    <h3>GitHub</h3>
-                    <div class="stat-main">67</div>
-                    <div class="stat-label">Repositories</div>
-                    
-                    <div class="progress-stat">
-                        <div class="progress-title">
-                            <span>Contributions</span>
-                            <span>1,245</span>
-                        </div>
-                        <div class="progress-bar-small">
-                            <div class="progress-fill blue" style="width: 95%;"></div>
-                        </div>
-                    </div>
-
-                    <div class="progress-stat">
-                        <div class="progress-title">
-                            <span>Open Source</span>
-                            <span>23 Projects</span>
-                        </div>
-                        <div class="progress-bar-small">
-                            <div class="progress-fill green" style="width: 80%;"></div>
-                        </div>
-                    </div>
-
-                    <span class="stat-badge">⭐ 1.2k Stars</span>
-                    <a href="https://github.com/satwikonepiece-commits" target="_blank" class="dashboard-link">
-                        <i class="fas fa-external-link-alt"></i> Visit Profile
-                    </a>
-                </div>
-
-                <!-- LinkedIn Card -->
-                <div class="dashboard-card">
-                    <div class="dashboard-icon">
-                        <i class="fab fa-linkedin"></i>
-                    </div>
-                    <h3>LinkedIn</h3>
-                    <div class="stat-main">850+</div>
-                    <div class="stat-label">Connections</div>
-                    
-                    <div class="progress-stat">
-                        <div class="progress-title">
-                            <span>Profile Strength</span>
-                            <span>100%</span>
-                        </div>
-                        <div class="progress-bar-small">
-                            <div class="progress-fill yellow" style="width: 100%;"></div>
-                        </div>
-                    </div>
-
-                    <div class="progress-stat">
-                        <div class="progress-title">
-                            <span>Endorsements</span>
-                            <span>342</span>
-                        </div>
-                        <div class="progress-bar-small">
-                            <div class="progress-fill pink" style="width: 88%;"></div>
-                        </div>
-                    </div>
-
-                    <span class="stat-badge">Cybersecurity Expert</span>
-                    <a href="https://www.linkedin.com/in/satwik-pattagi-302075397" target="_blank" class="dashboard-link">
-                        <i class="fas fa-external-link-alt"></i> Visit Profile
-                    </a>
-                </div>
-
                 <!-- TryHackMe Card -->
                 <div class="dashboard-card">
                     <div class="dashboard-icon">
                         🎮
                     </div>
                     <h3>TryHackMe</h3>
-                    <div class="stat-main">89</div>
-                    <div class="stat-label">Rooms Completed</div>
+                    <div class="stat-main">84%</div>
+                    <div class="stat-label">Learning Path Progress</div>
                     
                     <div class="progress-stat">
                         <div class="progress-title">
-                            <span>Learning Path</span>
-                            <span>84%</span>
+                            <span>Rooms Completed</span>
+                            <span>89</span>
                         </div>
                         <div class="progress-bar-small">
-                            <div class="progress-fill blue" style="width: 84%;"></div>
+                            <div class="progress-fill-small blue" style="width: 84%;"></div>
                         </div>
                     </div>
 
@@ -1382,11 +1768,11 @@
                             <span>8,450</span>
                         </div>
                         <div class="progress-bar-small">
-                            <div class="progress-fill green" style="width: 92%;"></div>
+                            <div class="progress-fill-small green" style="width: 92%;"></div>
                         </div>
                     </div>
 
-                    <span class="stat-badge gold">🏆 Rank: Top 5%</span>
+                    <span class="stat-badge gold">🏆 Top 5% Rank</span>
                     <a href="https://tryhackme.com/p/satwiK" target="_blank" class="dashboard-link">
                         <i class="fas fa-external-link-alt"></i> View Profile
                     </a>
@@ -1398,7 +1784,7 @@
                         🔐
                     </div>
                     <h3>PortSwigger Academy</h3>
-                    <div class="stat-main">73</div>
+                    <div class="stat-main">73%</div>
                     <div class="stat-label">Labs Completed</div>
                     
                     <div class="progress-stat">
@@ -1407,7 +1793,7 @@
                             <span>100%</span>
                         </div>
                         <div class="progress-bar-small">
-                            <div class="progress-fill blue" style="width: 100%;"></div>
+                            <div class="progress-fill-small blue" style="width: 100%;"></div>
                         </div>
                     </div>
 
@@ -1417,13 +1803,48 @@
                             <span>78%</span>
                         </div>
                         <div class="progress-bar-small">
-                            <div class="progress-fill pink" style="width: 78%;"></div>
+                            <div class="progress-fill-small pink" style="width: 78%;"></div>
                         </div>
                     </div>
 
-                    <span class="stat-badge">Professional Badge</span>
+                    <span class="stat-badge">Practice Badge</span>
                     <a href="https://portswigger.net/web-security" target="_blank" class="dashboard-link">
                         <i class="fas fa-external-link-alt"></i> View Labs
+                    </a>
+                </div>
+
+                <!-- GitHub Card -->
+                <div class="dashboard-card">
+                    <div class="dashboard-icon">
+                        <i class="fab fa-github"></i>
+                    </div>
+                    <h3>GitHub</h3>
+                    <div class="stat-main">15+</div>
+                    <div class="stat-label">Practice Projects</div>
+                    
+                    <div class="progress-stat">
+                        <div class="progress-title">
+                            <span>Active Repositories</span>
+                            <span>12</span>
+                        </div>
+                        <div class="progress-bar-small">
+                            <div class="progress-fill-small blue" style="width: 80%;"></div>
+                        </div>
+                    </div>
+
+                    <div class="progress-stat">
+                        <div class="progress-title">
+                            <span>Contributions</span>
+                            <span>245</span>
+                        </div>
+                        <div class="progress-bar-small">
+                            <div class="progress-fill-small green" style="width: 65%;"></div>
+                        </div>
+                    </div>
+
+                    <span class="stat-badge">⭐ Learning Publicly</span>
+                    <a href="https://github.com/satwikonepiece-commits" target="_blank" class="dashboard-link">
+                        <i class="fas fa-external-link-alt"></i> Visit Profile
                     </a>
                 </div>
 
@@ -1433,8 +1854,8 @@
                         <i class="fab fa-medium"></i>
                     </div>
                     <h3>Medium</h3>
-                    <div class="stat-main">24</div>
-                    <div class="stat-label">Articles Published</div>
+                    <div class="stat-main">12</div>
+                    <div class="stat-label">Learning Articles</div>
                     
                     <div class="progress-stat">
                         <div class="progress-title">
@@ -1442,71 +1863,103 @@
                             <span>100%</span>
                         </div>
                         <div class="progress-bar-small">
-                            <div class="progress-fill yellow" style="width: 100%;"></div>
+                            <div class="progress-fill-small yellow" style="width: 100%;"></div>
                         </div>
                     </div>
 
                     <div class="progress-stat">
                         <div class="progress-title">
                             <span>Reader Engagement</span>
-                            <span>92%</span>
+                            <span>85%</span>
                         </div>
                         <div class="progress-bar-small">
-                            <div class="progress-fill pink" style="width: 92%;"></div>
+                            <div class="progress-fill-small pink" style="width: 85%;"></div>
                         </div>
                     </div>
 
-                    <span class="stat-badge">Top Writer</span>
+                    <span class="stat-badge">Learning Writer</span>
                     <a href="https://medium.com/@satwiklpattagi" target="_blank" class="dashboard-link">
                         <i class="fas fa-external-link-alt"></i> Read Articles
                     </a>
                 </div>
 
-                <!-- Bug Bounty Card -->
+                <!-- Certifications Card -->
                 <div class="dashboard-card">
                     <div class="dashboard-icon">
-                        <i class="fas fa-bug"></i>
+                        <i class="fas fa-certificate"></i>
                     </div>
-                    <h3>Bug Bounty</h3>
-                    <div class="stat-main">28</div>
-                    <div class="stat-label">Vulnerabilities Found</div>
+                    <h3>Certifications</h3>
+                    <div class="stat-main">In Progress</div>
+                    <div class="stat-label">Currently Studying</div>
                     
                     <div class="progress-stat">
                         <div class="progress-title">
-                            <span>Critical Bugs</span>
-                            <span>8</span>
+                            <span>Security+</span>
+                            <span>60%</span>
                         </div>
                         <div class="progress-bar-small">
-                            <div class="progress-fill blue" style="width: 85%;"></div>
+                            <div class="progress-fill-small yellow" style="width: 60%;"></div>
                         </div>
                     </div>
 
                     <div class="progress-stat">
                         <div class="progress-title">
-                            <span>Rewards Earned</span>
-                            <span>$12.5k</span>
+                            <span>CEH Preparation</span>
+                            <span>45%</span>
                         </div>
                         <div class="progress-bar-small">
-                            <div class="progress-fill pink" style="width: 90%;"></div>
+                            <div class="progress-fill-small green" style="width: 45%;"></div>
                         </div>
                     </div>
 
-                    <span class="stat-badge gold">⭐ Top Hunter</span>
+                    <span class="stat-badge">Active Learner</span>
+                </div>
+
+                <!-- Skills Progress Card -->
+                <div class="dashboard-card">
+                    <div class="dashboard-icon">
+                        <i class="fas fa-chart-line"></i>
+                    </div>
+                    <h3>Skills Progress</h3>
+                    <div class="stat-main">Growing</div>
+                    <div class="stat-label">Daily Improvement</div>
+                    
+                    <div class="progress-stat">
+                        <div class="progress-title">
+                            <span>Web Security</span>
+                            <span>80%</span>
+                        </div>
+                        <div class="progress-bar-small">
+                            <div class="progress-fill-small blue" style="width: 80%;"></div>
+                        </div>
+                    </div>
+
+                    <div class="progress-stat">
+                        <div class="progress-title">
+                            <span>Python Scripting</span>
+                            <span>90%</span>
+                        </div>
+                        <div class="progress-bar-small">
+                            <div class="progress-fill-small pink" style="width: 90%;"></div>
+                        </div>
+                    </div>
+
+                    <span class="stat-badge gold">📈 Rapid Growth</span>
                 </div>
             </div>
         </div>
     </section>
 
     <!-- Skills Section -->
-    <section id="skills" style="display: none;">
+    <section id="skills">
         <div class="container">
-            <h2><i class="fas fa-tools"></i> TECHNICAL ARSENAL</h2>
+            <h2><i class="fas fa-tools"></i> TECHNICAL SKILLS</h2>
             <div class="skills-grid">
                 <div class="skill-box">
                     <h4>🔓 WEB SECURITY</h4>
                     <ul class="skill-list">
                         <li>OWASP Top 10 Vulnerabilities</li>
-                        <li>Burp Suite Professional</li>
+                        <li>Burp Suite & Browser DevTools</li>
                         <li>SQL Injection & Prevention</li>
                         <li>Cross-Site Scripting (XSS)</li>
                         <li>CSRF Protection & Bypass</li>
@@ -1516,56 +1969,56 @@
                 <div class="skill-box">
                     <h4>🌐 NETWORK SECURITY</h4>
                     <ul class="skill-list">
-                        <li>Advanced Nmap Scanning</li>
+                        <li>Nmap Network Scanning</li>
                         <li>Wireshark Protocol Analysis</li>
-                        <li>Firewall Configuration</li>
-                        <li>Packet Crafting & Manipulation</li>
-                        <li>Network Forensics</li>
-                        <li>VPN & Encryption Protocols</li>
+                        <li>Firewall & Network Fundamentals</li>
+                        <li>Packet Analysis Basics</li>
+                        <li>Network Forensics Introduction</li>
+                        <li>VPN & Encryption Concepts</li>
                     </ul>
                 </div>
                 <div class="skill-box">
                     <h4>💻 PROGRAMMING</h4>
                     <ul class="skill-list">
                         <li>Python Scripting & Automation</li>
-                        <li>C Programming & Systems</li>
                         <li>Bash Shell Scripting</li>
-                        <li>HTML/CSS/JavaScript</li>
-                        <li>SQL Database Security</li>
-                        <li>JSON & API Protocols</li>
+                        <li>HTML/CSS/JavaScript Basics</li>
+                        <li>SQL Database Queries</li>
+                        <li>JSON & API Interactions</li>
+                        <li>Git Version Control</li>
                     </ul>
                 </div>
                 <div class="skill-box">
                     <h4>🔍 PENETRATION TESTING</h4>
                     <ul class="skill-list">
                         <li>Vulnerability Assessment</li>
-                        <li>Metasploit Framework</li>
-                        <li>Social Engineering</li>
-                        <li>Post-Exploitation</li>
-                        <li>Privilege Escalation</li>
-                        <li>Report Generation</li>
+                        <li>Reconnaissance Techniques</li>
+                        <li>Basic Exploitation Methods</li>
+                        <li>Post-Exploration Fundamentals</li>
+                        <li>Privilege Escalation Basics</li>
+                        <li>Report Writing Practice</li>
                     </ul>
                 </div>
                 <div class="skill-box">
                     <h4>🛡️ DEFENSE MECHANISMS</h4>
                     <ul class="skill-list">
-                        <li>Security Architecture</li>
-                        <li>Intrusion Detection Systems</li>
-                        <li>Threat Modeling</li>
-                        <li>Security Compliance</li>
-                        <li>Risk Assessment</li>
-                        <li>Incident Response</li>
+                        <li>Security Fundamentals</li>
+                        <li>Basic Threat Modeling</li>
+                        <li>Security Compliance Awareness</li>
+                        <li>Risk Assessment Principles</li>
+                        <li>Incident Response Basics</li>
+                        <li>Security Architecture Concepts</li>
                     </ul>
                 </div>
                 <div class="skill-box">
-                    <h4>🎓 CERTIFICATIONS & TRAINING</h4>
+                    <h4>🎓 LEARNING & PRACTICE</h4>
                     <ul class="skill-list">
                         <li>PortSwigger Academy Labs</li>
-                        <li>TryHackMe Expert Profile</li>
-                        <li>OWASP Certified</li>
-                        <li>Continuous CTF Participant</li>
-                        <li>Bug Bounty Hunter</li>
-                        <li>Security Research</li>
+                        <li>TryHackMe Learning Paths</li>
+                        <li>CTF Challenge Participation</li>
+                        <li>Security Research & Documentation</li>
+                        <li>Tool Development Practice</li>
+                        <li>Continuous Skill Development</li>
                     </ul>
                 </div>
             </div>
@@ -1573,25 +2026,25 @@
     </section>
 
     <!-- Quiz Game Section -->
-    <section id="quiz" style="display: none;">
+    <section id="quiz">
         <div class="container">
             <h2><i class="fas fa-gamepad"></i> CYBER SECURITY QUIZ</h2>
             <p style="font-size: 1.2rem; color: var(--text-gray); margin-bottom: 3rem; text-align: center;">
-                Challenge yourself with 12 advanced cybersecurity questions that test real-world ethical hacking and bug bounty knowledge!
+                Test your cybersecurity knowledge with this challenging quiz! Perfect for practice and learning.
             </p>
             
             <div class="quiz-container">
                 <div id="quizStartScreen">
                     <div class="quiz-header">
-                        <h3>ADVANCED CYBERSECURITY QUIZ</h3>
-                        <p>Test your expertise with challenging questions covering advanced penetration testing, vulnerability research, and real-world bug hunting scenarios.</p>
+                        <h3>CYBERSECURITY KNOWLEDGE TEST</h3>
+                        <p>Challenge yourself with questions covering web security, network fundamentals, and ethical hacking concepts.</p>
                         <p style="color: var(--accent-yellow); margin-top: 1rem;">
-                            <i class="fas fa-exclamation-triangle"></i> Warning: These questions are designed for experienced security professionals!
+                            <i class="fas fa-graduation-cap"></i> Great for learning and practice!
                         </p>
                     </div>
                     <div style="text-align: center; margin-top: 3rem;">
                         <button class="restart-btn" onclick="startQuiz()">
-                            <i class="fas fa-play"></i> START CHALLENGE
+                            <i class="fas fa-play"></i> START QUIZ
                         </button>
                     </div>
                 </div>
@@ -1622,7 +2075,7 @@
 
                 <div id="quizResultsScreen" style="display: none;">
                     <div class="results-container">
-                        <div class="results-title">CHALLENGE COMPLETED!</div>
+                        <div class="results-title">QUIZ COMPLETED!</div>
                         <div class="score-display" id="finalScore">0/12</div>
                         <div class="score-message" id="scoreMessage"></div>
                         
@@ -1701,12 +2154,12 @@
 
     <!-- Footer -->
     <footer>
-        <p>&copy; 2024 Satwik Pattagi | Cybersecurity Architect</p>
-        <p>Building secure digital futures | Ethical Hacker | Security Enthusiast</p>
+        <p>&copy; 2024 Satwik Pattagi | Cybersecurity Practitioner</p>
+        <p>Building skills through practice | Learning every day | Passionate about security</p>
         <p style="margin-top: 1rem; font-size: 0.9rem;">
-            <i class="fas fa-code"></i> Crafted with precision | 
+            <i class="fas fa-code"></i> Practice Makes Progress | 
             <i class="fas fa-lock"></i> Security First | 
-            <i class="fas fa-shield-alt"></i> Ethical Hacking
+            <i class="fas fa-shield-alt"></i> Ethical Learning
         </p>
     </footer>
 
@@ -1779,163 +2232,161 @@
 
         // Enhanced Cybersecurity Quiz with 12 Unique Questions
         const quizQuestions = [
-            // Ethical Hacking Questions (6)
             {
-                question: "During a black-box penetration test, you discover a web application using JWT tokens with the 'none' algorithm. What specific attack vector does this vulnerability expose?",
+                question: "What is the primary purpose of the 'Content-Security-Policy' HTTP header?",
                 options: [
-                    "SQL Injection through token manipulation",
-                    "Algorithm confusion attack allowing token forgery",
-                    "Direct database access via token decoding",
-                    "Cross-site scripting in token validation"
-                ],
-                correct: 1,
-                category: "ethical",
-                difficulty: "hard",
-                explanation: "The 'none' algorithm vulnerability allows attackers to forge tokens by changing the algorithm to 'none', bypassing signature verification entirely."
-            },
-            {
-                question: "You're conducting a network penetration test and discover SMB signing is not required. What specific attack can you perform that wouldn't be possible with SMB signing enforced?",
-                options: [
-                    "SMB relay attack for credential theft",
-                    "Direct SMB buffer overflow exploitation",
-                    "SMB session hijacking through packet injection",
-                    "SMB version downgrade attack"
+                    "To prevent XSS attacks by controlling resources",
+                    "To encrypt website content",
+                    "To manage user sessions",
+                    "To optimize website performance"
                 ],
                 correct: 0,
-                category: "ethical",
-                difficulty: "hard",
-                explanation: "Without SMB signing, attackers can relay authentication attempts between systems, potentially gaining unauthorized access."
-            },
-            {
-                question: "During a mobile app assessment, you find the APK has android:debuggable='true' in production. What's the primary security impact?",
-                options: [
-                    "Runtime manipulation and reverse engineering",
-                    "Automatic root detection bypass",
-                    "Certificate pinning circumvention",
-                    "Hardcoded credential extraction"
-                ],
-                correct: 0,
-                category: "ethical",
+                category: "web",
                 difficulty: "medium",
-                explanation: "Debuggable apps allow attackers to attach debuggers, modify runtime behavior, and extract sensitive data."
+                explanation: "Content-Security-Policy helps prevent XSS attacks by controlling which resources can be loaded and executed."
             },
             {
-                question: "You discover a race condition vulnerability in a banking application's transfer function. What attack scenario does this enable?",
+                question: "Which HTTP method is typically used to retrieve data from a REST API?",
                 options: [
-                    "Replay attacks using the same transaction ID",
-                    "Double spending by executing concurrent transfers",
-                    "Session fixation through race window",
-                    "Cryptographic collision in transaction hashing"
-                ],
-                correct: 1,
-                category: "ethical",
-                difficulty: "expert",
-                explanation: "Race conditions can allow attackers to perform the same transaction multiple times before balance checks are updated."
-            },
-            {
-                question: "During a red team exercise, you need to bypass application allowlisting. Which technique is most effective against modern EDR solutions?",
-                options: [
-                    "DLL side-loading using signed binaries",
-                    "Process hollowing with system utilities",
-                    "Living-off-the-land binaries (LOLBins)",
-                    "Direct kernel object manipulation"
-                ],
-                correct: 2,
-                category: "ethical",
-                difficulty: "expert",
-                explanation: "LOLBins use legitimate system tools to perform malicious actions, making detection more difficult."
-            },
-            {
-                question: "In a binary exploitation scenario, you find a non-executable stack (NX bit). What technique would you use?",
-                options: [
-                    "Return-to-libc (ROP) attacks",
-                    "Shellcode injection with heap spraying",
-                    "Format string vulnerabilities",
-                    "Integer overflow to bypass NX"
+                    "GET",
+                    "POST", 
+                    "PUT",
+                    "DELETE"
                 ],
                 correct: 0,
-                category: "ethical",
-                difficulty: "expert",
-                explanation: "ROP chains execute existing code segments in a specific order to achieve code execution despite NX protection."
+                category: "web",
+                difficulty: "easy",
+                explanation: "GET is used for retrieving data, while POST is for creating, PUT for updating, and DELETE for removing."
             },
-            // Bug Bounty Questions (6)
             {
-                question: "You're testing a bug bounty program and discover a GraphQL endpoint with introspection enabled. What's the primary security concern?",
+                question: "What does SQL injection primarily exploit?",
                 options: [
-                    "Information disclosure of the entire schema",
-                    "SQL injection through GraphQL queries",
-                    "CSRF vulnerabilities in mutation operations",
-                    "Buffer overflow in query parsing"
+                    "Improper input validation",
+                    "Weak encryption algorithms",
+                    "Network configuration issues",
+                    "Operating system vulnerabilities"
                 ],
                 correct: 0,
-                category: "bugbounty",
+                category: "web",
                 difficulty: "medium",
-                explanation: "Introspection exposes the complete API schema, potentially revealing sensitive information about the application structure."
+                explanation: "SQL injection exploits improper input validation to manipulate database queries."
             },
             {
-                question: "During a bug bounty hunt, you find an API endpoint vulnerable to blind SSRF that can reach internal services. What's the most critical internal service to target?",
+                question: "Which port is commonly used for SSH connections?",
                 options: [
-                    "Metadata services (169.254.169.254)",
-                    "Internal DNS servers",
-                    "Database administration interfaces",
-                    "Internal version control systems"
+                    "22",
+                    "80",
+                    "443",
+                    "21"
                 ],
                 correct: 0,
-                category: "bugbounty",
-                difficulty: "hard",
-                explanation: "Cloud metadata services often contain credentials and sensitive configuration data accessible from internal networks."
+                category: "network",
+                difficulty: "easy",
+                explanation: "Port 22 is the standard port for SSH (Secure Shell) connections."
             },
             {
-                question: "You discover a prototype pollution vulnerability in a Node.js application during a bug bounty program. What's the potential impact?",
+                question: "What is the main purpose of a firewall?",
                 options: [
-                    "Remote code execution through polluted built-ins",
-                    "SQL injection via polluted database objects",
-                    "Cross-site scripting through template pollution",
-                    "Memory corruption in the V8 engine"
+                    "To control network traffic based on rules",
+                    "To encrypt data in transit",
+                    "To prevent physical access to servers",
+                    "To scan for viruses"
                 ],
                 correct: 0,
-                category: "bugbounty",
-                difficulty: "expert",
-                explanation: "Prototype pollution can modify JavaScript built-in objects, potentially leading to code execution in certain contexts."
+                category: "network",
+                difficulty: "easy",
+                explanation: "Firewalls control network traffic by enforcing security rules and policies."
             },
             {
-                question: "While testing a bug bounty target, you discover a vulnerability allowing you to control the 'Host' header in HTTP requests. What attack vector does this create?",
+                question: "Which tool is commonly used for network scanning and discovery?",
                 options: [
-                    "Web cache poisoning",
-                    "DNS rebinding attacks",
-                    "Password reset poisoning",
-                    "All of the above"
-                ],
-                correct: 3,
-                category: "bugbounty",
-                difficulty: "hard",
-                explanation: "Host header manipulation can enable various attacks depending on how the application processes the header value."
-            },
-            {
-                question: "You find a web application using WebSocket connections without proper origin validation during a bug bounty assessment. What attack is possible?",
-                options: [
-                    "Cross-site WebSocket hijacking (CSWSH)",
-                    "WebSocket protocol downgrade",
-                    "Man-in-the-middle message interception",
-                    "WebSocket buffer overflow"
+                    "Nmap",
+                    "Wireshark",
+                    "Burp Suite",
+                    "Metasploit"
                 ],
                 correct: 0,
-                category: "bugbounty",
-                difficulty: "hard",
-                explanation: "Without origin validation, malicious sites can establish WebSocket connections using the user's authentication."
-            },
-            {
-                question: "During a bug bounty program, you discover a cryptography vulnerability where the application uses ECB mode for AES encryption. What's the specific vulnerability?",
-                options: [
-                    "Lack of authentication allowing ciphertext manipulation",
-                    "Pattern preservation in ciphertext blocks",
-                    "Weak key generation through predictable IVs",
-                    "Side-channel attacks through timing analysis"
-                ],
-                correct: 1,
-                category: "bugbounty",
+                category: "tools",
                 difficulty: "medium",
-                explanation: "ECB mode encrypts identical plaintext blocks to identical ciphertext blocks, revealing patterns in the data."
+                explanation: "Nmap is a popular network scanning tool used for discovery and security auditing."
+            },
+            {
+                question: "What does the principle of 'least privilege' mean in cybersecurity?",
+                options: [
+                    "Users should have only necessary permissions",
+                    "All users should have admin access",
+                    "Passwords should be very complex",
+                    "Networks should be completely open"
+                ],
+                correct: 0,
+                category: "concepts",
+                difficulty: "medium",
+                explanation: "Least privilege means users and systems should have only the permissions needed to perform their tasks."
+            },
+            {
+                question: "Which type of attack involves tricking users into revealing sensitive information?",
+                options: [
+                    "Phishing",
+                    "DDoS",
+                    "Brute force",
+                    "Man-in-the-middle"
+                ],
+                correct: 0,
+                category: "social",
+                difficulty: "easy",
+                explanation: "Phishing attacks use social engineering to trick users into revealing sensitive information."
+            },
+            {
+                question: "What is the purpose of hashing passwords?",
+                options: [
+                    "To securely store password verification data",
+                    "To encrypt password transmission",
+                    "To make passwords easier to remember",
+                    "To prevent password expiration"
+                ],
+                correct: 0,
+                category: "crypto",
+                difficulty: "medium",
+                explanation: "Hashing converts passwords into fixed-length strings for secure storage and verification."
+            },
+            {
+                question: "Which protocol provides secure communication over HTTP?",
+                options: [
+                    "HTTPS",
+                    "FTP",
+                    "SMTP",
+                    "DNS"
+                ],
+                correct: 0,
+                category: "web",
+                difficulty: "easy",
+                explanation: "HTTPS (HTTP Secure) provides encrypted communication over HTTP using SSL/TLS."
+            },
+            {
+                question: "What does CORS stand for in web security?",
+                options: [
+                    "Cross-Origin Resource Sharing",
+                    "Content Origin Restriction System",
+                    "Centralized Origin Resource Security",
+                    "Cross-Platform Origin Resolution"
+                ],
+                correct: 0,
+                category: "web",
+                difficulty: "hard",
+                explanation: "CORS is a mechanism that allows restricted resources on a web page to be requested from another domain."
+            },
+            {
+                question: "Which vulnerability allows attackers to execute scripts in a user's browser?",
+                options: [
+                    "Cross-Site Scripting (XSS)",
+                    "SQL Injection",
+                    "CSRF",
+                    "Directory Traversal"
+                ],
+                correct: 0,
+                category: "web",
+                difficulty: "medium",
+                explanation: "XSS vulnerabilities allow attackers to inject and execute malicious scripts in users' browsers."
             }
         ];
 
@@ -1968,10 +2419,10 @@
             let difficultyBadge = '';
             if (question.difficulty === 'hard') {
                 difficultyBadge = '<span class="difficulty-badge difficulty-hard">HARD</span>';
-            } else if (question.difficulty === 'expert') {
-                difficultyBadge = '<span class="difficulty-badge difficulty-expert">EXPERT</span>';
-            } else {
+            } else if (question.difficulty === 'medium') {
                 difficultyBadge = '<span class="difficulty-badge difficulty-medium">MEDIUM</span>';
+            } else {
+                difficultyBadge = '<span class="difficulty-badge" style="background: rgba(0, 217, 255, 0.3); color: var(--accent-blue); border: 1px solid var(--accent-blue);">EASY</span>';
             }
             
             questionText.innerHTML = `${question.question} ${difficultyBadge}`;
@@ -2084,28 +2535,28 @@
             
             // Set score message
             if (percentage >= 90) {
-                scoreMessage.textContent = "Outstanding! You're a cybersecurity expert!";
+                scoreMessage.textContent = "Excellent! You have strong cybersecurity knowledge!";
                 scoreMessage.style.color = "var(--accent-green)";
             } else if (percentage >= 70) {
-                scoreMessage.textContent = "Excellent work! Strong security knowledge demonstrated.";
+                scoreMessage.textContent = "Great job! You're building solid security fundamentals.";
                 scoreMessage.style.color = "var(--accent-blue)";
             } else if (percentage >= 50) {
-                scoreMessage.textContent = "Good effort! Continue developing your skills.";
+                scoreMessage.textContent = "Good effort! Keep learning and practicing.";
                 scoreMessage.style.color = "var(--accent-yellow)";
             } else {
-                scoreMessage.textContent = "Keep learning! Cybersecurity is a continuous journey.";
+                scoreMessage.textContent = "Keep studying! Cybersecurity is a continuous learning journey.";
                 scoreMessage.style.color = "var(--accent-pink)";
             }
             
             // Show random cybersecurity fact
             const facts = [
                 {
-                    text: "The global bug bounty market is expected to reach $5.6 billion by 2027, with top hunters earning over $1 million annually.",
-                    source: "Bug Bounty Market Analysis 2024"
+                    text: "The first computer virus was created in 1971 and was called 'Creeper'. It displayed the message 'I'm the creeper, catch me if you can!'",
+                    source: "Historical Cybersecurity"
                 },
                 {
-                    text: "Zero-day vulnerabilities can sell for millions of dollars on the black market, making vulnerability research a high-stakes field.",
-                    source: "Cybersecurity Economics Report"
+                    text: "Multi-factor authentication prevents 99.9% of automated attacks, yet only 26% of users enable it on all accounts.",
+                    source: "Microsoft Security Report"
                 },
                 {
                     text: "The average time to identify a breach in 2024 was 204 days, highlighting the importance of continuous monitoring.",
@@ -2114,14 +2565,6 @@
                 {
                     text: "Social engineering attacks account for 98% of cyber incidents, making human factors the weakest link in security.",
                     source: "CISA Security Awareness"
-                },
-                {
-                    text: "The first computer virus, called 'Creeper,' was created in 1971 and displayed the message 'I'm the creeper, catch me if you can!'",
-                    source: "Historical Cybersecurity"
-                },
-                {
-                    text: "Multi-factor authentication prevents 99.9% of automated attacks, yet only 26% of users enable it on all accounts.",
-                    source: "Microsoft Security Report"
                 }
             ];
             
