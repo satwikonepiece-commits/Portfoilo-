@@ -26,9 +26,6 @@
             --text-gray: #94a3b8;
             --glow-blue: 0 0 20px rgba(0, 217, 255, 0.5);
             --glow-pink: 0 0 20px rgba(255, 0, 110, 0.5);
-            --glow-purple: 0 0 20px rgba(124, 58, 237, 0.5);
-            --glow-green: 0 0 20px rgba(0, 255, 136, 0.5);
-            --glow-red: 0 0 20px rgba(255, 68, 68, 0.5);
         }
 
         html, body {
@@ -72,7 +69,94 @@
             opacity: 0.3;
         }
 
-        /* Navigation */
+        @keyframes slideIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes glow {
+            0%, 100% { box-shadow: var(--glow-blue); }
+            50% { box-shadow: 0 0 30px rgba(0, 217, 255, 0.7); }
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+
+        @keyframes typing {
+            from { width: 0; }
+            to { width: 100%; }
+        }
+
+        @keyframes blink {
+            0%, 100% { border-color: transparent; }
+            50% { border-color: var(--accent-blue); }
+        }
+
+        .loading-screen {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: var(--bg-darker);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+            transition: opacity 0.5s ease;
+        }
+
+        .loading-screen.hidden {
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        .loading-text {
+            font-family: 'Orbitron', monospace;
+            font-size: 2rem;
+            color: var(--accent-blue);
+            margin-bottom: 2rem;
+            overflow: hidden;
+            border-right: 2px solid var(--accent-blue);
+            white-space: nowrap;
+            animation: typing 3.5s steps(40, end), blink 1s step-end infinite;
+            width: 0;
+            animation-fill-mode: forwards;
+        }
+
+        .loading-bar {
+            width: 300px;
+            height: 4px;
+            background: rgba(0, 217, 255, 0.2);
+            border-radius: 2px;
+            overflow: hidden;
+        }
+
+        .loading-progress {
+            height: 100%;
+            background: var(--accent-blue);
+            width: 0%;
+            animation: loading 2s ease-in-out forwards;
+        }
+
+        @keyframes loading {
+            0% { width: 0%; }
+            100% { width: 100%; }
+        }
+
         nav {
             position: fixed;
             top: 0;
@@ -85,7 +169,12 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            box-shadow: 0 5px 30px rgba(0, 0, 0, 0.3);
+            transition: all 0.3s ease;
+        }
+
+        nav.scrolled {
+            padding: 1rem 2rem;
+            background: rgba(10, 14, 39, 0.98);
         }
 
         .logo {
@@ -95,17 +184,8 @@
             -webkit-background-clip: text;
             background-clip: text;
             color: transparent;
-            cursor: pointer;
-            letter-spacing: -1px;
             font-family: 'Orbitron', monospace;
-            text-shadow: var(--glow-blue);
-            position: relative;
-        }
-
-        .logo::after {
-            content: '_';
-            animation: blink 1s infinite;
-            color: var(--accent-pink);
+            animation: float 3s ease-in-out infinite;
         }
 
         .nav-links {
@@ -118,84 +198,59 @@
             color: var(--text-gray);
             text-decoration: none;
             font-weight: 500;
+            cursor: pointer;
             transition: all 0.3s;
             position: relative;
-            font-family: 'Courier Prime', monospace;
-            text-transform: uppercase;
-            font-size: 0.9rem;
-            letter-spacing: 1px;
-            cursor: pointer;
         }
 
-        .nav-links a::before {
-            content: '>';
+        .nav-links a::after {
+            content: '';
             position: absolute;
-            left: -15px;
-            opacity: 0;
-            transition: all 0.3s;
-            color: var(--accent-pink);
-        }
-
-        .nav-links a:hover::before {
-            opacity: 1;
-            left: -10px;
-        }
-
-        .nav-links a:hover {
-            color: var(--accent-blue);
-            text-shadow: var(--glow-blue);
-        }
-
-        .nav-links a.active {
-            color: var(--accent-blue);
-            text-shadow: var(--glow-blue);
-        }
-
-        .hamburger {
-            display: none;
-            flex-direction: column;
-            cursor: pointer;
-            gap: 5px;
-        }
-
-        .hamburger span {
-            width: 25px;
+            bottom: -5px;
+            left: 0;
+            width: 0;
             height: 2px;
             background: var(--accent-blue);
-            transition: all 0.3s;
+            transition: width 0.3s ease;
         }
 
-        .hamburger.active span:nth-child(1) {
-            transform: rotate(45deg) translate(10px, 10px);
+        .nav-links a:hover::after,
+        .nav-links a.active::after {
+            width: 100%;
         }
 
-        .hamburger.active span:nth-child(2) {
-            opacity: 0;
+        .nav-links a:hover,
+        .nav-links a.active {
+            color: var(--accent-blue);
         }
 
-        .hamburger.active span:nth-child(3) {
-            transform: rotate(-45deg) translate(7px, -7px);
-        }
-
-        section {
-            min-height: 100vh;
-            padding: 150px 2rem 100px;
-            display: flex;
-            align-items: center;
-            position: relative;
-        }
-
-        section:not(.hero) {
+        .mobile-menu-btn {
             display: none;
+            background: none;
+            border: none;
+            color: var(--accent-blue);
+            font-size: 1.5rem;
+            cursor: pointer;
+            z-index: 1001;
         }
 
-        section.active {
-            display: flex;
+        .page {
+            display: none;
+            min-height: 100vh;
+            padding-top: 100px;
+            padding-bottom: 50px;
+            width: 100%;
+            animation: fadeIn 0.5s ease;
+        }
+
+        .page.active {
+            display: block;
         }
 
         .container {
             max-width: 1200px;
             margin: 0 auto;
+            padding: 0 2rem;
             width: 100%;
         }
 
@@ -208,49 +263,20 @@
             background-clip: text;
             color: transparent;
             font-family: 'Orbitron', monospace;
-        }
-
-        /* Hero Section */
-        .hero {
-            display: flex !important;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
             text-align: center;
-            gap: 3rem;
             position: relative;
         }
 
-        .hero-content {
-            max-width: 800px;
-        }
-
-        .hero-content h1 {
-            font-size: 4.5rem;
-            font-weight: 700;
-            line-height: 1.1;
-            margin-bottom: 1.5rem;
-            background: linear-gradient(135deg, var(--accent-blue), var(--accent-pink), var(--accent-purple));
-            -webkit-background-clip: text;
-            background-clip: text;
-            color: transparent;
-            animation: slideIn 0.8s ease;
-            font-family: 'Orbitron', monospace;
-            text-shadow: var(--glow-blue);
-        }
-
-        .hero-content p {
-            font-size: 1.3rem;
-            color: var(--text-gray);
-            margin-bottom: 2rem;
-            font-family: 'Courier Prime', monospace;
-        }
-
-        .hero-buttons {
-            display: flex;
-            gap: 1rem;
-            justify-content: center;
-            flex-wrap: wrap;
+        h2::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 3px;
+            background: linear-gradient(90deg, var(--accent-blue), var(--accent-pink));
+            border-radius: 2px;
         }
 
         .btn {
@@ -266,9 +292,8 @@
             position: relative;
             overflow: hidden;
             font-family: 'Orbitron', monospace;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            font-size: 0.9rem;
+            display: inline-block;
+            text-align: center;
         }
 
         .btn::before {
@@ -289,8 +314,8 @@
         .btn:hover {
             background: var(--accent-blue);
             color: var(--bg-dark);
-            transform: translateY(-3px);
             box-shadow: var(--glow-blue);
+            transform: translateY(-3px);
         }
 
         .btn-pink {
@@ -304,380 +329,27 @@
             box-shadow: var(--glow-pink);
         }
 
-        .hero-terminal {
-            width: 100%;
-            max-width: 800px;
-            animation: floatUp 3s ease-in-out infinite;
-        }
-
-        .hacker-terminal {
-            background: linear-gradient(135deg, rgba(0, 217, 255, 0.1), rgba(124, 58, 237, 0.1));
-            border: 2px solid rgba(0, 217, 255, 0.4);
-            padding: 2rem;
-            border-radius: 15px;
-            font-family: 'Courier Prime', monospace;
-            font-size: 0.9rem;
-            color: var(--accent-blue);
-            line-height: 1.8;
-            width: 100%;
-            box-shadow: var(--glow-blue);
-            position: relative;
-        }
-
-        .terminal-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 1.5rem;
-            padding-bottom: 10px;
-            border-bottom: 1px solid rgba(0, 217, 255, 0.3);
-        }
-
-        .terminal-title {
-            color: var(--accent-blue);
-            font-weight: 600;
-            font-family: 'Orbitron', monospace;
-        }
-
-        .terminal-controls {
-            display: flex;
-            gap: 8px;
-        }
-
-        .control {
-            width: 12px;
-            height: 12px;
-            border-radius: 50%;
-            cursor: pointer;
-            transition: transform 0.3s;
-        }
-
-        .control:hover {
-            transform: scale(1.2);
-        }
-
-        .close { background: #ff5f57; }
-        .minimize { background: #ffbd2e; }
-        .maximize { background: #28ca42; }
-
-        .terminal-line {
-            margin-bottom: 8px;
-            animation: typeWriter 0.1s steps(40) forwards;
-        }
-
-        .prompt { color: var(--accent-green); }
-        .command { color: var(--accent-blue); }
-        .output { color: var(--accent-pink); }
-
-        /* About Me Section */
-        .about-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 3rem;
-            align-items: center;
-        }
-
-        .about-content h3 {
-            font-size: 2rem;
-            color: var(--accent-blue);
-            margin-bottom: 1.5rem;
-            font-family: 'Orbitron', monospace;
-        }
-
-        .about-content p {
-            color: var(--text-gray);
-            margin-bottom: 1.5rem;
-            line-height: 1.8;
-            font-size: 1.1rem;
-        }
-
-        .about-stats {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 1.5rem;
-            margin-top: 2rem;
-        }
-
-        .stat-item {
-            background: linear-gradient(135deg, rgba(0, 217, 255, 0.08), rgba(124, 58, 237, 0.08));
-            border: 1px solid rgba(0, 217, 255, 0.3);
-            border-radius: 10px;
-            padding: 1.5rem;
-            text-align: center;
-        }
-
-        .stat-number {
-            font-size: 2.5rem;
+        .hero-content h1 {
+            font-size: 4rem;
             font-weight: 700;
+            margin-bottom: 1rem;
             background: linear-gradient(135deg, var(--accent-blue), var(--accent-pink));
             -webkit-background-clip: text;
             background-clip: text;
             color: transparent;
-            margin-bottom: 0.5rem;
-        }
-
-        .stat-label {
-            color: var(--text-gray);
-            font-size: 0.9rem;
-        }
-
-        /* Learning Journey Section */
-        .journey-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 2rem;
-        }
-
-        .journey-card {
-            background: linear-gradient(135deg, rgba(0, 217, 255, 0.08), rgba(124, 58, 237, 0.08));
-            border: 2px solid rgba(0, 217, 255, 0.3);
-            border-radius: 15px;
-            padding: 2.5rem 2rem;
-            text-align: center;
-            transition: all 0.3s;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .journey-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(0, 217, 255, 0.2), transparent);
-            transition: left 0.5s;
-        }
-
-        .journey-card:hover::before {
-            left: 100%;
-        }
-
-        .journey-card:hover {
-            transform: translateY(-10px);
-            border-color: var(--accent-blue);
-            box-shadow: var(--glow-blue);
-        }
-
-        .journey-icon {
-            font-size: 3rem;
-            margin-bottom: 1.5rem;
-        }
-
-        .journey-card h3 {
-            font-size: 1.5rem;
-            color: var(--accent-blue);
-            margin-bottom: 1rem;
             font-family: 'Orbitron', monospace;
         }
 
-        .journey-card p {
-            color: var(--text-gray);
-            line-height: 1.6;
-        }
-
-        .progress-container {
-            margin-top: 1.5rem;
-        }
-
-        .progress-label {
-            display: flex;
-            justify-content: space-between;
-            margin-bottom: 0.5rem;
-            color: var(--text-light);
-            font-size: 0.9rem;
-        }
-
-        .progress-bar {
-            width: 100%;
-            height: 8px;
-            background: rgba(0, 217, 255, 0.1);
-            border-radius: 4px;
-            overflow: hidden;
-            border: 1px solid rgba(0, 217, 255, 0.2);
-        }
-
-        .progress-fill {
-            height: 100%;
-            border-radius: 4px;
-            transition: width 0.5s ease;
-        }
-
-        /* Practice Projects */
-        .projects-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-            gap: 2rem;
-        }
-
-        .project-card {
-            background: linear-gradient(135deg, rgba(0, 217, 255, 0.08), rgba(124, 58, 237, 0.08));
-            border: 2px solid rgba(0, 217, 255, 0.3);
-            border-radius: 15px;
-            padding: 2rem;
-            transition: all 0.3s;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .project-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(0, 217, 255, 0.2), transparent);
-            transition: left 0.5s;
-        }
-
-        .project-card:hover::before {
-            left: 100%;
-        }
-
-        .project-card:hover {
-            transform: translateY(-10px);
-            border-color: var(--accent-blue);
-            box-shadow: var(--glow-blue);
-        }
-
-        .project-header {
-            display: flex;
-            align-items: center;
-            gap: 1rem;
-            margin-bottom: 1.5rem;
-        }
-
-        .project-icon {
-            font-size: 2.5rem;
-        }
-
-        .project-title {
-            font-size: 1.5rem;
-            color: var(--accent-blue);
-            font-family: 'Orbitron', monospace;
-        }
-
-        .project-description {
-            color: var(--text-gray);
-            margin-bottom: 1.5rem;
-            line-height: 1.6;
-        }
-
-        .project-tech {
-            display: flex;
-            gap: 0.5rem;
-            flex-wrap: wrap;
-            margin-bottom: 1.5rem;
-        }
-
-        .tech-tag {
-            background: rgba(0, 217, 255, 0.2);
-            color: var(--accent-blue);
-            padding: 0.5rem 1rem;
-            border-radius: 20px;
-            font-size: 0.85rem;
-            border: 1px solid rgba(0, 217, 255, 0.3);
-        }
-
-        .project-link {
-            display: inline-flex;
-            align-items: center;
-            gap: 0.5rem;
-            color: var(--accent-pink);
-            text-decoration: none;
-            font-weight: 600;
-            transition: all 0.3s;
-        }
-
-        .project-link:hover {
-            color: var(--accent-blue);
-            text-shadow: var(--glow-blue);
-        }
-
-        /* Learning Goals */
-        .goals-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 2rem;
-        }
-
-        .goal-card {
-            background: linear-gradient(135deg, rgba(0, 217, 255, 0.08), rgba(124, 58, 237, 0.08));
-            border: 2px solid rgba(0, 217, 255, 0.3);
-            border-radius: 15px;
-            padding: 2rem;
-            position: relative;
-        }
-
-        .goal-header {
-            display: flex;
-            align-items: center;
-            gap: 1rem;
-            margin-bottom: 1rem;
-        }
-
-        .goal-icon {
-            font-size: 2rem;
-            color: var(--accent-yellow);
-        }
-
-        .goal-title {
-            font-size: 1.3rem;
-            color: var(--accent-blue);
-            font-family: 'Orbitron', monospace;
-        }
-
-        .goal-description {
-            color: var(--text-gray);
-            line-height: 1.6;
-        }
-
-        /* Call to Action */
-        .cta-section {
-            text-align: center;
-            padding: 4rem 2rem;
-            background: linear-gradient(135deg, rgba(0, 217, 255, 0.1), rgba(124, 58, 237, 0.1));
-            border: 2px solid rgba(0, 217, 255, 0.3);
-            border-radius: 20px;
-            margin-top: 3rem;
-        }
-
-        .cta-section h3 {
-            font-size: 2.5rem;
-            color: var(--accent-blue);
-            margin-bottom: 1rem;
-            font-family: 'Orbitron', monospace;
-        }
-
-        .cta-section p {
-            color: var(--text-gray);
+        .hero-content p {
             font-size: 1.2rem;
+            color: var(--text-gray);
             margin-bottom: 2rem;
-            max-width: 600px;
-            margin-left: auto;
-            margin-right: auto;
         }
 
-        .status-badge {
-            display: inline-block;
-            background: rgba(255, 215, 0, 0.2);
-            color: var(--accent-yellow);
-            padding: 0.5rem 1.5rem;
-            border-radius: 20px;
-            font-size: 0.9rem;
-            border: 1px solid rgba(255, 215, 0, 0.3);
-            margin-bottom: 1rem;
-            font-family: 'Courier Prime', monospace;
-        }
-
-        /* Portfolio Section */
         .portfolio-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
             gap: 2rem;
-            margin-bottom: 3rem;
         }
 
         .portfolio-card {
@@ -688,6 +360,7 @@
             transition: all 0.3s;
             position: relative;
             overflow: hidden;
+            animation: slideIn 0.6s ease;
         }
 
         .portfolio-card::before {
@@ -711,81 +384,26 @@
             box-shadow: var(--glow-blue);
         }
 
-        .portfolio-icon {
-            font-size: 3rem;
-            margin-bottom: 1rem;
-        }
-
-        .portfolio-card h3 {
-            font-size: 1.5rem;
-            margin-bottom: 1rem;
+        .tech-tag {
+            display: inline-block;
+            background: rgba(0, 217, 255, 0.2);
             color: var(--accent-blue);
-            font-family: 'Orbitron', monospace;
-        }
-
-        .portfolio-card p {
-            color: var(--text-gray);
-            margin-bottom: 1.5rem;
-            line-height: 1.6;
-        }
-
-        /* Skills Section */
-        .skills-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 2rem;
-        }
-
-        .skill-box {
-            background: linear-gradient(135deg, rgba(0, 217, 255, 0.08), rgba(124, 58, 237, 0.08));
-            border: 2px solid rgba(0, 217, 255, 0.3);
-            border-radius: 15px;
-            padding: 2rem;
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            margin: 0.5rem 0.5rem 0.5rem 0;
             transition: all 0.3s;
         }
 
-        .skill-box:hover {
-            border-color: var(--accent-pink);
-            box-shadow: var(--glow-pink);
-            transform: translateY(-5px);
+        .tech-tag:hover {
+            background: rgba(0, 217, 255, 0.4);
+            transform: translateY(-2px);
         }
 
-        .skill-box h4 {
-            font-size: 1.3rem;
-            margin-bottom: 1.5rem;
-            color: var(--accent-blue);
-            font-family: 'Orbitron', monospace;
-        }
-
-        .skill-list {
-            list-style: none;
-        }
-
-        .skill-list li {
-            padding: 0.8rem 0;
-            color: var(--text-gray);
-            border-bottom: 1px solid rgba(0, 217, 255, 0.1);
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-        }
-
-        .skill-list li:last-child {
-            border-bottom: none;
-        }
-
-        .skill-list li::before {
-            content: '▸';
-            color: var(--accent-green);
-            font-weight: bold;
-        }
-
-        /* Dashboard Styles */
         .dashboard-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
             gap: 2rem;
-            margin-bottom: 3rem;
         }
 
         .dashboard-card {
@@ -796,6 +414,7 @@
             transition: all 0.3s;
             position: relative;
             overflow: hidden;
+            animation: slideIn 0.6s ease;
         }
 
         .dashboard-card::before {
@@ -819,387 +438,132 @@
             box-shadow: var(--glow-blue);
         }
 
-        .dashboard-icon {
-            font-size: 2.5rem;
-            margin-bottom: 1rem;
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
         }
 
-        .dashboard-card h3 {
-            font-size: 1.5rem;
-            color: var(--accent-blue);
-            margin-bottom: 0.5rem;
-            font-family: 'Orbitron', monospace;
-        }
-
-        .stat-main {
-            font-size: 2.5rem;
-            font-weight: 700;
-            background: linear-gradient(135deg, var(--accent-blue), var(--accent-pink));
-            -webkit-background-clip: text;
-            background-clip: text;
-            color: transparent;
-            margin-bottom: 0.5rem;
-        }
-
-        .stat-label {
-            color: var(--text-gray);
-            font-size: 0.9rem;
-            margin-bottom: 1rem;
-        }
-
-        .progress-stat {
-            margin-bottom: 1.5rem;
-        }
-
-        .progress-title {
-            display: flex;
-            justify-content: space-between;
-            margin-bottom: 0.5rem;
-            color: var(--text-light);
-            font-size: 0.9rem;
-        }
-
-        .progress-bar-small {
-            width: 100%;
-            height: 6px;
-            background: rgba(0, 217, 255, 0.1);
-            border-radius: 3px;
-            overflow: hidden;
-            border: 1px solid rgba(0, 217, 255, 0.2);
-        }
-
-        .progress-fill-small {
-            height: 100%;
-            border-radius: 3px;
-            transition: width 0.5s ease;
-        }
-
-        .stat-badge {
-            display: inline-block;
-            background: rgba(0, 217, 255, 0.2);
-            color: var(--accent-blue);
-            padding: 0.5rem 1rem;
-            border-radius: 20px;
-            font-size: 0.85rem;
-            margin-top: 0.5rem;
-            border: 1px solid rgba(0, 217, 255, 0.3);
-        }
-
-        .stat-badge.gold {
-            background: rgba(255, 215, 0, 0.2);
-            color: var(--accent-yellow);
-            border-color: rgba(255, 215, 0, 0.3);
-        }
-
-        .dashboard-link {
-            display: inline-block;
-            margin-top: 1rem;
-            padding: 10px 20px;
-            background: rgba(0, 217, 255, 0.2);
-            color: var(--accent-blue);
-            border: 1px solid rgba(0, 217, 255, 0.3);
-            border-radius: 8px;
-            text-decoration: none;
-            transition: all 0.3s;
-            font-size: 0.9rem;
-            font-weight: 600;
-        }
-
-        .dashboard-link:hover {
-            background: var(--accent-blue);
-            color: var(--bg-dark);
-            box-shadow: var(--glow-blue);
-        }
-
-        .stats-summary {
-            background: linear-gradient(135deg, rgba(0, 217, 255, 0.1), rgba(124, 58, 237, 0.1));
+        .skill-box {
+            background: linear-gradient(135deg, rgba(0, 217, 255, 0.08), rgba(124, 58, 237, 0.08));
             border: 2px solid rgba(0, 217, 255, 0.3);
             border-radius: 15px;
             padding: 2rem;
-            margin-bottom: 3rem;
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-            gap: 2rem;
-            text-align: center;
+            transition: all 0.3s;
+            position: relative;
+            overflow: hidden;
+            animation: slideIn 0.6s ease;
         }
 
-        .summary-item h4 {
-            color: var(--accent-pink);
-            font-size: 2rem;
-            margin-bottom: 0.5rem;
+        .skill-box::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(124, 58, 237, 0.2), transparent);
+            transition: left 0.5s;
         }
 
-        .summary-item p {
+        .skill-box:hover::before {
+            left: 100%;
+        }
+
+        .skill-box:hover {
+            border-color: var(--accent-pink);
+            box-shadow: var(--glow-pink);
+            transform: translateY(-5px);
+        }
+
+        .skill-box h4 {
+            color: var(--accent-blue);
+            margin-bottom: 1rem;
+        }
+
+        .skill-list {
+            list-style: none;
+        }
+
+        .skill-list li {
             color: var(--text-gray);
-            font-size: 0.9rem;
+            padding: 0.5rem 0;
+            border-bottom: 1px solid rgba(0, 217, 255, 0.1);
+            transition: all 0.3s;
+            position: relative;
+            padding-left: 1rem;
         }
 
-        /* Quiz Game Styles */
+        .skill-list li::before {
+            content: '▸';
+            position: absolute;
+            left: 0;
+            color: var(--accent-blue);
+        }
+
+        .skill-list li:hover {
+            color: var(--text-light);
+            transform: translateX(5px);
+        }
+
         .quiz-container {
             background: linear-gradient(135deg, rgba(0, 217, 255, 0.08), rgba(124, 58, 237, 0.08));
             border: 2px solid rgba(0, 217, 255, 0.3);
             border-radius: 20px;
             padding: 3rem;
-            width: 100%;
-            max-width: 900px;
+            max-width: 800px;
             margin: 0 auto;
-            box-shadow: var(--glow-blue);
+            animation: slideIn 0.6s ease;
         }
 
-        .quiz-header {
-            text-align: center;
-            margin-bottom: 2rem;
-        }
-
-        .quiz-header h3 {
-            font-size: 2rem;
-            color: var(--accent-blue);
-            margin-bottom: 1rem;
-            font-family: 'Orbitron', monospace;
-        }
-
-        .quiz-header p {
-            color: var(--text-gray);
-            font-size: 1.1rem;
-        }
-
-        .quiz-progress {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 2rem;
-            padding: 1rem;
+        .quiz-option {
             background: rgba(0, 0, 0, 0.3);
-            border-radius: 10px;
-            border: 1px solid rgba(0, 217, 255, 0.2);
-        }
-
-        .progress-text {
-            color: var(--accent-blue);
-            font-family: 'Courier Prime', monospace;
-            font-weight: 600;
-        }
-
-        .progress-bar-container {
-            width: 60%;
-            height: 10px;
-            background: rgba(0, 217, 255, 0.1);
-            border-radius: 5px;
-            overflow: hidden;
-            border: 1px solid rgba(0, 217, 255, 0.2);
-        }
-
-        .quiz-progress-bar {
-            height: 100%;
-            background: linear-gradient(90deg, var(--accent-blue), var(--accent-purple));
-            width: 0%;
-            transition: width 0.3s ease;
-            border-radius: 5px;
-        }
-
-        .question-container {
-            margin-bottom: 2rem;
-        }
-
-        .question-text {
-            font-size: 1.3rem;
-            color: var(--text-light);
-            margin-bottom: 1.5rem;
-            line-height: 1.6;
-            font-weight: 500;
-        }
-
-        .options-container {
-            display: grid;
-            gap: 1rem;
-            margin-bottom: 2rem;
-        }
-
-        .option {
-            padding: 1.2rem;
-            background: rgba(0, 0, 0, 0.3);
-            border: 1px solid rgba(0, 217, 255, 0.3);
-            border-radius: 10px;
-            cursor: pointer;
-            transition: all 0.3s;
-            font-size: 1rem;
-            color: var(--text-light);
-        }
-
-        .option:hover {
-            background: rgba(0, 217, 255, 0.1);
-            border-color: var(--accent-blue);
-            transform: translateX(5px);
-        }
-
-        .option.selected {
-            background: rgba(0, 217, 255, 0.2);
-            border-color: var(--accent-blue);
-            transform: translateX(5px);
-        }
-
-        .option.correct {
-            background: rgba(0, 255, 136, 0.2);
-            border-color: var(--accent-green);
-            color: var(--accent-green);
-        }
-
-        .option.incorrect {
-            background: rgba(255, 68, 68, 0.2);
-            border-color: var(--accent-red);
-            color: var(--accent-red);
-        }
-
-        .quiz-controls {
-            display: flex;
-            justify-content: space-between;
-            gap: 1rem;
-        }
-
-        .quiz-btn {
-            padding: 12px 25px;
-            background: rgba(0, 217, 255, 0.2);
-            color: var(--accent-blue);
             border: 1px solid rgba(0, 217, 255, 0.3);
             border-radius: 8px;
+            padding: 1rem;
+            margin-bottom: 1rem;
             cursor: pointer;
             transition: all 0.3s;
-            font-weight: 600;
-            font-family: 'Orbitron', monospace;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            font-size: 0.9rem;
         }
 
-        .quiz-btn:hover:not(:disabled) {
-            background: var(--accent-blue);
-            color: var(--bg-dark);
-            box-shadow: var(--glow-blue);
+        .quiz-option:hover {
+            background: rgba(0, 217, 255, 0.1);
+            border-color: var(--accent-blue);
+            transform: translateX(5px);
         }
 
-        .quiz-btn:disabled {
-            opacity: 0.5;
-            cursor: not-allowed;
+        .quiz-option.correct {
+            background: rgba(0, 255, 136, 0.2);
+            border-color: var(--accent-green);
         }
 
-        .quiz-btn.next {
-            background: rgba(124, 58, 237, 0.2);
-            color: var(--accent-purple);
-            border-color: rgba(124, 58, 237, 0.3);
+        .quiz-option.incorrect {
+            background: rgba(255, 68, 68, 0.2);
+            border-color: var(--accent-red);
         }
 
-        .quiz-btn.next:hover:not(:disabled) {
-            background: var(--accent-purple);
-            color: var(--bg-dark);
-            box-shadow: var(--glow-purple);
-        }
-
-        .results-container {
-            text-align: center;
-            padding: 2rem;
-        }
-
-        .results-title {
-            font-size: 2.5rem;
-            color: var(--accent-blue);
-            margin-bottom: 1.5rem;
-            font-family: 'Orbitron', monospace;
-        }
-
-        .score-display {
-            font-size: 4rem;
-            font-weight: 700;
-            background: linear-gradient(135deg, var(--accent-blue), var(--accent-pink));
-            -webkit-background-clip: text;
-            background-clip: text;
-            color: transparent;
-            margin-bottom: 1rem;
-        }
-
-        .score-message {
-            font-size: 1.3rem;
-            color: var(--text-gray);
-            margin-bottom: 2rem;
-        }
-
-        .fact-container {
-            background: rgba(0, 0, 0, 0.3);
-            border: 1px solid rgba(0, 217, 255, 0.3);
+        .cyber-fact {
+            background: linear-gradient(135deg, rgba(0, 217, 255, 0.1), rgba(124, 58, 237, 0.1));
+            border: 2px solid rgba(0, 217, 255, 0.3);
             border-radius: 15px;
             padding: 2rem;
             margin-top: 2rem;
+            text-align: center;
+            animation: slideIn 0.6s ease;
         }
 
-        .fact-title {
-            font-size: 1.5rem;
-            color: var(--accent-pink);
+        .cyber-fact h3 {
+            color: var(--accent-blue);
             margin-bottom: 1rem;
-            font-family: 'Orbitron', monospace;
+            font-size: 1.5rem;
         }
 
-        .fact-text {
+        .cyber-fact p {
             color: var(--text-light);
             font-size: 1.1rem;
             line-height: 1.6;
-            margin-bottom: 1rem;
         }
 
-        .fact-source {
-            color: var(--text-gray);
-            font-size: 0.9rem;
-            font-style: italic;
-        }
-
-        .restart-btn {
-            margin-top: 2rem;
-            padding: 15px 30px;
-            background: linear-gradient(135deg, var(--accent-blue), var(--accent-purple));
-            border: none;
-            color: var(--bg-dark);
-            font-weight: 600;
-            border-radius: 10px;
-            cursor: pointer;
-            transition: all 0.3s;
-            font-size: 1rem;
-            font-family: 'Orbitron', monospace;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-        }
-
-        .restart-btn:hover {
-            transform: scale(1.05);
-            box-shadow: var(--glow-blue);
-        }
-
-        .difficulty-badge {
-            display: inline-block;
-            padding: 0.3rem 0.8rem;
-            border-radius: 15px;
-            font-size: 0.8rem;
-            font-weight: 600;
-            margin-left: 1rem;
-            vertical-align: middle;
-        }
-
-        .difficulty-hard {
-            background: rgba(255, 68, 68, 0.3);
-            color: var(--accent-red);
-            border: 1px solid var(--accent-red);
-        }
-
-        .difficulty-medium {
-            background: rgba(255, 215, 0, 0.3);
-            color: var(--accent-yellow);
-            border: 1px solid var(--accent-yellow);
-        }
-
-        .difficulty-expert {
-            background: rgba(255, 0, 110, 0.3);
-            color: var(--accent-pink);
-            border: 1px solid var(--accent-pink);
-        }
-
-        /* Contact Section */
         .contact-grid {
             display: grid;
             grid-template-columns: 1fr 1fr;
@@ -1207,778 +571,467 @@
         }
 
         .contact-info {
-            display: flex;
-            flex-direction: column;
-            gap: 2rem;
-        }
-
-        .contact-item {
-            background: linear-gradient(135deg, rgba(0, 217, 255, 0.08), rgba(124, 58, 237, 0.08));
-            border: 1px solid rgba(0, 217, 255, 0.3);
+            background: rgba(0, 217, 255, 0.1);
+            padding: 1.5rem;
             border-radius: 10px;
-            padding: 2rem;
+            margin-bottom: 1rem;
             transition: all 0.3s;
-            cursor: pointer;
-            display: flex;
-            gap: 1.5rem;
-            align-items: flex-start;
+            border: 1px solid rgba(0, 217, 255, 0.2);
         }
 
-        .contact-item:hover {
+        .contact-info:hover {
+            transform: translateY(-5px);
             border-color: var(--accent-blue);
-            transform: translateX(5px);
+            box-shadow: var(--glow-blue);
         }
 
-        .contact-icon {
-            font-size: 2rem;
-            min-width: 50px;
-        }
-
-        .contact-form {
-            display: flex;
-            flex-direction: column;
-            gap: 1.5rem;
-        }
-
-        .contact-form input,
-        .contact-form textarea {
-            padding: 15px 20px;
+        input, textarea {
+            width: 100%;
+            padding: 0.8rem;
+            margin-bottom: 1rem;
             background: rgba(0, 0, 0, 0.5);
             border: 1px solid rgba(0, 217, 255, 0.3);
-            border-radius: 10px;
+            border-radius: 5px;
             color: var(--text-light);
-            font-family: 'Courier Prime', monospace;
-            font-size: 1rem;
             transition: all 0.3s;
+            font-family: 'Space Grotesk', sans-serif;
         }
 
-        .contact-form input::placeholder,
-        .contact-form textarea::placeholder {
+        input:focus, textarea:focus {
+            outline: none;
+            border-color: var(--accent-blue);
+            box-shadow: 0 0 10px rgba(0, 217, 255, 0.3);
+        }
+
+        footer {
+            text-align: center;
+            padding: 2rem;
+            border-top: 1px solid rgba(0, 217, 255, 0.3);
             color: var(--text-gray);
         }
 
-        .contact-form input:focus,
-        .contact-form textarea:focus {
-            outline: none;
-            border-color: var(--accent-blue);
+        .scroll-to-top {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 50px;
+            height: 50px;
+            background: var(--accent-blue);
+            color: var(--bg-dark);
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            opacity: 0;
+            transition: all 0.3s;
+            z-index: 100;
             box-shadow: var(--glow-blue);
-            background: rgba(0, 217, 255, 0.1);
         }
 
-        .contact-form textarea {
-            resize: vertical;
-            min-height: 150px;
+        .scroll-to-top.visible {
+            opacity: 1;
         }
 
-        @keyframes slideIn {
-            from {
-                opacity: 0;
-                transform: translateY(30px);
+        .scroll-to-top:hover {
+            transform: translateY(-5px);
+            animation: pulse 1s infinite;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 1024px) {
+            .hero-content h1 {
+                font-size: 3rem;
             }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        @keyframes floatUp {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-20px); }
-        }
-
-        @keyframes blink {
-            0%, 100% { opacity: 1; }
-            50% { opacity: 0; }
-        }
-
-        @keyframes typeWriter {
-            from { 
-                opacity: 0;
-                width: 0;
-            }
-            to { 
-                opacity: 1;
-                width: 100%;
+            
+            h2 {
+                font-size: 2.5rem;
             }
         }
 
         @media (max-width: 768px) {
-            .hamburger {
-                display: flex;
+            nav {
+                padding: 1rem;
             }
-
+            
             .nav-links {
-                position: absolute;
-                top: 100%;
-                left: -100%;
-                flex-direction: column;
-                background: rgba(10, 14, 39, 0.95);
-                width: 100%;
-                transition: left 0.3s;
-                padding: 2rem;
-                gap: 1rem;
-                backdrop-filter: blur(20px);
-            }
-
-            .nav-links.active {
+                position: fixed;
+                top: 0;
                 left: 0;
-            }
-
-            .hero-content h1 {
-                font-size: 3rem;
-            }
-
-            .about-grid {
-                grid-template-columns: 1fr;
-            }
-
-            .about-stats {
-                grid-template-columns: 1fr;
-            }
-
-            .contact-grid {
-                grid-template-columns: 1fr;
-            }
-
-            .quiz-container {
-                padding: 2rem 1rem;
-            }
-
-            .quiz-progress {
-                flex-direction: column;
-                gap: 1rem;
-            }
-
-            .progress-bar-container {
                 width: 100%;
+                height: 100vh;
+                background: rgba(10, 14, 39, 0.98);
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
+                padding: 2rem 0;
+                gap: 2rem;
+                transform: translateX(-100%);
+                opacity: 0;
+                transition: all 0.3s ease;
+                backdrop-filter: blur(20px);
+                z-index: 999;
             }
-
+            
+            .nav-links.active {
+                transform: translateX(0);
+                opacity: 1;
+            }
+            
+            .mobile-menu-btn {
+                display: block;
+            }
+            
+            .hero-content h1 {
+                font-size: 2.5rem;
+            }
+            
             h2 {
                 font-size: 2rem;
             }
+            
+            .contact-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .page {
+                padding-top: 80px;
+            }
+        }
 
-            section {
-                padding: 120px 1rem 80px;
+        @media (max-width: 480px) {
+            .container {
+                padding: 0 1rem;
+            }
+            
+            .hero-content h1 {
+                font-size: 2rem;
+            }
+            
+            h2 {
+                font-size: 1.8rem;
+            }
+            
+            .quiz-container {
+                padding: 1.5rem;
             }
         }
     </style>
 </head>
 <body>
+    <!-- Loading Screen -->
+    <div class="loading-screen" id="loadingScreen">
+        <div class="loading-text">INITIALIZING SYSTEM...</div>
+        <div class="loading-bar">
+            <div class="loading-progress"></div>
+        </div>
+    </div>
+
     <div class="cyber-background"></div>
     <div class="grid-overlay"></div>
 
+    <!-- Scroll to Top Button -->
+    <div class="scroll-to-top" id="scrollToTop">
+        <i class="fas fa-arrow-up"></i>
+    </div>
+
     <!-- Navigation -->
-    <nav>
+    <nav id="navbar">
         <div class="logo">0xSATWIK</div>
         <ul class="nav-links" id="navLinks">
-            <li><a onclick="showSection('home')">Home</a></li>
-            <li><a onclick="showSection('portfolio')">Portfolio</a></li>
-            <li><a onclick="showSection('dashboard')">Dashboard</a></li>
-            <li><a onclick="showSection('skills')">Skills</a></li>
-            <li><a onclick="showSection('quiz')">Cyber Quiz</a></li>
-            <li><a onclick="showSection('contact')">Contact</a></li>
+            <li><a onclick="showPage('home', this)" class="nav-link active">Home</a></li>
+            <li><a onclick="showPage('portfolio', this)" class="nav-link">Portfolio</a></li>
+            <li><a onclick="showPage('dashboard', this)" class="nav-link">Dashboard</a></li>
+            <li><a onclick="showPage('skills', this)" class="nav-link">Skills</a></li>
+            <li><a onclick="showPage('quiz', this)" class="nav-link">Quiz</a></li>
+            <li><a onclick="showPage('contact', this)" class="nav-link">Contact</a></li>
         </ul>
-        <div class="hamburger" id="hamburger">
-            <span></span>
-            <span></span>
-            <span></span>
-        </div>
+        <button class="mobile-menu-btn" id="mobileMenuBtn">
+            <i class="fas fa-bars"></i>
+        </button>
     </nav>
 
-    <!-- Home Section -->
-    <section class="hero active" id="home">
-        <div class="container">
-            <!-- Hero Section -->
-            <div class="hero-content">
-                <div class="status-badge">
-                    <i class="fas fa-graduation-cap"></i> CURRENTLY IN PRACTICE & LEARNING
+    <!-- HOME PAGE -->
+    <div class="page active" id="home">
+        <div class="container" style="text-align: center; display: flex; flex-direction: column; align-items: center; justify-content: center; min-height: 100vh; padding: 0 2rem;">
+            <div class="hero-content" style="max-width: 1000px; animation: slideIn 0.6s ease;">
+                <h1 style="font-size: 3.5rem;">SATWIK PATTAGI</h1>
+                <p style="font-size: 1.3rem; margin-bottom: 1.5rem;">CYBERSECURITY PRACTITIONER & ETHICAL HACKING STUDENT</p>
+                
+                <!-- Main Description -->
+                <div style="background: linear-gradient(135deg, rgba(0, 217, 255, 0.08), rgba(124, 58, 237, 0.08)); border: 2px solid rgba(0, 217, 255, 0.3); border-radius: 15px; padding: 2rem; margin: 2rem 0; text-align: left;">
+                    <h3 style="color: var(--accent-blue); text-align: center; margin-bottom: 1.5rem; font-size: 1.3rem;">👨‍💻 ABOUT ME</h3>
+                    <p style="color: var(--text-gray); margin-bottom: 1rem; line-height: 1.8;">I'm a passionate cybersecurity learner and ethical hacker dedicated to building expertise in protecting digital assets and identifying vulnerabilities. With a strong foundation in web security, network security, and penetration testing, I'm committed to becoming a top-tier security professional in the field.</p>
+                    <p style="color: var(--text-gray); line-height: 1.8;">My journey focuses on practical hands-on experience through continuous learning on platforms like TryHackMe, PortSwigger Academy, and HackTheBox. I'm actively involved in bug bounty hunting and building security automation tools to enhance my expertise.</p>
                 </div>
-                <h1>SATWIK PATTAGI</h1>
-                <p>CYBERSECURITY PRACTITIONER & ETHICAL HACKING STUDENT</p>
-                <p style="font-size: 1.1rem; margin-bottom: 2rem;">
-                    > Actively learning and practicing ethical hacking<br>
-                    > Building foundational cybersecurity skills<br>
-                    > Passionate about web security and penetration testing
-                </p>
-                <div class="hero-buttons">
-                    <button class="btn" onclick="showSection('portfolio')">
-                        <i class="fas fa-briefcase"></i> VIEW MY PRACTICE PROJECTS
-                    </button>
-                    <button class="btn btn-pink" onclick="showSection('quiz')">
-                        <i class="fas fa-gamepad"></i> TEST YOUR CYBER KNOWLEDGE
-                    </button>
-                </div>
-            </div>
-            
-            <div class="hero-terminal">
-                <div class="hacker-terminal">
-                    <div class="terminal-header">
-                        <div class="terminal-title"><i class="fas fa-terminal"></i> student@cyber-practice:~/learning</div>
-                        <div class="terminal-controls">
-                            <div class="control close"></div>
-                            <div class="control minimize"></div>
-                            <div class="control maximize"></div>
-                        </div>
-                    </div>
-                    <div class="terminal-line"><span class="prompt">student@practice:~$</span> <span class="command">whoami</span></div>
-                    <div class="terminal-line"><span class="output">> cybersecurity_student</span></div>
-                    <div class="terminal-line"><span class="prompt">student@practice:~$</span> <span class="command">echo $status</span></div>
-                    <div class="terminal-line"><span class="output">> actively_learning()</span></div>
-                    <div class="terminal-line"><span class="prompt">student@practice:~$</span> <span class="command">./learning_progress.sh</span></div>
-                    <div class="terminal-line"><span class="output">> Web Security: [████████  ] 80%</span></div>
-                    <div class="terminal-line"><span class="output">> Network Security: [██████    ] 60%</span></div>
-                    <div class="terminal-line"><span class="output">> Ethical Hacking: [████████  ] 80%</span></div>
-                    <div class="terminal-line"><span class="output">> Python Scripting: [█████████ ] 90%</span></div>
-                    <div class="terminal-line" style="color: var(--accent-pink);">>>> 🚀 EAGER TO LEARN & GROW</div>
-                </div>
-            </div>
 
-            <!-- About Me Section -->
-            <div style="margin-top: 6rem;">
-                <h2><i class="fas fa-user-secret"></i> ABOUT MY JOURNEY</h2>
-                <div class="about-grid">
-                    <div class="about-content">
-                        <h3>Cybersecurity Student & Practice Enthusiast</h3>
-                        <p>I'm currently immersed in learning cybersecurity fundamentals and building practical skills through hands-on practice. My focus is on understanding security concepts from the ground up and applying them in real-world scenarios.</p>
-                        <p>I believe in learning by doing, which is why I spend most of my time working on practice labs, CTF challenges, and building security tools. Every day brings new learning opportunities in this rapidly evolving field.</p>
-                        
-                        <div class="about-stats">
-                            <div class="stat-item">
-                                <div class="stat-number">1000+</div>
-                                <div class="stat-label">Hours of Practice</div>
-                            </div>
-                            <div class="stat-item">
-                                <div class="stat-number">50+</div>
-                                <div class="stat-label">Labs Completed</div>
-                            </div>
-                            <div class="stat-item">
-                                <div class="stat-number">15+</div>
-                                <div class="stat-label">Practice Projects</div>
-                            </div>
-                            <div class="stat-item">
-                                <div class="stat-number">Daily</div>
-                                <div class="stat-label">Learning Commitment</div>
-                            </div>
+                <!-- Journey Sections -->
+                <div style="background: linear-gradient(135deg, rgba(0, 217, 255, 0.08), rgba(124, 58, 237, 0.08)); border: 2px solid rgba(0, 217, 255, 0.3); border-radius: 15px; padding: 2rem; margin: 2rem 0; text-align: left;">
+                    <h3 style="color: var(--accent-blue); text-align: center; margin-bottom: 1.5rem; font-size: 1.3rem;">🎯 MY JOURNEY IN CYBERSECURITY</h3>
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem;">
+                        <div style="border-left: 3px solid var(--accent-blue); padding-left: 1rem;">
+                            <h4 style="color: var(--accent-blue); margin-bottom: 0.5rem; font-size: 1.1rem;">🔓 Ethical Hacking</h4>
+                            <p style="color: var(--text-gray); font-size: 0.95rem; line-height: 1.6;">Learning penetration testing, vulnerability assessment, and exploitation techniques on TryHackMe and PortSwigger Academy. Currently mastering offensive security methodologies and practical hacking skills.</p>
                         </div>
-                    </div>
-                    <div class="hacker-terminal">
-                        <div class="terminal-header">
-                            <div class="terminal-title"><i class="fas fa-code"></i> current_focus.sh</div>
+                        <div style="border-left: 3px solid var(--accent-pink); padding-left: 1rem;">
+                            <h4 style="color: var(--accent-pink); margin-bottom: 0.5rem; font-size: 1.1rem;">🏆 Bug Bounty Hunting</h4>
+                            <p style="color: var(--text-gray); font-size: 0.95rem; line-height: 1.6;">Discovering and reporting vulnerabilities responsibly on platforms like HackerOne and Bugcrowd. Building a solid track record in responsible disclosure and vulnerability research.</p>
                         </div>
-                        <div class="terminal-line"><span class="prompt">$</span> <span class="command">cat learning_goals.txt</span></div>
-                        <div class="terminal-line"><span class="output">> Master OWASP Top 10 vulnerabilities</span></div>
-                        <div class="terminal-line"><span class="output">> Practice on TryHackMe & PortSwigger</span></div>
-                        <div class="terminal-line"><span class="output">> Build automation tools with Python</span></div>
-                        <div class="terminal-line"><span class="output">> Understand network protocols deeply</span></div>
-                        <div class="terminal-line"><span class="output">> Learn web application security</span></div>
-                        <div class="terminal-line"><span class="output">> Practice CTF challenges regularly</span></div>
+                        <div style="border-left: 3px solid var(--accent-green); padding-left: 1rem;">
+                            <h4 style="color: var(--accent-green); margin-bottom: 0.5rem; font-size: 1.1rem;">🌐 Web Security</h4>
+                            <p style="color: var(--text-gray); font-size: 0.95rem; line-height: 1.6;">Mastering OWASP Top 10, XSS, SQL Injection, CSRF, and other web application vulnerabilities. Deep understanding of authentication, authorization, and session management security.</p>
+                        </div>
+                        <div style="border-left: 3px solid var(--accent-purple); padding-left: 1rem;">
+                            <h4 style="color: var(--accent-purple); margin-bottom: 0.5rem; font-size: 1.1rem;">🔐 Network Security</h4>
+                            <p style="color: var(--text-gray); font-size: 0.95rem; line-height: 1.6;">Understanding network protocols, firewall configurations, intrusion detection systems, and advanced reconnaissance techniques using industry-standard tools.</p>
+                        </div>
                     </div>
                 </div>
-            </div>
 
-            <!-- Learning Journey Section -->
-            <div style="margin-top: 6rem;">
-                <h2><i class="fas fa-road"></i> MY LEARNING JOURNEY</h2>
-                <div class="journey-grid">
-                    <div class="journey-card">
-                        <div class="journey-icon">🎯</div>
-                        <h3>Platforms & Practice</h3>
-                        <p>Regular practice on TryHackMe, PortSwigger Academy, and HackTheBox to build hands-on skills in controlled environments.</p>
-                        <div class="progress-container">
-                            <div class="progress-label">
-                                <span>TryHackMe Progress</span>
-                                <span>84%</span>
-                            </div>
-                            <div class="progress-bar">
-                                <div class="progress-fill" style="width: 84%; background: linear-gradient(90deg, var(--accent-blue), var(--accent-purple));"></div>
+                <!-- Stats Section -->
+                <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 1rem; margin: 2rem 0;">
+                    <div style="background: rgba(0, 217, 255, 0.1); border: 1px solid rgba(0, 217, 255, 0.3); border-radius: 10px; padding: 1.5rem; text-align: center; transition: all 0.3s;" onmouseover="this.style.transform='translateY(-5px)'; this.style.boxShadow='var(--glow-blue)';" onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='none';">
+                        <div style="font-size: 2rem; font-weight: 700; color: var(--accent-blue); margin-bottom: 0.5rem;">1000+</div>
+                        <div style="color: var(--text-gray); font-size: 0.9rem;">Practice Hours</div>
+                    </div>
+                    <div style="background: rgba(0, 217, 255, 0.1); border: 1px solid rgba(0, 217, 255, 0.3); border-radius: 10px; padding: 1.5rem; text-align: center; transition: all 0.3s;" onmouseover="this.style.transform='translateY(-5px)'; this.style.boxShadow='var(--glow-blue)';" onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='none';">
+                        <div style="font-size: 2rem; font-weight: 700; color: var(--accent-blue); margin-bottom: 0.5rem;">50+</div>
+                        <div style="color: var(--text-gray); font-size: 0.9rem;">Labs Completed</div>
+                    </div>
+                    <div style="background: rgba(0, 217, 255, 0.1); border: 1px solid rgba(0, 217, 255, 0.3); border-radius: 10px; padding: 1.5rem; text-align: center; transition: all 0.3s;" onmouseover="this.style.transform='translateY(-5px)'; this.style.boxShadow='var(--glow-blue)';" onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='none';">
+                        <div style="font-size: 2rem; font-weight: 700; color: var(--accent-blue); margin-bottom: 0.5rem;">15+</div>
+                        <div style="color: var(--text-gray); font-size: 0.9rem;">Projects Built</div>
+                    </div>
+                    <div style="background: rgba(0, 217, 255, 0.1); border: 1px solid rgba(0, 217, 255, 0.3); border-radius: 10px; padding: 1.5rem; text-align: center; transition: all 0.3s;" onmouseover="this.style.transform='translateY(-5px)'; this.style.boxShadow='var(--glow-blue)';" onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='none';">
+                        <div style="font-size: 2rem; font-weight: 700; color: var(--accent-blue); margin-bottom: 0.5rem;">Daily</div>
+                        <div style="color: var(--text-gray); font-size: 0.9rem;">Learning Streak</div>
+                    </div>
+                </div>
+
+                <!-- Focus Areas -->
+                <div style="background: linear-gradient(135deg, rgba(0, 217, 255, 0.08), rgba(124, 58, 237, 0.08)); border: 2px solid rgba(0, 217, 255, 0.3); border-radius: 15px; padding: 2rem; margin: 2rem 0;">
+                    <h3 style="color: var(--accent-blue); text-align: center; margin-bottom: 1.5rem; font-size: 1.3rem;">🎓 CURRENT FOCUS AREAS</h3>
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem;">
+                        <div style="display: flex; align-items: flex-start; gap: 1rem;">
+                            <div style="font-size: 2rem; min-width: 50px;">🔍</div>
+                            <div style="text-align: left;">
+                                <h4 style="color: var(--accent-blue); margin-bottom: 0.5rem; font-size: 1.05rem;">Vulnerability Research</h4>
+                                <p style="color: var(--text-gray); font-size: 0.9rem; line-height: 1.6;">Finding and analyzing security flaws in web applications and systems. Building skills in identifying zero-day vulnerabilities and security misconfigurations.</p>
                             </div>
                         </div>
-                    </div>
-                    <div class="journey-card">
-                        <div class="journey-icon">📚</div>
-                        <h3>Study & Research</h3>
-                        <p>Deep diving into cybersecurity concepts through online courses, documentation, and security research papers.</p>
-                        <div class="progress-container">
-                            <div class="progress-label">
-                                <span>PortSwigger Labs</span>
-                                <span>73%</span>
-                            </div>
-                            <div class="progress-bar">
-                                <div class="progress-fill" style="width: 73%; background: linear-gradient(90deg, var(--accent-green), var(--accent-blue));"></div>
+                        <div style="display: flex; align-items: flex-start; gap: 1rem;">
+                            <div style="font-size: 2rem; min-width: 50px;">⚔️</div>
+                            <div style="text-align: left;">
+                                <h4 style="color: var(--accent-pink); margin-bottom: 0.5rem; font-size: 1.05rem;">Exploitation Techniques</h4>
+                                <p style="color: var(--text-gray); font-size: 0.9rem; line-height: 1.6;">Practicing safe and ethical exploitation methods in controlled environments. Learning advanced payload generation and social engineering tactics.</p>
                             </div>
                         </div>
-                    </div>
-                    <div class="journey-card">
-                        <div class="journey-icon">🔧</div>
-                        <h3>Tool Development</h3>
-                        <p>Building custom security tools and scripts to automate tasks and understand security concepts at a deeper level.</p>
-                        <div class="progress-container">
-                            <div class="progress-label">
-                                <span>Python Mastery</span>
-                                <span>90%</span>
+                        <div style="display: flex; align-items: flex-start; gap: 1rem;">
+                            <div style="font-size: 2rem; min-width: 50px;">🏆</div>
+                            <div style="text-align: left;">
+                                <h4 style="color: var(--accent-green); margin-bottom: 0.5rem; font-size: 1.05rem;">Bug Bounty Programs</h4>
+                                <p style="color: var(--text-gray); font-size: 0.9rem; line-height: 1.6;">Building reputation on platforms like HackerOne and Bugcrowd. Actively hunting for vulnerabilities in real-world applications.</p>
                             </div>
-                            <div class="progress-bar">
-                                <div class="progress-fill" style="width: 90%; background: linear-gradient(90deg, var(--accent-pink), var(--accent-red));"></div>
+                        </div>
+                        <div style="display: flex; align-items: flex-start; gap: 1rem;">
+                            <div style="font-size: 2rem; min-width: 50px;">📊</div>
+                            <div style="text-align: left;">
+                                <h4 style="color: var(--accent-purple); margin-bottom: 0.5rem; font-size: 1.05rem;">Security Automation</h4>
+                                <p style="color: var(--text-gray); font-size: 0.9rem; line-height: 1.6;">Creating Python and Bash scripts for security testing automation. Building tools to streamline vulnerability assessment workflows.</p>
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>
 
-            <!-- Practice Projects -->
-            <div style="margin-top: 6rem;">
-                <h2><i class="fas fa-laptop-code"></i> PRACTICE PROJECTS</h2>
-                <div class="projects-grid">
-                    <div class="project-card">
-                        <div class="project-header">
-                            <div class="project-icon">🔍</div>
-                            <h3 class="project-title">VULNERABILITY SCANNER</h3>
-                        </div>
-                        <p class="project-description">A Python-based web vulnerability scanner that detects common security issues like XSS, SQL injection, and security misconfigurations.</p>
-                        <div class="project-tech">
-                            <span class="tech-tag">Python</span>
-                            <span class="tech-tag">Requests</span>
-                            <span class="tech-tag">BeautifulSoup</span>
-                        </div>
-                        <a href="https://github.com/satwikonepiece-commits" target="_blank" class="project-link">
-                            <i class="fab fa-github"></i> Practice Code
-                        </a>
-                    </div>
-                    
-                    <div class="project-card">
-                        <div class="project-header">
-                            <div class="project-icon">🛡️</div>
-                            <h3 class="project-title">SECURITY AUTOMATION</h3>
-                        </div>
-                        <p class="project-description">Collection of Bash and Python scripts for automating security tasks, log analysis, and system hardening procedures.</p>
-                        <div class="project-tech">
-                            <span class="tech-tag">Bash</span>
-                            <span class="tech-tag">Python</span>
-                            <span class="tech-tag">Linux</span>
-                        </div>
-                        <a href="https://github.com/satwikonepiece-commits" target="_blank" class="project-link">
-                            <i class="fab fa-github"></i> View Scripts
-                        </a>
-                    </div>
-                    
-                    <div class="project-card">
-                        <div class="project-header">
-                            <div class="project-icon">🌐</div>
-                            <h3 class="project-title">WEB SECURITY LABS</h3>
-                        </div>
-                        <p class="project-description">Practice environment with vulnerable web applications to test and understand various attack vectors and defense mechanisms.</p>
-                        <div class="project-tech">
-                            <span class="tech-tag">Docker</span>
-                            <span class="tech-tag">Web Security</span>
-                            <span class="tech-tag">OWASP</span>
-                        </div>
-                        <a href="https://github.com/satwikonepiece-commits" target="_blank" class="project-link">
-                            <i class="fab fa-github"></i> Lab Setup
-                        </a>
-                    </div>
+                <!-- CTAs -->
+                <div style="display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; margin-top: 2rem;">
+                    <button class="btn" onclick="showPage('portfolio')"><i class="fas fa-briefcase"></i> VIEW PORTFOLIO</button>
+                    <button class="btn btn-pink" onclick="showPage('quiz')"><i class="fas fa-gamepad"></i> TRY QUIZ</button>
                 </div>
-            </div>
-
-            <!-- Learning Goals -->
-            <div style="margin-top: 6rem;">
-                <h2><i class="fas fa-bullseye"></i> LEARNING GOALS</h2>
-                <div class="goals-grid">
-                    <div class="goal-card">
-                        <div class="goal-header">
-                            <div class="goal-icon">🎓</div>
-                            <h3 class="goal-title">Certification Preparation</h3>
-                        </div>
-                        <p class="goal-description">Working towards industry certifications like CEH, Security+, and OSCP to validate skills and knowledge.</p>
-                    </div>
-                    
-                    <div class="goal-card">
-                        <div class="goal-header">
-                            <div class="goal-icon">🔐</div>
-                            <h3 class="goal-title">Advanced Penetration Testing</h3>
-                        </div>
-                        <p class="goal-description">Mastering advanced penetration testing techniques and methodologies for comprehensive security assessments.</p>
-                    </div>
-                    
-                    <div class="goal-card">
-                        <div class="goal-header">
-                            <div class="goal-icon">⚡</div>
-                            <h3 class="goal-title">Bug Bounty Hunting</h3>
-                        </div>
-                        <p class="goal-description">Developing skills to participate in bug bounty programs and responsibly disclose security vulnerabilities.</p>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Call to Action -->
-            <div class="cta-section">
-                <h3>JOIN ME ON THIS LEARNING JOURNEY</h3>
-                <p>I'm always looking to connect with fellow cybersecurity enthusiasts, learn from experienced professionals, and collaborate on interesting security projects.</p>
-                <button class="btn" onclick="showSection('contact')">
-                    <i class="fas fa-paper-plane"></i> LET'S CONNECT
-                </button>
             </div>
         </div>
-    </section>
+    </div>
 
-    <!-- Portfolio Section -->
-    <section id="portfolio">
+    <!-- PORTFOLIO PAGE -->
+    <div class="page" id="portfolio">
         <div class="container">
             <h2><i class="fas fa-briefcase"></i> MY PORTFOLIO</h2>
-            <p style="font-size: 1.2rem; color: var(--text-gray); margin-bottom: 3rem; text-align: center;">
-                Here are some of the practice projects and labs I've been working on to build my cybersecurity skills.
-            </p>
-            
+            <p style="font-size: 1.1rem; color: var(--text-gray); margin-bottom: 3rem; text-align: center;">Here are some of the practice projects and labs I've been working on to build my cybersecurity skills and practical experience.</p>
             <div class="portfolio-grid">
                 <div class="portfolio-card">
-                    <div class="portfolio-icon">🔍</div>
-                    <h3>Web Vulnerability Scanner</h3>
-                    <p>A Python-based tool that scans websites for common vulnerabilities like XSS, SQL injection, and security misconfigurations. Built for learning web application security testing.</p>
-                    <div class="project-tech">
+                    <h3 style="color: var(--accent-blue); margin-bottom: 1rem;">🔍 Web Vulnerability Scanner</h3>
+                    <p style="color: var(--text-gray); margin-bottom: 1rem;">A Python-based tool that scans websites for common vulnerabilities like XSS, SQL injection, and security misconfigurations. Built for learning web application security testing. Demonstrates understanding of OWASP Top 10 vulnerabilities.</p>
+                    <div style="margin-bottom: 1rem;">
                         <span class="tech-tag">Python</span>
-                        <span class="tech-tag">Requests</span>
+                        <span class="tech-tag">Security</span>
                         <span class="tech-tag">BeautifulSoup</span>
+                        <span class="tech-tag">Requests</span>
                     </div>
-                    <a href="https://github.com/satwikonepiece-commits" target="_blank" class="project-link">
-                        <i class="fab fa-github"></i> View Code
-                    </a>
+                    <a href="#" style="color: var(--accent-pink); text-decoration: none; font-weight: 600;">View Code →</a>
                 </div>
-
                 <div class="portfolio-card">
-                    <div class="portfolio-icon">🛡️</div>
-                    <h3>Security Automation Scripts</h3>
-                    <p>Collection of Bash and Python scripts for automating security tasks, system hardening, and log analysis. Focused on practical Linux security administration.</p>
-                    <div class="project-tech">
+                    <h3 style="color: var(--accent-blue); margin-bottom: 1rem;">🛡️ Security Automation Scripts</h3>
+                    <p style="color: var(--text-gray); margin-bottom: 1rem;">Collection of Bash and Python scripts for automating security tasks, system hardening, and log analysis. Focused on practical Linux security administration and operational security improvements.</p>
+                    <div style="margin-bottom: 1rem;">
                         <span class="tech-tag">Bash</span>
                         <span class="tech-tag">Python</span>
                         <span class="tech-tag">Linux</span>
+                        <span class="tech-tag">Automation</span>
                     </div>
-                    <a href="https://github.com/satwikonepiece-commits" target="_blank" class="project-link">
-                        <i class="fab fa-github"></i> View Scripts
-                    </a>
+                    <a href="#" style="color: var(--accent-pink); text-decoration: none; font-weight: 600;">View Scripts →</a>
                 </div>
-
                 <div class="portfolio-card">
-                    <div class="portfolio-icon">🌐</div>
-                    <h3>Practice Web Apps</h3>
-                    <p>Intentionally vulnerable web applications built for practicing penetration testing techniques and understanding common web security vulnerabilities.</p>
-                    <div class="project-tech">
+                    <h3 style="color: var(--accent-blue); margin-bottom: 1rem;">🌐 Practice Web Applications</h3>
+                    <p style="color: var(--text-gray); margin-bottom: 1rem;">Intentionally vulnerable web applications built for practicing penetration testing techniques and understanding common web security vulnerabilities in a safe, legal environment.</p>
+                    <div style="margin-bottom: 1rem;">
                         <span class="tech-tag">Docker</span>
                         <span class="tech-tag">Web Security</span>
                         <span class="tech-tag">OWASP</span>
+                        <span class="tech-tag">PHP</span>
                     </div>
-                    <a href="https://github.com/satwikonepiece-commits" target="_blank" class="project-link">
-                        <i class="fab fa-github"></i> Lab Setup
-                    </a>
+                    <a href="#" style="color: var(--accent-pink); text-decoration: none; font-weight: 600;">Lab Setup →</a>
                 </div>
-
                 <div class="portfolio-card">
-                    <div class="portfolio-icon">🔐</div>
-                    <h3>Cryptography Challenges</h3>
-                    <p>Solutions to various cryptography challenges and CTF problems, demonstrating understanding of encryption algorithms and cryptographic principles.</p>
-                    <div class="project-tech">
-                        <span class="tech-tag">Python</span>
-                        <span class="tech-tag">Cryptography</span>
-                        <span class="tech-tag">CTF</span>
-                    </div>
-                    <a href="https://github.com/satwikonepiece-commits" target="_blank" class="project-link">
-                        <i class="fab fa-github"></i> View Solutions
-                    </a>
-                </div>
-
-                <div class="portfolio-card">
-                    <div class="portfolio-icon">📊</div>
-                    <h3>Security Research Notes</h3>
-                    <p>Comprehensive notes and documentation from studying various cybersecurity topics, tools, and methodologies for continuous learning.</p>
-                    <div class="project-tech">
-                        <span class="tech-tag">Documentation</span>
-                        <span class="tech-tag">Research</span>
-                        <span class="tech-tag">Learning</span>
-                    </div>
-                    <a href="https://github.com/satwikonepiece-commits" target="_blank" class="project-link">
-                        <i class="fab fa-github"></i> View Notes
-                    </a>
-                </div>
-
-                <div class="portfolio-card">
-                    <div class="portfolio-icon">🎯</div>
-                    <h3>CTF Write-ups</h3>
-                    <p>Detailed write-ups and solutions for various Capture The Flag challenges completed on platforms like TryHackMe and HackTheBox.</p>
-                    <div class="project-tech">
+                    <h3 style="color: var(--accent-blue); margin-bottom: 1rem;">🔐 CTF Write-ups</h3>
+                    <p style="color: var(--text-gray); margin-bottom: 1rem;">Detailed solutions and explanations for various Capture The Flag challenges completed on platforms like TryHackMe and HackTheBox, demonstrating problem-solving skills.</p>
+                    <div style="margin-bottom: 1rem;">
                         <span class="tech-tag">CTF</span>
                         <span class="tech-tag">Write-ups</span>
                         <span class="tech-tag">Problem Solving</span>
+                        <span class="tech-tag">Documentation</span>
                     </div>
-                    <a href="https://github.com/satwikonepiece-commits" target="_blank" class="project-link">
-                        <i class="fab fa-github"></i> Read Write-ups
-                    </a>
+                    <a href="#" style="color: var(--accent-pink); text-decoration: none; font-weight: 600;">Read Write-ups →</a>
+                </div>
+                <div class="portfolio-card">
+                    <h3 style="color: var(--accent-blue); margin-bottom: 1rem;">🔐 Cryptography Challenges</h3>
+                    <p style="color: var(--text-gray); margin-bottom: 1rem;">Solutions to various cryptography challenges and CTF problems, demonstrating understanding of encryption algorithms, hashing mechanisms, and cryptographic principles.</p>
+                    <div style="margin-bottom: 1rem;">
+                        <span class="tech-tag">Python</span>
+                        <span class="tech-tag">Cryptography</span>
+                        <span class="tech-tag">CTF</span>
+                        <span class="tech-tag">Algorithms</span>
+                    </div>
+                    <a href="#" style="color: var(--accent-pink); text-decoration: none; font-weight: 600;">View Solutions →</a>
+                </div>
+                <div class="portfolio-card">
+                    <h3 style="color: var(--accent-blue); margin-bottom: 1rem;">📊 Security Research Notes</h3>
+                    <p style="color: var(--text-gray); margin-bottom: 1rem;">Comprehensive notes and documentation from studying various cybersecurity topics, tools, methodologies, and best practices for continuous learning and reference.</p>
+                    <div style="margin-bottom: 1rem;">
+                        <span class="tech-tag">Documentation</span>
+                        <span class="tech-tag">Research</span>
+                        <span class="tech-tag">Learning</span>
+                        <span class="tech-tag">Methodology</span>
+                    </div>
+                    <a href="#" style="color: var(--accent-pink); text-decoration: none; font-weight: 600;">View Notes →</a>
                 </div>
             </div>
         </div>
-    </section>
+    </div>
 
-    <!-- Dashboard Section -->
-    <section id="dashboard">
+    <!-- DASHBOARD PAGE -->
+    <div class="page" id="dashboard">
         <div class="container">
             <h2><i class="fas fa-tachometer-alt"></i> LEARNING DASHBOARD</h2>
-            
-            <!-- Stats Summary -->
-            <div class="stats-summary">
-                <div class="summary-item">
-                    <h4>1000+</h4>
-                    <p>Practice Hours</p>
-                </div>
-                <div class="summary-item">
-                    <h4>50+</h4>
-                    <p>Labs Completed</p>
-                </div>
-                <div class="summary-item">
-                    <h4>15+</h4>
-                    <p>Projects Built</p>
-                </div>
-                <div class="summary-item">
-                    <h4>Daily</h4>
-                    <p>Learning Streak</p>
-                </div>
-            </div>
-
-            <!-- Dashboard Cards Grid -->
+            <p style="font-size: 1.1rem; color: var(--text-gray); margin-bottom: 2rem; text-align: center;">My progress across various cybersecurity learning platforms and initiatives.</p>
             <div class="dashboard-grid">
-                <!-- TryHackMe Card -->
                 <div class="dashboard-card">
-                    <div class="dashboard-icon">
-                        🎮
+                    <h3 style="color: var(--accent-blue); margin-bottom: 1rem;">🎮 TryHackMe</h3>
+                    <p style="color: var(--text-gray); font-size: 2rem; font-weight: 700; margin: 1rem 0;">84%</p>
+                    <p style="color: var(--text-gray); margin-bottom: 1rem;">Learning Path Progress</p>
+                    <div style="background: rgba(0, 217, 255, 0.1); padding: 0.8rem; border-radius: 8px; margin-bottom: 0.5rem;">
+                        <p style="color: var(--text-gray); font-size: 0.9rem;">✓ 89 Rooms Completed</p>
+                        <p style="color: var(--text-gray); font-size: 0.9rem;">✓ 8,450+ Points Earned</p>
+                        <p style="color: var(--accent-yellow); font-size: 0.9rem;">🏆 Top 5% Rank</p>
                     </div>
-                    <h3>TryHackMe</h3>
-                    <div class="stat-main">84%</div>
-                    <div class="stat-label">Learning Path Progress</div>
-                    
-                    <div class="progress-stat">
-                        <div class="progress-title">
-                            <span>Rooms Completed</span>
-                            <span>89</span>
-                        </div>
-                        <div class="progress-bar-small">
-                            <div class="progress-fill-small blue" style="width: 84%;"></div>
-                        </div>
-                    </div>
-
-                    <div class="progress-stat">
-                        <div class="progress-title">
-                            <span>Total Points</span>
-                            <span>8,450</span>
-                        </div>
-                        <div class="progress-bar-small">
-                            <div class="progress-fill-small green" style="width: 92%;"></div>
-                        </div>
-                    </div>
-
-                    <span class="stat-badge gold">🏆 Top 5% Rank</span>
-                    <a href="https://tryhackme.com/p/satwiK" target="_blank" class="dashboard-link">
-                        <i class="fas fa-external-link-alt"></i> View Profile
-                    </a>
                 </div>
-
-                <!-- PortSwigger Academy Card -->
                 <div class="dashboard-card">
-                    <div class="dashboard-icon">
-                        🔐
+                    <h3 style="color: var(--accent-blue); margin-bottom: 1rem;">🔐 PortSwigger Academy</h3>
+                    <p style="color: var(--text-gray); font-size: 2rem; font-weight: 700; margin: 1rem 0;">73%</p>
+                    <p style="color: var(--text-gray); margin-bottom: 1rem;">Labs Completed</p>
+                    <div style="background: rgba(0, 217, 255, 0.1); padding: 0.8rem; border-radius: 8px; margin-bottom: 0.5rem;">
+                        <p style="color: var(--text-gray); font-size: 0.9rem;">✓ Web Security: 100%</p>
+                        <p style="color: var(--text-gray); font-size: 0.9rem;">✓ Advanced Topics: 78%</p>
+                        <p style="color: var(--accent-green); font-size: 0.9rem;">Practice Badge Earned</p>
                     </div>
-                    <h3>PortSwigger Academy</h3>
-                    <div class="stat-main">73%</div>
-                    <div class="stat-label">Labs Completed</div>
-                    
-                    <div class="progress-stat">
-                        <div class="progress-title">
-                            <span>Web Security</span>
-                            <span>100%</span>
-                        </div>
-                        <div class="progress-bar-small">
-                            <div class="progress-fill-small blue" style="width: 100%;"></div>
-                        </div>
-                    </div>
-
-                    <div class="progress-stat">
-                        <div class="progress-title">
-                            <span>Advanced Topics</span>
-                            <span>78%</span>
-                        </div>
-                        <div class="progress-bar-small">
-                            <div class="progress-fill-small pink" style="width: 78%;"></div>
-                        </div>
-                    </div>
-
-                    <span class="stat-badge">Practice Badge</span>
-                    <a href="https://portswigger.net/web-security" target="_blank" class="dashboard-link">
-                        <i class="fas fa-external-link-alt"></i> View Labs
-                    </a>
                 </div>
-
-                <!-- GitHub Card -->
                 <div class="dashboard-card">
-                    <div class="dashboard-icon">
-                        <i class="fab fa-github"></i>
+                    <h3 style="color: var(--accent-blue); margin-bottom: 1rem;">🐙 GitHub</h3>
+                    <p style="color: var(--text-gray); font-size: 2rem; font-weight: 700; margin: 1rem 0;">15+</p>
+                    <p style="color: var(--text-gray); margin-bottom: 1rem;">Practice Projects</p>
+                    <div style="background: rgba(0, 217, 255, 0.1); padding: 0.8rem; border-radius: 8px; margin-bottom: 0.5rem;">
+                        <p style="color: var(--text-gray); font-size: 0.9rem;">✓ 12 Active Repositories</p>
+                        <p style="color: var(--text-gray); font-size: 0.9rem;">✓ 245+ Contributions</p>
+                        <p style="color: var(--accent-green); font-size: 0.9rem;">⭐ Learning Publicly</p>
                     </div>
-                    <h3>GitHub</h3>
-                    <div class="stat-main">15+</div>
-                    <div class="stat-label">Practice Projects</div>
-                    
-                    <div class="progress-stat">
-                        <div class="progress-title">
-                            <span>Active Repositories</span>
-                            <span>12</span>
-                        </div>
-                        <div class="progress-bar-small">
-                            <div class="progress-fill-small blue" style="width: 80%;"></div>
-                        </div>
-                    </div>
-
-                    <div class="progress-stat">
-                        <div class="progress-title">
-                            <span>Contributions</span>
-                            <span>245</span>
-                        </div>
-                        <div class="progress-bar-small">
-                            <div class="progress-fill-small green" style="width: 65%;"></div>
-                        </div>
-                    </div>
-
-                    <span class="stat-badge">⭐ Learning Publicly</span>
-                    <a href="https://github.com/satwikonepiece-commits" target="_blank" class="dashboard-link">
-                        <i class="fas fa-external-link-alt"></i> Visit Profile
-                    </a>
                 </div>
-
-                <!-- Medium Card -->
                 <div class="dashboard-card">
-                    <div class="dashboard-icon">
-                        <i class="fab fa-medium"></i>
+                    <h3 style="color: var(--accent-blue); margin-bottom: 1rem;">📝 Medium</h3>
+                    <p style="color: var(--text-gray); font-size: 2rem; font-weight: 700; margin: 1rem 0;">12</p>
+                    <p style="color: var(--text-gray); margin-bottom: 1rem;">Security Articles</p>
+                    <div style="background: rgba(0, 217, 255, 0.1); padding: 0.8rem; border-radius: 8px; margin-bottom: 0.5rem;">
+                        <p style="color: var(--text-gray); font-size: 0.9rem;">✓ Web Security Focus</p>
+                        <p style="color: var(--text-gray); font-size: 0.9rem;">✓ Ethical Hacking Tips</p>
+                        <p style="color: var(--accent-green); font-size: 0.9rem;">1K+ Monthly Reads</p>
                     </div>
-                    <h3>Medium</h3>
-                    <div class="stat-main">12</div>
-                    <div class="stat-label">Learning Articles</div>
-                    
-                    <div class="progress-stat">
-                        <div class="progress-title">
-                            <span>Security Content</span>
-                            <span>100%</span>
-                        </div>
-                        <div class="progress-bar-small">
-                            <div class="progress-fill-small yellow" style="width: 100%;"></div>
-                        </div>
-                    </div>
-
-                    <div class="progress-stat">
-                        <div class="progress-title">
-                            <span>Reader Engagement</span>
-                            <span>85%</span>
-                        </div>
-                        <div class="progress-bar-small">
-                            <div class="progress-fill-small pink" style="width: 85%;"></div>
-                        </div>
-                    </div>
-
-                    <span class="stat-badge">Learning Writer</span>
-                    <a href="https://medium.com/@satwiklpattagi" target="_blank" class="dashboard-link">
-                        <i class="fas fa-external-link-alt"></i> Read Articles
-                    </a>
                 </div>
-
-                <!-- Certifications Card -->
                 <div class="dashboard-card">
-                    <div class="dashboard-icon">
-                        <i class="fas fa-certificate"></i>
+                    <h3 style="color: var(--accent-blue); margin-bottom: 1rem;">📚 HackTheBox</h3>
+                    <p style="color: var(--text-gray); font-size: 2rem; font-weight: 700; margin: 1rem 0;">25+</p>
+                    <p style="color: var(--text-gray); margin-bottom: 1rem;">Machines Pwned</p>
+                    <div style="background: rgba(0, 217, 255, 0.1); padding: 0.8rem; border-radius: 8px; margin-bottom: 0.5rem;">
+                        <p style="color: var(--text-gray); font-size: 0.9rem;">✓ Easy & Medium Boxes</p>
+                        <p style="color: var(--text-gray); font-size: 0.9rem;">✓ Active Member</p>
+                        <p style="color: var(--accent-green); font-size: 0.9rem;">Consistent Progress</p>
                     </div>
-                    <h3>Certifications</h3>
-                    <div class="stat-main">In Progress</div>
-                    <div class="stat-label">Currently Studying</div>
-                    
-                    <div class="progress-stat">
-                        <div class="progress-title">
-                            <span>Security+</span>
-                            <span>60%</span>
-                        </div>
-                        <div class="progress-bar-small">
-                            <div class="progress-fill-small yellow" style="width: 60%;"></div>
-                        </div>
-                    </div>
-
-                    <div class="progress-stat">
-                        <div class="progress-title">
-                            <span>CEH Preparation</span>
-                            <span>45%</span>
-                        </div>
-                        <div class="progress-bar-small">
-                            <div class="progress-fill-small green" style="width: 45%;"></div>
-                        </div>
-                    </div>
-
-                    <span class="stat-badge">Active Learner</span>
                 </div>
-
-                <!-- Skills Progress Card -->
                 <div class="dashboard-card">
-                    <div class="dashboard-icon">
-                        <i class="fas fa-chart-line"></i>
+                    <h3 style="color: var(--accent-blue); margin-bottom: 1rem;">🎓 Certifications</h3>
+                    <p style="color: var(--text-gray); font-size: 2rem; font-weight: 700; margin: 1rem 0;">In Progress</p>
+                    <p style="color: var(--text-gray); margin-bottom: 1rem;">Building Credentials</p>
+                    <div style="background: rgba(0, 217, 255, 0.1); padding: 0.8rem; border-radius: 8px; margin-bottom: 0.5rem;">
+                        <p style="color: var(--text-gray); font-size: 0.9rem;">▸ Security+ (60%)</p>
+                        <p style="color: var(--text-gray); font-size: 0.9rem;">▸ CEH Prep (45%)</p>
+                        <p style="color: var(--accent-yellow); font-size: 0.9rem;">Target: 2024</p>
                     </div>
-                    <h3>Skills Progress</h3>
-                    <div class="stat-main">Growing</div>
-                    <div class="stat-label">Daily Improvement</div>
-                    
-                    <div class="progress-stat">
-                        <div class="progress-title">
-                            <span>Web Security</span>
-                            <span>80%</span>
-                        </div>
-                        <div class="progress-bar-small">
-                            <div class="progress-fill-small blue" style="width: 80%;"></div>
-                        </div>
-                    </div>
-
-                    <div class="progress-stat">
-                        <div class="progress-title">
-                            <span>Python Scripting</span>
-                            <span>90%</span>
-                        </div>
-                        <div class="progress-bar-small">
-                            <div class="progress-fill-small pink" style="width: 90%;"></div>
-                        </div>
-                    </div>
-
-                    <span class="stat-badge gold">📈 Rapid Growth</span>
                 </div>
             </div>
         </div>
-    </section>
+    </div>
 
-    <!-- Skills Section -->
-    <section id="skills">
+    <!-- SKILLS PAGE -->
+    <div class="page" id="skills">
         <div class="container">
             <h2><i class="fas fa-tools"></i> TECHNICAL SKILLS</h2>
+            <p style="font-size: 1.1rem; color: var(--text-gray); margin-bottom: 3rem; text-align: center;">Comprehensive skills developed through hands-on practice and continuous learning in cybersecurity.</p>
             <div class="skills-grid">
                 <div class="skill-box">
-                    <h4>🔓 WEB SECURITY</h4>
+                    <h4>🔓 WEB SECURITY (80%)</h4>
                     <ul class="skill-list">
                         <li>OWASP Top 10 Vulnerabilities</li>
-                        <li>Burp Suite & Browser DevTools</li>
+                        <li>Burp Suite Professional</li>
                         <li>SQL Injection & Prevention</li>
                         <li>Cross-Site Scripting (XSS)</li>
                         <li>CSRF Protection & Bypass</li>
                         <li>Session Management Security</li>
+                        <li>Authentication & Authorization</li>
+                        <li>API Security Testing</li>
                     </ul>
                 </div>
                 <div class="skill-box">
-                    <h4>🌐 NETWORK SECURITY</h4>
+                    <h4>🌐 NETWORK SECURITY (60%)</h4>
                     <ul class="skill-list">
                         <li>Nmap Network Scanning</li>
                         <li>Wireshark Protocol Analysis</li>
-                        <li>Firewall & Network Fundamentals</li>
-                        <li>Packet Analysis Basics</li>
-                        <li>Network Forensics Introduction</li>
+                        <li>Firewall Configuration</li>
+                        <li>Packet Analysis & Crafting</li>
+                        <li>Network Forensics</li>
                         <li>VPN & Encryption Concepts</li>
+                        <li>DNS & SSL/TLS</li>
+                        <li>Port Scanning & Enumeration</li>
                     </ul>
                 </div>
                 <div class="skill-box">
-                    <h4>💻 PROGRAMMING</h4>
+                    <h4>💻 PROGRAMMING (90%)</h4>
                     <ul class="skill-list">
                         <li>Python Scripting & Automation</li>
                         <li>Bash Shell Scripting</li>
@@ -1986,643 +1039,490 @@
                         <li>SQL Database Queries</li>
                         <li>JSON & API Interactions</li>
                         <li>Git Version Control</li>
+                        <li>Regular Expressions</li>
+                        <li>Data Structures & Algorithms</li>
                     </ul>
                 </div>
                 <div class="skill-box">
-                    <h4>🔍 PENETRATION TESTING</h4>
+                    <h4>🔍 PENETRATION TESTING (75%)</h4>
                     <ul class="skill-list">
                         <li>Vulnerability Assessment</li>
                         <li>Reconnaissance Techniques</li>
-                        <li>Basic Exploitation Methods</li>
-                        <li>Post-Exploration Fundamentals</li>
-                        <li>Privilege Escalation Basics</li>
-                        <li>Report Writing Practice</li>
+                        <li>Exploitation Methods</li>
+                        <li>Privilege Escalation</li>
+                        <li>Lateral Movement</li>
+                        <li>Post-Exploitation</li>
+                        <li>Metasploit Framework</li>
+                        <li>Report Writing & Documentation</li>
                     </ul>
                 </div>
                 <div class="skill-box">
-                    <h4>🛡️ DEFENSE MECHANISMS</h4>
+                    <h4>🛡️ DEFENSE & HARDENING (70%)</h4>
                     <ul class="skill-list">
                         <li>Security Fundamentals</li>
-                        <li>Basic Threat Modeling</li>
-                        <li>Security Compliance Awareness</li>
-                        <li>Risk Assessment Principles</li>
-                        <li>Incident Response Basics</li>
-                        <li>Security Architecture Concepts</li>
+                        <li>Threat Modeling</li>
+                        <li>Security Compliance (OWASP)</li>
+                        <li>Risk Assessment</li>
+                        <li>Incident Response</li>
+                        <li>Security Architecture</li>
+                        <li>System Hardening</li>
+                        <li>Log Analysis & Monitoring</li>
                     </ul>
                 </div>
                 <div class="skill-box">
-                    <h4>🎓 LEARNING & PRACTICE</h4>
+                    <h4>🎓 TOOLS & PLATFORMS (85%)</h4>
                     <ul class="skill-list">
-                        <li>PortSwigger Academy Labs</li>
-                        <li>TryHackMe Learning Paths</li>
-                        <li>CTF Challenge Participation</li>
-                        <li>Security Research & Documentation</li>
-                        <li>Tool Development Practice</li>
-                        <li>Continuous Skill Development</li>
+                        <li>Burp Suite (Community & Pro)</li>
+                        <li>Nmap & Network Tools</li>
+                        <li>Wireshark & tcpdump</li>
+                        <li>Metasploit Framework</li>
+                        <li>Docker & Containerization</li>
+                        <li>Linux (Ubuntu, Kali, Parrot)</li>
+                        <li>Virtual Machines (VBox, VMware)</li>
+                        <li>Browser DevTools & Extensions</li>
                     </ul>
                 </div>
             </div>
         </div>
-    </section>
+    </div>
 
-    <!-- Quiz Game Section -->
-    <section id="quiz">
+    <!-- QUIZ PAGE -->
+    <div class="page" id="quiz">
         <div class="container">
-            <h2><i class="fas fa-gamepad"></i> CYBER SECURITY QUIZ</h2>
-            <p style="font-size: 1.2rem; color: var(--text-gray); margin-bottom: 3rem; text-align: center;">
-                Test your cybersecurity knowledge with this challenging quiz! Perfect for practice and learning.
-            </p>
-            
+            <h2 style="text-align: center;"><i class="fas fa-gamepad"></i> ADVANCED CYBERSECURITY QUIZ</h2>
             <div class="quiz-container">
-                <div id="quizStartScreen">
-                    <div class="quiz-header">
-                        <h3>CYBERSECURITY KNOWLEDGE TEST</h3>
-                        <p>Challenge yourself with questions covering web security, network fundamentals, and ethical hacking concepts.</p>
-                        <p style="color: var(--accent-yellow); margin-top: 1rem;">
-                            <i class="fas fa-graduation-cap"></i> Great for learning and practice!
-                        </p>
-                    </div>
-                    <div style="text-align: center; margin-top: 3rem;">
-                        <button class="restart-btn" onclick="startQuiz()">
-                            <i class="fas fa-play"></i> START QUIZ
-                        </button>
-                    </div>
+                <div id="quizStart" style="text-align: center;">
+                    <h3 style="color: var(--accent-blue); margin-bottom: 1rem;">ADVANCED CYBERSECURITY KNOWLEDGE TEST</h3>
+                    <p style="color: var(--text-gray); margin-bottom: 2rem;">Test your advanced cybersecurity knowledge with 15 challenging questions!</p>
+                    <button class="btn" onclick="startQuiz()">START QUIZ</button>
                 </div>
-
-                <div id="quizGameScreen" style="display: none;">
-                    <div class="quiz-progress">
-                        <div class="progress-text">Question <span id="currentQuestion">1</span> of 12</div>
-                        <div class="progress-bar-container">
-                            <div class="quiz-progress-bar" id="quizProgressBar"></div>
-                        </div>
-                        <div class="progress-text">Score: <span id="currentScore">0</span></div>
+                <div id="quizGame" style="display: none;">
+                    <div style="margin-bottom: 2rem;">
+                        <p style="color: var(--accent-blue);">Question <span id="qNum">1</span> of 15</p>
+                        <p id="question" style="color: var(--text-light); font-size: 1.2rem; margin: 1rem 0;"></p>
+                        <div id="options" style="display: grid; gap: 1rem; margin-top: 1.5rem;"></div>
                     </div>
-
-                    <div class="question-container">
-                        <div class="question-text" id="questionText"></div>
-                        <div class="options-container" id="optionsContainer"></div>
-                    </div>
-
-                    <div class="quiz-controls">
-                        <button class="quiz-btn" id="prevBtn" onclick="previousQuestion()" disabled>
-                            <i class="fas fa-arrow-left"></i> Previous
-                        </button>
-                        <button class="quiz-btn next" id="nextBtn" onclick="nextQuestion()">
-                            Next <i class="fas fa-arrow-right"></i>
-                        </button>
-                    </div>
+                    <button class="btn" id="nextBtn" onclick="nextQuestion()" style="width: 100%; display: none;">Next Question</button>
                 </div>
-
-                <div id="quizResultsScreen" style="display: none;">
-                    <div class="results-container">
-                        <div class="results-title">QUIZ COMPLETED!</div>
-                        <div class="score-display" id="finalScore">0/12</div>
-                        <div class="score-message" id="scoreMessage"></div>
-                        
-                        <div class="fact-container">
-                            <div class="fact-title"><i class="fas fa-lightbulb"></i> CYBER SECURITY INSIGHT</div>
-                            <div class="fact-text" id="factText"></div>
-                            <div class="fact-source" id="factSource"></div>
-                        </div>
-
-                        <button class="restart-btn" onclick="restartQuiz()">
-                            <i class="fas fa-redo"></i> TRY AGAIN
-                        </button>
+                <div id="quizResults" style="display: none; text-align: center;">
+                    <h3 style="color: var(--accent-blue); margin-bottom: 1rem;">QUIZ COMPLETE!</h3>
+                    <p style="font-size: 3rem; color: var(--accent-blue); margin: 1rem 0;" id="score"></p>
+                    <p id="scoreMessage" style="color: var(--text-gray); margin-bottom: 2rem;"></p>
+                    
+                    <div id="cyberFact" class="cyber-fact" style="display: none;">
+                        <h3>💡 CYBERSECURITY FACT</h3>
+                        <p id="factText"></p>
                     </div>
+                    
+                    <button class="btn" onclick="restartQuiz()" style="margin-top: 1rem;">TRY AGAIN</button>
                 </div>
             </div>
         </div>
-    </section>
+    </div>
 
-    <!-- Contact Section -->
-    <section id="contact">
+    <!-- CONTACT PAGE -->
+    <div class="page" id="contact">
         <div class="container">
             <h2><i class="fas fa-envelope"></i> GET IN TOUCH</h2>
             <div class="contact-grid">
-                <div class="contact-info">
-                    <div class="contact-item" onclick="copyToClipboard('satwikonepiece@gmail.com')">
-                        <div class="contact-icon"><i class="fas fa-envelope"></i></div>
-                        <div>
-                            <p style="color: var(--text-gray); font-size: 0.9rem;">Email</p>
-                            <p style="font-weight: 600;">satwikonepiece@gmail.com</p>
-                        </div>
+                <div>
+                    <h3 style="color: var(--accent-blue); margin-bottom: 1.5rem;">Contact Info</h3>
+                    <div class="contact-info">
+                        <p style="color: var(--text-gray);">📧 satwikonepiece@gmail.com</p>
                     </div>
-                    <div class="contact-item" onclick="copyToClipboard('+91 84314 07214')">
-                        <div class="contact-icon"><i class="fas fa-phone"></i></div>
-                        <div>
-                            <p style="color: var(--text-gray); font-size: 0.9rem;">Phone</p>
-                            <p style="font-weight: 600;">+91 84314 07214</p>
-                        </div>
+                    <div class="contact-info">
+                        <p style="color: var(--text-gray);">📞 +91 84314 07214</p>
                     </div>
-                    <div class="contact-item">
-                        <div class="contact-icon"><i class="fas fa-map-marker-alt"></i></div>
-                        <div>
-                            <p style="color: var(--text-gray); font-size: 0.9rem;">Location</p>
-                            <p>Hospet, Karnataka, India</p>
-                        </div>
-                    </div>
-                    <div class="contact-item">
-                        <div class="contact-icon"><i class="fas fa-link"></i></div>
-                        <div>
-                            <p style="color: var(--text-gray); font-size: 0.9rem;">Connect</p>
-                            <p>
-                                <a href="https://www.linkedin.com/in/satwik-pattagi-302075397" target="_blank" style="color: var(--accent-blue); text-decoration: none; margin-right: 1rem;">
-                                    <i class="fab fa-linkedin"></i> LinkedIn
-                                </a>
-                                <a href="https://github.com/satwikonepiece-commits" target="_blank" style="color: var(--accent-blue); text-decoration: none; margin-right: 1rem;">
-                                    <i class="fab fa-github"></i> GitHub
-                                </a>
-                                <a href="https://medium.com/@satwiklpattagi" target="_blank" style="color: var(--accent-blue); text-decoration: none;">
-                                    <i class="fab fa-medium"></i> Medium
-                                </a>
-                            </p>
-                        </div>
+                    <div class="contact-info">
+                        <p style="color: var(--text-gray);">📍 Hospet, Karnataka, India</p>
                     </div>
                 </div>
-                <form class="contact-form" id="contactForm" onsubmit="handleFormSubmit(event)">
-                    <input type="text" placeholder="Your Name" required>
-                    <input type="email" placeholder="Your Email" required>
-                    <input type="text" placeholder="Subject" required>
-                    <textarea placeholder="Your Message" required></textarea>
-                    <button type="submit" class="btn">
-                        <i class="fas fa-paper-plane"></i> SEND MESSAGE
-                    </button>
-                </form>
+                <div>
+                    <h3 style="color: var(--accent-blue); margin-bottom: 1.5rem;">Send Message</h3>
+                    <input type="text" placeholder="Your Name" id="contactName">
+                    <input type="email" placeholder="Your Email" id="contactEmail">
+                    <textarea placeholder="Your Message" rows="5" id="contactMessage"></textarea>
+                    <button class="btn" style="width: 100%; margin-top: 1rem;" onclick="sendMessage()">SEND</button>
+                </div>
             </div>
         </div>
-    </section>
+    </div>
 
-    <!-- Footer -->
     <footer>
-        <p>&copy; 2024 Satwik Pattagi | Cybersecurity Practitioner</p>
-        <p>Building skills through practice | Learning every day | Passionate about security</p>
-        <p style="margin-top: 1rem; font-size: 0.9rem;">
-            <i class="fas fa-code"></i> Practice Makes Progress | 
-            <i class="fas fa-lock"></i> Security First | 
-            <i class="fas fa-shield-alt"></i> Ethical Learning
-        </p>
+        <p>&copy; 2025 Satwik Pattagi | Cybersecurity Practitioner</p>
     </footer>
 
     <script>
-        // Mobile Menu Toggle
-        const hamburger = document.getElementById('hamburger');
-        const navLinks = document.getElementById('navLinks');
-
-        hamburger.addEventListener('click', () => {
-            navLinks.classList.toggle('active');
-            hamburger.classList.toggle('active');
-        });
-
-        document.querySelectorAll('.nav-links a').forEach(link => {
-            link.addEventListener('click', () => {
-                navLinks.classList.remove('active');
-                hamburger.classList.remove('active');
-            });
-        });
-
-        // Section Navigation
-        function showSection(sectionId) {
-            // Hide all sections
-            document.querySelectorAll('section').forEach(section => {
-                section.style.display = 'none';
-            });
-
-            // Show selected section
-            const selectedSection = document.getElementById(sectionId);
-            if (selectedSection) {
-                selectedSection.style.display = 'flex';
-                window.scrollTo(0, 0);
-            }
-
-            // Update nav links
-            document.querySelectorAll('.nav-links a').forEach(link => {
-                link.classList.remove('active');
-            });
-            if (event && event.target) {
-                event.target.classList.add('active');
-            }
-        }
-
-        // Copy to Clipboard
-        function copyToClipboard(text) {
-            navigator.clipboard.writeText(text);
-            
-            const notification = document.createElement('div');
-            notification.textContent = '✓ Copied to clipboard!';
-            notification.style.cssText = `
-                position: fixed;
-                top: 100px;
-                right: 20px;
-                background: linear-gradient(135deg, var(--accent-blue), var(--accent-purple));
-                color: var(--bg-dark);
-                padding: 15px 25px;
-                border-radius: 10px;
-                font-weight: 600;
-                z-index: 10000;
-                animation: slideInRight 0.3s ease;
-                font-family: 'Orbitron', monospace;
-            `;
-            document.body.appendChild(notification);
-            
-            setTimeout(() => {
-                notification.style.animation = 'slideOutRight 0.3s ease';
-                setTimeout(() => notification.remove(), 300);
+        // Loading screen
+        window.addEventListener('load', function() {
+            setTimeout(function() {
+                document.getElementById('loadingScreen').classList.add('hidden');
             }, 2000);
+        });
+
+        // Navigation - FIXED VERSION
+        function showPage(pageId, element) {
+            // Hide all pages
+            document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+            // Show selected page
+            document.getElementById(pageId).classList.add('active');
+            // Update nav links
+            document.querySelectorAll('.nav-link').forEach(link => link.classList.remove('active'));
+            
+            // Activate the clicked link if it exists (for navigation menu)
+            if (element) {
+                element.classList.add('active');
+            } else {
+                // For buttons that don't pass the element, find the corresponding nav link
+                const navLinks = document.querySelectorAll('.nav-link');
+                navLinks.forEach(link => {
+                    if (link.getAttribute('onclick') && link.getAttribute('onclick').includes(pageId)) {
+                        link.classList.add('active');
+                    }
+                });
+            }
+            
+            // Close mobile menu if open
+            document.getElementById('navLinks').classList.remove('active');
+            window.scrollTo(0, 0);
         }
 
-        // Enhanced Cybersecurity Quiz with 12 Unique Questions
-        const quizQuestions = [
-            {
-                question: "What is the primary purpose of the 'Content-Security-Policy' HTTP header?",
-                options: [
-                    "To prevent XSS attacks by controlling resources",
-                    "To encrypt website content",
-                    "To manage user sessions",
-                    "To optimize website performance"
+        // Mobile menu toggle - FIXED VERSION
+        document.getElementById('mobileMenuBtn').addEventListener('click', function() {
+            const navLinks = document.getElementById('navLinks');
+            navLinks.classList.toggle('active');
+            
+            // Change icon based on menu state
+            const icon = this.querySelector('i');
+            if (navLinks.classList.contains('active')) {
+                icon.classList.remove('fa-bars');
+                icon.classList.add('fa-times');
+            } else {
+                icon.classList.remove('fa-times');
+                icon.classList.add('fa-bars');
+            }
+        });
+
+        // Close mobile menu when clicking on a link
+        document.querySelectorAll('.nav-links a').forEach(link => {
+            link.addEventListener('click', function() {
+                document.getElementById('navLinks').classList.remove('active');
+                const icon = document.querySelector('#mobileMenuBtn i');
+                icon.classList.remove('fa-times');
+                icon.classList.add('fa-bars');
+            });
+        });
+
+        // Navbar scroll effect
+        window.addEventListener('scroll', function() {
+            const navbar = document.getElementById('navbar');
+            if (window.scrollY > 50) {
+                navbar.classList.add('scrolled');
+            } else {
+                navbar.classList.remove('scrolled');
+            }
+
+            // Scroll to top button visibility
+            const scrollToTopBtn = document.getElementById('scrollToTop');
+            if (window.scrollY > 300) {
+                scrollToTopBtn.classList.add('visible');
+            } else {
+                scrollToTopBtn.classList.remove('visible');
+            }
+        });
+
+        // Scroll to top functionality
+        document.getElementById('scrollToTop').addEventListener('click', function() {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        });
+
+        // Enhanced Quiz functionality with advanced questions
+        const questions = [
+            { 
+                q: "What is the primary difference between stored XSS and reflected XSS?",
+                opts: [
+                    "Stored XSS persists on the server, reflected XSS doesn't",
+                    "Reflected XSS is more dangerous than stored XSS",
+                    "Stored XSS requires user interaction, reflected doesn't",
+                    "There is no significant difference"
                 ],
-                correct: 0,
-                category: "web",
-                difficulty: "medium",
-                explanation: "Content-Security-Policy helps prevent XSS attacks by controlling which resources can be loaded and executed."
+                ans: 0
             },
-            {
-                question: "Which HTTP method is typically used to retrieve data from a REST API?",
-                options: [
-                    "GET",
-                    "POST", 
-                    "PUT",
-                    "DELETE"
+            { 
+                q: "In a Kerberoasting attack, what does the attacker primarily target?",
+                opts: [
+                    "Service Principal Names (SPNs)",
+                    "Domain Administrator accounts",
+                    "Kerberos ticket-granting tickets",
+                    "NTLM hashes"
                 ],
-                correct: 0,
-                category: "web",
-                difficulty: "easy",
-                explanation: "GET is used for retrieving data, while POST is for creating, PUT for updating, and DELETE for removing."
+                ans: 0
             },
-            {
-                question: "What does SQL injection primarily exploit?",
-                options: [
-                    "Improper input validation",
-                    "Weak encryption algorithms",
-                    "Network configuration issues",
-                    "Operating system vulnerabilities"
+            { 
+                q: "What is the purpose of a canary value in stack protection?",
+                opts: [
+                    "To detect buffer overflow attempts",
+                    "To encrypt sensitive data in memory",
+                    "To prevent SQL injection",
+                    "To validate user sessions"
                 ],
-                correct: 0,
-                category: "web",
-                difficulty: "medium",
-                explanation: "SQL injection exploits improper input validation to manipulate database queries."
+                ans: 0
             },
-            {
-                question: "Which port is commonly used for SSH connections?",
-                options: [
-                    "22",
-                    "80",
-                    "443",
-                    "21"
+            { 
+                q: "Which HTTP header helps prevent MIME sniffing attacks?",
+                opts: [
+                    "X-Content-Type-Options: nosniff",
+                    "Content-Security-Policy",
+                    "Strict-Transport-Security",
+                    "X-Frame-Options"
                 ],
-                correct: 0,
-                category: "network",
-                difficulty: "easy",
-                explanation: "Port 22 is the standard port for SSH (Secure Shell) connections."
+                ans: 0
             },
-            {
-                question: "What is the main purpose of a firewall?",
-                options: [
-                    "To control network traffic based on rules",
-                    "To encrypt data in transit",
-                    "To prevent physical access to servers",
-                    "To scan for viruses"
+            { 
+                q: "What is the main vulnerability exploited in a DNS rebinding attack?",
+                opts: [
+                    "Same-origin policy bypass",
+                    "Buffer overflow in DNS resolver",
+                    "DNS cache poisoning",
+                    "DNSSEC implementation flaws"
                 ],
-                correct: 0,
-                category: "network",
-                difficulty: "easy",
-                explanation: "Firewalls control network traffic by enforcing security rules and policies."
+                ans: 0
             },
-            {
-                question: "Which tool is commonly used for network scanning and discovery?",
-                options: [
-                    "Nmap",
-                    "Wireshark",
-                    "Burp Suite",
-                    "Metasploit"
+            { 
+                q: "In binary exploitation, what technique uses existing code segments to achieve execution?",
+                opts: [
+                    "Return-oriented programming (ROP)",
+                    "Heap spraying",
+                    "Format string exploitation",
+                    "Integer overflow"
                 ],
-                correct: 0,
-                category: "tools",
-                difficulty: "medium",
-                explanation: "Nmap is a popular network scanning tool used for discovery and security auditing."
+                ans: 0
             },
-            {
-                question: "What does the principle of 'least privilege' mean in cybersecurity?",
-                options: [
-                    "Users should have only necessary permissions",
-                    "All users should have admin access",
-                    "Passwords should be very complex",
-                    "Networks should be completely open"
+            { 
+                q: "What does the acronym 'ASLR' stand for in memory protection?",
+                opts: [
+                    "Address Space Layout Randomization",
+                    "Application Security Layer Randomization",
+                    "Advanced Stack Location Randomization",
+                    "Application Segment Layout Randomization"
                 ],
-                correct: 0,
-                category: "concepts",
-                difficulty: "medium",
-                explanation: "Least privilege means users and systems should have only the permissions needed to perform their tasks."
+                ans: 0
             },
-            {
-                question: "Which type of attack involves tricking users into revealing sensitive information?",
-                options: [
-                    "Phishing",
-                    "DDoS",
-                    "Brute force",
-                    "Man-in-the-middle"
+            { 
+                q: "Which vulnerability class involves improper handling of symbolic links?",
+                opts: [
+                    "TOCTOU (Time-of-check to time-of-use)",
+                    "Race conditions",
+                    "Directory traversal",
+                    "Insecure deserialization"
                 ],
-                correct: 0,
-                category: "social",
-                difficulty: "easy",
-                explanation: "Phishing attacks use social engineering to trick users into revealing sensitive information."
+                ans: 0
             },
-            {
-                question: "What is the purpose of hashing passwords?",
-                options: [
-                    "To securely store password verification data",
-                    "To encrypt password transmission",
-                    "To make passwords easier to remember",
-                    "To prevent password expiration"
+            { 
+                q: "What is the primary purpose of the 'Expect-CT' header?",
+                opts: [
+                    "Certificate Transparency enforcement",
+                    "Content type validation",
+                    "Cross-site request protection",
+                    "Clickjacking prevention"
                 ],
-                correct: 0,
-                category: "crypto",
-                difficulty: "medium",
-                explanation: "Hashing converts passwords into fixed-length strings for secure storage and verification."
+                ans: 0
             },
-            {
-                question: "Which protocol provides secure communication over HTTP?",
-                options: [
-                    "HTTPS",
-                    "FTP",
-                    "SMTP",
-                    "DNS"
+            { 
+                q: "In cryptography, what distinguishes a stream cipher from a block cipher?",
+                opts: [
+                    "Stream ciphers encrypt data bit-by-bit, block ciphers use fixed-size blocks",
+                    "Block ciphers are faster than stream ciphers",
+                    "Stream ciphers are more secure than block ciphers",
+                    "Block ciphers can only be used for file encryption"
                 ],
-                correct: 0,
-                category: "web",
-                difficulty: "easy",
-                explanation: "HTTPS (HTTP Secure) provides encrypted communication over HTTP using SSL/TLS."
+                ans: 0
             },
-            {
-                question: "What does CORS stand for in web security?",
-                options: [
-                    "Cross-Origin Resource Sharing",
-                    "Content Origin Restriction System",
-                    "Centralized Origin Resource Security",
-                    "Cross-Platform Origin Resolution"
+            { 
+                q: "What vulnerability does 'Padding Oracle Attack' exploit?",
+                opts: [
+                    "Cryptographic implementation flaws in padding validation",
+                    "Database injection vulnerabilities",
+                    "Web application session management",
+                    "Network protocol timing attacks"
                 ],
-                correct: 0,
-                category: "web",
-                difficulty: "hard",
-                explanation: "CORS is a mechanism that allows restricted resources on a web page to be requested from another domain."
+                ans: 0
             },
-            {
-                question: "Which vulnerability allows attackers to execute scripts in a user's browser?",
-                options: [
-                    "Cross-Site Scripting (XSS)",
-                    "SQL Injection",
-                    "CSRF",
-                    "Directory Traversal"
+            { 
+                q: "Which technique is used to bypass ASLR when PIE is not enabled?",
+                opts: [
+                    "Return-to-plt or return-to-libc",
+                    "Heap spraying",
+                    "ROP chain construction",
+                    "Format string exploitation"
                 ],
-                correct: 0,
-                category: "web",
-                difficulty: "medium",
-                explanation: "XSS vulnerabilities allow attackers to inject and execute malicious scripts in users' browsers."
+                ans: 0
+            },
+            { 
+                q: "What is the primary security risk in JWT tokens without proper validation?",
+                opts: [
+                    "Algorithm confusion attacks",
+                    "Token size limitations",
+                    "Encryption strength",
+                    "Token expiration"
+                ],
+                ans: 0
+            },
+            { 
+                q: "In web security, what does 'HSTS preloading' accomplish?",
+                opts: [
+                    "Forces HTTPS for domains in browser preload lists",
+                    "Accelerates SSL/TLS handshake",
+                    "Prevents mixed content warnings",
+                    "Enables HTTP/2 protocol"
+                ],
+                ans: 0
+            },
+            { 
+                q: "What is the main purpose of the 'Subresource Integrity' (SRI) feature?",
+                opts: [
+                    "Ensuring external resources haven't been tampered with",
+                    "Validating SSL certificates",
+                    "Preventing CSRF attacks",
+                    "Enforcing same-origin policy"
+                ],
+                ans: 0
             }
         ];
 
-        // Quiz Game State
-        let currentQuestionIndex = 0;
-        let score = 0;
-        let userAnswers = [];
-        let answerSubmitted = false;
+        // Cybersecurity facts array
+        const cyberFacts = [
+            "The first computer virus, called 'Creeper', was created in 1971 and displayed the message 'I'm the creeper, catch me if you can!'",
+            "Bug bounty programs have paid out over $100 million to ethical hackers since 2010, with some individual bounties exceeding $1 million",
+            "The 'Morris Worm' in 1988 infected approximately 10% of all computers connected to the internet at the time, which was about 6,000 machines",
+            "White hat hackers discovered a vulnerability in Tesla's systems in 2019 and were rewarded with a Model 3 car worth $35,000",
+            "The term 'firewall' originally referred to a physical wall that prevented fire from spreading between buildings",
+            "Ethical hackers helped identify critical vulnerabilities in COVID-19 vaccine distribution systems, preventing potential cyberattacks",
+            "The largest DDoS attack ever recorded reached 3.47 terabits per second in 2021, targeting an AWS customer",
+            "Zero-day vulnerabilities can sell for millions of dollars on the black market to nation-states and cybercriminals",
+            "The first bug bounty program was launched by Netscape in 1995, offering cash rewards for finding security flaws",
+            "Over 90% of cyberattacks start with a phishing email, making social engineering the most common attack vector"
+        ];
 
-        // Quiz Functions
+        let currentQ = 0, score = 0;
+        let selectedOption = -1;
+
         function startQuiz() {
-            document.getElementById('quizStartScreen').style.display = 'none';
-            document.getElementById('quizGameScreen').style.display = 'block';
-            document.getElementById('quizResultsScreen').style.display = 'none';
-            
-            currentQuestionIndex = 0;
-            score = 0;
-            userAnswers = [];
-            answerSubmitted = false;
-            
+            document.getElementById('quizStart').style.display = 'none';
+            document.getElementById('quizGame').style.display = 'block';
             showQuestion();
         }
 
         function showQuestion() {
-            const question = quizQuestions[currentQuestionIndex];
-            const questionText = document.getElementById('questionText');
-            const optionsContainer = document.getElementById('optionsContainer');
+            const q = questions[currentQ];
+            document.getElementById('qNum').textContent = currentQ + 1;
+            document.getElementById('question').textContent = q.q;
+            const opts = document.getElementById('options');
+            opts.innerHTML = '';
+            selectedOption = -1;
             
-            // Add difficulty badge
-            let difficultyBadge = '';
-            if (question.difficulty === 'hard') {
-                difficultyBadge = '<span class="difficulty-badge difficulty-hard">HARD</span>';
-            } else if (question.difficulty === 'medium') {
-                difficultyBadge = '<span class="difficulty-badge difficulty-medium">MEDIUM</span>';
-            } else {
-                difficultyBadge = '<span class="difficulty-badge" style="background: rgba(0, 217, 255, 0.3); color: var(--accent-blue); border: 1px solid var(--accent-blue);">EASY</span>';
-            }
-            
-            questionText.innerHTML = `${question.question} ${difficultyBadge}`;
-            
-            // Clear previous options
-            optionsContainer.innerHTML = '';
-            
-            // Add new options
-            question.options.forEach((option, index) => {
-                const optionElement = document.createElement('div');
-                optionElement.className = 'option';
-                optionElement.textContent = option;
-                optionElement.onclick = () => selectOption(index);
-                optionsContainer.appendChild(optionElement);
+            q.opts.forEach((opt, i) => {
+                const div = document.createElement('div');
+                div.className = 'quiz-option';
+                div.textContent = opt;
+                div.onclick = () => selectOption(i, div);
+                opts.appendChild(div);
             });
             
-            // Update progress
-            updateProgress();
-            
-            // Update navigation buttons
-            document.getElementById('prevBtn').disabled = currentQuestionIndex === 0;
-            document.getElementById('nextBtn').disabled = true;
-            answerSubmitted = false;
+            document.getElementById('nextBtn').style.display = 'none';
         }
 
-        function selectOption(optionIndex) {
-            if (answerSubmitted) return;
+        function selectOption(i, element) {
+            if (selectedOption !== -1) return; // Prevent reselection
             
-            const question = quizQuestions[currentQuestionIndex];
-            const options = document.querySelectorAll('.option');
+            selectedOption = i;
+            const q = questions[currentQ];
             
-            // Remove previous selections
-            options.forEach(option => {
-                option.classList.remove('selected', 'correct', 'incorrect');
+            // Highlight all options
+            const options = document.querySelectorAll('.quiz-option');
+            options.forEach(opt => {
+                opt.style.pointerEvents = 'none'; // Disable further clicks
             });
             
-            // Mark selected option
-            options[optionIndex].classList.add('selected');
-            
-            // Store user answer
-            userAnswers[currentQuestionIndex] = optionIndex;
-            
-            // Check if answer is correct and show visual feedback
-            if (optionIndex === question.correct) {
-                options[optionIndex].classList.add('correct');
+            // Mark correct/incorrect
+            if (i === q.ans) {
+                element.classList.add('correct');
+                score++;
             } else {
-                options[optionIndex].classList.add('incorrect');
-                // Also show the correct answer
-                options[question.correct].classList.add('correct');
+                element.classList.add('incorrect');
+                // Also highlight the correct answer
+                options[q.ans].classList.add('correct');
             }
             
-            answerSubmitted = true;
-            
-            // Enable next button
-            document.getElementById('nextBtn').disabled = false;
+            document.getElementById('nextBtn').style.display = 'block';
         }
 
         function nextQuestion() {
-            // Check if answer is correct
-            const userAnswer = userAnswers[currentQuestionIndex];
-            const question = quizQuestions[currentQuestionIndex];
-            
-            if (userAnswer === question.correct) {
-                score++;
-                document.getElementById('currentScore').textContent = score;
-            }
-            
-            // Move to next question or show results
-            currentQuestionIndex++;
-            
-            if (currentQuestionIndex < quizQuestions.length) {
+            currentQ++;
+            if (currentQ < questions.length) {
                 showQuestion();
             } else {
-                showResults();
+                endQuiz();
             }
         }
 
-        function previousQuestion() {
-            if (currentQuestionIndex > 0) {
-                currentQuestionIndex--;
-                showQuestion();
-                
-                // Restore previous selection if exists
-                if (userAnswers[currentQuestionIndex] !== undefined) {
-                    const options = document.querySelectorAll('.option');
-                    options[userAnswers[currentQuestionIndex]].classList.add('selected');
-                }
-            }
-        }
-
-        function updateProgress() {
-            const progress = ((currentQuestionIndex + 1) / quizQuestions.length) * 100;
-            document.getElementById('quizProgressBar').style.width = `${progress}%`;
-            document.getElementById('currentQuestion').textContent = currentQuestionIndex + 1;
-        }
-
-        function showResults() {
-            document.getElementById('quizGameScreen').style.display = 'none';
-            document.getElementById('quizResultsScreen').style.display = 'block';
+        function endQuiz() {
+            document.getElementById('quizGame').style.display = 'none';
+            document.getElementById('quizResults').style.display = 'block';
+            document.getElementById('score').textContent = score + ' / ' + questions.length;
             
-            const finalScore = document.getElementById('finalScore');
+            // Add score message
             const scoreMessage = document.getElementById('scoreMessage');
-            const factText = document.getElementById('factText');
-            const factSource = document.getElementById('factSource');
+            const percentage = (score / questions.length) * 100;
             
-            // Calculate percentage
-            const percentage = Math.round((score / quizQuestions.length) * 100);
-            
-            finalScore.textContent = `${score}/${quizQuestions.length}`;
-            
-            // Set score message
             if (percentage >= 90) {
-                scoreMessage.textContent = "Excellent! You have strong cybersecurity knowledge!";
-                scoreMessage.style.color = "var(--accent-green)";
+                scoreMessage.textContent = "Outstanding! You're a cybersecurity expert!";
             } else if (percentage >= 70) {
-                scoreMessage.textContent = "Great job! You're building solid security fundamentals.";
-                scoreMessage.style.color = "var(--accent-blue)";
+                scoreMessage.textContent = "Excellent! You have advanced cybersecurity knowledge.";
             } else if (percentage >= 50) {
-                scoreMessage.textContent = "Good effort! Keep learning and practicing.";
-                scoreMessage.style.color = "var(--accent-yellow)";
+                scoreMessage.textContent = "Good job! You have solid cybersecurity fundamentals.";
             } else {
-                scoreMessage.textContent = "Keep studying! Cybersecurity is a continuous learning journey.";
-                scoreMessage.style.color = "var(--accent-pink)";
+                scoreMessage.textContent = "Keep learning! Cybersecurity is a continuous journey.";
             }
             
-            // Show random cybersecurity fact
-            const facts = [
-                {
-                    text: "The first computer virus was created in 1971 and was called 'Creeper'. It displayed the message 'I'm the creeper, catch me if you can!'",
-                    source: "Historical Cybersecurity"
-                },
-                {
-                    text: "Multi-factor authentication prevents 99.9% of automated attacks, yet only 26% of users enable it on all accounts.",
-                    source: "Microsoft Security Report"
-                },
-                {
-                    text: "The average time to identify a breach in 2024 was 204 days, highlighting the importance of continuous monitoring.",
-                    source: "IBM Cost of a Data Breach Report"
-                },
-                {
-                    text: "Social engineering attacks account for 98% of cyber incidents, making human factors the weakest link in security.",
-                    source: "CISA Security Awareness"
-                }
-            ];
-            
-            const randomFact = facts[Math.floor(Math.random() * facts.length)];
-            factText.textContent = randomFact.text;
-            factSource.textContent = `Source: ${randomFact.source}`;
+            // Show a random cybersecurity fact
+            const factElement = document.getElementById('cyberFact');
+            const factText = document.getElementById('factText');
+            const randomFact = cyberFacts[Math.floor(Math.random() * cyberFacts.length)];
+            factText.textContent = randomFact;
+            factElement.style.display = 'block';
         }
 
         function restartQuiz() {
-            document.getElementById('quizResultsScreen').style.display = 'none';
-            document.getElementById('quizStartScreen').style.display = 'block';
+            currentQ = 0;
+            score = 0;
+            document.getElementById('quizResults').style.display = 'none';
+            document.getElementById('quizStart').style.display = 'block';
+            document.getElementById('cyberFact').style.display = 'none';
         }
 
-        // Form Submission
-        function handleFormSubmit(e) {
-            e.preventDefault();
+        // Contact form functionality
+        function sendMessage() {
+            const name = document.getElementById('contactName').value;
+            const email = document.getElementById('contactEmail').value;
+            const message = document.getElementById('contactMessage').value;
             
-            const successMsg = document.createElement('div');
-            successMsg.innerHTML = '<i class="fas fa-check-circle"></i> Message sent! I\'ll get back to you soon!';
-            successMsg.style.cssText = `
-                position: fixed;
-                top: 50%;
-                left: 50%;
-                transform: translate(-50%, -50%);
-                background: linear-gradient(135deg, var(--accent-green), var(--accent-blue));
-                color: var(--bg-dark);
-                padding: 20px 40px;
-                border-radius: 10px;
-                font-weight: 600;
-                z-index: 10000;
-                text-align: center;
-                animation: slideInRight 0.5s ease;
-                font-family: 'Orbitron', monospace;
-                font-size: 1.1rem;
-            `;
-            document.body.appendChild(successMsg);
+            if (!name || !email || !message) {
+                alert('Please fill in all fields before sending.');
+                return;
+            }
             
-            setTimeout(() => {
-                successMsg.style.animation = 'slideOutRight 0.5s ease';
-                setTimeout(() => successMsg.remove(), 500);
-            }, 3000);
+            // In a real implementation, you would send this data to a server
+            alert('Thank you for your message! I\'ll get back to you soon.');
             
-            e.target.reset();
+            // Clear form
+            document.getElementById('contactName').value = '';
+            document.getElementById('contactEmail').value = '';
+            document.getElementById('contactMessage').value = '';
         }
-
-        // Add animations
-        const style = document.createElement('style');
-        style.textContent = `
-            @keyframes slideInRight {
-                from { transform: translateX(100px); opacity: 0; }
-                to { transform: translateX(0); opacity: 1; }
-            }
-            @keyframes slideOutRight {
-                from { transform: translateX(0); opacity: 1; }
-                to { transform: translateX(100px); opacity: 0; }
-            }
-        `;
-        document.head.appendChild(style);
     </script>
 </body>
 </html>
