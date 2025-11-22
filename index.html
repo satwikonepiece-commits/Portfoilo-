@@ -638,6 +638,32 @@
             animation: pulse 1s infinite;
         }
 
+        /* Home Page Specific Mobile Fixes */
+        .home-stats-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 1rem;
+            margin: 2rem 0;
+        }
+
+        .home-journey-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.5rem;
+        }
+
+        .home-focus-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.5rem;
+        }
+
+        .home-focus-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 1rem;
+        }
+
         /* Responsive Design */
         @media (max-width: 1024px) {
             .hero-content h1 {
@@ -697,15 +723,60 @@
             .page {
                 padding-top: 80px;
             }
+
+            /* Mobile-specific home page fixes */
+            .home-stats-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 0.8rem;
+            }
+
+            .home-journey-grid {
+                grid-template-columns: 1fr;
+                gap: 1rem;
+            }
+
+            .home-focus-grid {
+                grid-template-columns: 1fr;
+                gap: 1rem;
+            }
+
+            .home-focus-item {
+                flex-direction: column;
+                text-align: center;
+                gap: 0.5rem;
+            }
+
+            .home-focus-item div:first-child {
+                font-size: 1.5rem;
+                min-width: auto;
+            }
+
+            .container {
+                padding: 0 1rem;
+            }
+
+            .hero-content {
+                padding: 0 0.5rem;
+            }
+
+            .hero-content h1 {
+                font-size: 2rem;
+                line-height: 1.2;
+            }
+
+            .hero-content p {
+                font-size: 1rem;
+                line-height: 1.4;
+            }
         }
 
         @media (max-width: 480px) {
             .container {
-                padding: 0 1rem;
+                padding: 0 0.5rem;
             }
             
             .hero-content h1 {
-                font-size: 2rem;
+                font-size: 1.8rem;
             }
             
             h2 {
@@ -714,6 +785,43 @@
             
             .quiz-container {
                 padding: 1.5rem;
+            }
+
+            .home-stats-grid {
+                grid-template-columns: 1fr;
+                gap: 0.5rem;
+            }
+
+            .btn {
+                padding: 12px 25px;
+                font-size: 0.9rem;
+            }
+
+            .hero-content p {
+                font-size: 0.9rem;
+            }
+
+            .page {
+                padding-top: 70px;
+                padding-bottom: 30px;
+            }
+        }
+
+        @media (max-width: 360px) {
+            .hero-content h1 {
+                font-size: 1.5rem;
+            }
+
+            h2 {
+                font-size: 1.5rem;
+            }
+
+            .home-stats-grid div {
+                padding: 1rem;
+            }
+
+            .home-stats-grid div div:first-child {
+                font-size: 1.5rem;
             }
         }
     </style>
@@ -753,100 +861,100 @@
 
     <!-- HOME PAGE -->
     <div class="page active" id="home">
-        <div class="container" style="text-align: center; display: flex; flex-direction: column; align-items: center; justify-content: center; min-height: 100vh; padding: 0 2rem;">
-            <div class="hero-content" style="max-width: 1000px; animation: slideIn 0.6s ease;">
-                <h1 style="font-size: 3.5rem;">SATWIK PATTAGI</h1>
-                <p style="font-size: 1.3rem; margin-bottom: 1.5rem;">CYBERSECURITY PRACTITIONER & ETHICAL HACKING STUDENT</p>
+        <div class="container" style="text-align: center; display: flex; flex-direction: column; align-items: center; justify-content: center; min-height: 100vh; padding: 0 1rem;">
+            <div class="hero-content" style="max-width: 1000px; animation: slideIn 0.6s ease; width: 100%;">
+                <h1 style="font-size: clamp(1.8rem, 5vw, 3.5rem); margin-bottom: 1rem;">SATWIK PATTAGI</h1>
+                <p style="font-size: clamp(1rem, 3vw, 1.3rem); margin-bottom: 1.5rem;">CYBERSECURITY PRACTITIONER & ETHICAL HACKING STUDENT</p>
                 
                 <!-- Main Description -->
-                <div style="background: linear-gradient(135deg, rgba(0, 217, 255, 0.08), rgba(124, 58, 237, 0.08)); border: 2px solid rgba(0, 217, 255, 0.3); border-radius: 15px; padding: 2rem; margin: 2rem 0; text-align: left;">
-                    <h3 style="color: var(--accent-blue); text-align: center; margin-bottom: 1.5rem; font-size: 1.3rem;">👨‍💻 ABOUT ME</h3>
-                    <p style="color: var(--text-gray); margin-bottom: 1rem; line-height: 1.8;">I'm a passionate cybersecurity learner and ethical hacker dedicated to building expertise in protecting digital assets and identifying vulnerabilities. With a strong foundation in web security, network security, and penetration testing, I'm committed to becoming a top-tier security professional in the field.</p>
-                    <p style="color: var(--text-gray); line-height: 1.8;">My journey focuses on practical hands-on experience through continuous learning on platforms like TryHackMe, PortSwigger Academy, and HackTheBox. I'm actively involved in bug bounty hunting and building security automation tools to enhance my expertise.</p>
+                <div style="background: linear-gradient(135deg, rgba(0, 217, 255, 0.08), rgba(124, 58, 237, 0.08)); border: 2px solid rgba(0, 217, 255, 0.3); border-radius: 15px; padding: 1.5rem; margin: 1.5rem 0; text-align: left;">
+                    <h3 style="color: var(--accent-blue); text-align: center; margin-bottom: 1rem; font-size: clamp(1.1rem, 3vw, 1.3rem);">👨‍💻 ABOUT ME</h3>
+                    <p style="color: var(--text-gray); margin-bottom: 1rem; line-height: 1.6; font-size: clamp(0.9rem, 2.5vw, 1rem);">I'm a passionate cybersecurity learner and ethical hacker dedicated to building expertise in protecting digital assets and identifying vulnerabilities. With a strong foundation in web security, network security, and penetration testing, I'm committed to becoming a top-tier security professional in the field.</p>
+                    <p style="color: var(--text-gray); line-height: 1.6; font-size: clamp(0.9rem, 2.5vw, 1rem);">My journey focuses on practical hands-on experience through continuous learning on platforms like TryHackMe, PortSwigger Academy, and HackTheBox. I'm actively involved in bug bounty hunting and building security automation tools to enhance my expertise.</p>
                 </div>
 
                 <!-- Journey Sections -->
-                <div style="background: linear-gradient(135deg, rgba(0, 217, 255, 0.08), rgba(124, 58, 237, 0.08)); border: 2px solid rgba(0, 217, 255, 0.3); border-radius: 15px; padding: 2rem; margin: 2rem 0; text-align: left;">
-                    <h3 style="color: var(--accent-blue); text-align: center; margin-bottom: 1.5rem; font-size: 1.3rem;">🎯 MY JOURNEY IN CYBERSECURITY</h3>
-                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem;">
+                <div style="background: linear-gradient(135deg, rgba(0, 217, 255, 0.08), rgba(124, 58, 237, 0.08)); border: 2px solid rgba(0, 217, 255, 0.3); border-radius: 15px; padding: 1.5rem; margin: 1.5rem 0; text-align: left;">
+                    <h3 style="color: var(--accent-blue); text-align: center; margin-bottom: 1rem; font-size: clamp(1.1rem, 3vw, 1.3rem);">🎯 MY JOURNEY IN CYBERSECURITY</h3>
+                    <div class="home-journey-grid">
                         <div style="border-left: 3px solid var(--accent-blue); padding-left: 1rem;">
-                            <h4 style="color: var(--accent-blue); margin-bottom: 0.5rem; font-size: 1.1rem;">🔓 Ethical Hacking</h4>
-                            <p style="color: var(--text-gray); font-size: 0.95rem; line-height: 1.6;">Learning penetration testing, vulnerability assessment, and exploitation techniques on TryHackMe and PortSwigger Academy. Currently mastering offensive security methodologies and practical hacking skills.</p>
+                            <h4 style="color: var(--accent-blue); margin-bottom: 0.5rem; font-size: clamp(1rem, 2.5vw, 1.1rem);">🔓 Ethical Hacking</h4>
+                            <p style="color: var(--text-gray); font-size: clamp(0.85rem, 2vw, 0.95rem); line-height: 1.5;">Learning penetration testing, vulnerability assessment, and exploitation techniques on TryHackMe and PortSwigger Academy. Currently mastering offensive security methodologies and practical hacking skills.</p>
                         </div>
                         <div style="border-left: 3px solid var(--accent-pink); padding-left: 1rem;">
-                            <h4 style="color: var(--accent-pink); margin-bottom: 0.5rem; font-size: 1.1rem;">🏆 Bug Bounty Hunting</h4>
-                            <p style="color: var(--text-gray); font-size: 0.95rem; line-height: 1.6;">Discovering and reporting vulnerabilities responsibly on platforms like HackerOne and Bugcrowd. Building a solid track record in responsible disclosure and vulnerability research.</p>
+                            <h4 style="color: var(--accent-pink); margin-bottom: 0.5rem; font-size: clamp(1rem, 2.5vw, 1.1rem);">🏆 Bug Bounty Hunting</h4>
+                            <p style="color: var(--text-gray); font-size: clamp(0.85rem, 2vw, 0.95rem); line-height: 1.5;">Discovering and reporting vulnerabilities responsibly on platforms like HackerOne and Bugcrowd. Building a solid track record in responsible disclosure and vulnerability research.</p>
                         </div>
                         <div style="border-left: 3px solid var(--accent-green); padding-left: 1rem;">
-                            <h4 style="color: var(--accent-green); margin-bottom: 0.5rem; font-size: 1.1rem;">🌐 Web Security</h4>
-                            <p style="color: var(--text-gray); font-size: 0.95rem; line-height: 1.6;">Mastering OWASP Top 10, XSS, SQL Injection, CSRF, and other web application vulnerabilities. Deep understanding of authentication, authorization, and session management security.</p>
+                            <h4 style="color: var(--accent-green); margin-bottom: 0.5rem; font-size: clamp(1rem, 2.5vw, 1.1rem);">🌐 Web Security</h4>
+                            <p style="color: var(--text-gray); font-size: clamp(0.85rem, 2vw, 0.95rem); line-height: 1.5;">Mastering OWASP Top 10, XSS, SQL Injection, CSRF, and other web application vulnerabilities. Deep understanding of authentication, authorization, and session management security.</p>
                         </div>
                         <div style="border-left: 3px solid var(--accent-purple); padding-left: 1rem;">
-                            <h4 style="color: var(--accent-purple); margin-bottom: 0.5rem; font-size: 1.1rem;">🔐 Network Security</h4>
-                            <p style="color: var(--text-gray); font-size: 0.95rem; line-height: 1.6;">Understanding network protocols, firewall configurations, intrusion detection systems, and advanced reconnaissance techniques using industry-standard tools.</p>
+                            <h4 style="color: var(--accent-purple); margin-bottom: 0.5rem; font-size: clamp(1rem, 2.5vw, 1.1rem);">🔐 Network Security</h4>
+                            <p style="color: var(--text-gray); font-size: clamp(0.85rem, 2vw, 0.95rem); line-height: 1.5;">Understanding network protocols, firewall configurations, intrusion detection systems, and advanced reconnaissance techniques using industry-standard tools.</p>
                         </div>
                     </div>
                 </div>
 
                 <!-- Stats Section -->
-                <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 1rem; margin: 2rem 0;">
-                    <div style="background: rgba(0, 217, 255, 0.1); border: 1px solid rgba(0, 217, 255, 0.3); border-radius: 10px; padding: 1.5rem; text-align: center; transition: all 0.3s;" onmouseover="this.style.transform='translateY(-5px)'; this.style.boxShadow='var(--glow-blue)';" onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='none';">
-                        <div style="font-size: 2rem; font-weight: 700; color: var(--accent-blue); margin-bottom: 0.5rem;">1000+</div>
-                        <div style="color: var(--text-gray); font-size: 0.9rem;">Practice Hours</div>
+                <div class="home-stats-grid">
+                    <div style="background: rgba(0, 217, 255, 0.1); border: 1px solid rgba(0, 217, 255, 0.3); border-radius: 10px; padding: 1.2rem; text-align: center; transition: all 0.3s;" onmouseover="this.style.transform='translateY(-5px)'; this.style.boxShadow='var(--glow-blue)';" onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='none';">
+                        <div style="font-size: clamp(1.5rem, 4vw, 2rem); font-weight: 700; color: var(--accent-blue); margin-bottom: 0.5rem;">1000+</div>
+                        <div style="color: var(--text-gray); font-size: clamp(0.8rem, 2vw, 0.9rem);">Practice Hours</div>
                     </div>
-                    <div style="background: rgba(0, 217, 255, 0.1); border: 1px solid rgba(0, 217, 255, 0.3); border-radius: 10px; padding: 1.5rem; text-align: center; transition: all 0.3s;" onmouseover="this.style.transform='translateY(-5px)'; this.style.boxShadow='var(--glow-blue)';" onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='none';">
-                        <div style="font-size: 2rem; font-weight: 700; color: var(--accent-blue); margin-bottom: 0.5rem;">50+</div>
-                        <div style="color: var(--text-gray); font-size: 0.9rem;">Labs Completed</div>
+                    <div style="background: rgba(0, 217, 255, 0.1); border: 1px solid rgba(0, 217, 255, 0.3); border-radius: 10px; padding: 1.2rem; text-align: center; transition: all 0.3s;" onmouseover="this.style.transform='translateY(-5px)'; this.style.boxShadow='var(--glow-blue)';" onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='none';">
+                        <div style="font-size: clamp(1.5rem, 4vw, 2rem); font-weight: 700; color: var(--accent-blue); margin-bottom: 0.5rem;">50+</div>
+                        <div style="color: var(--text-gray); font-size: clamp(0.8rem, 2vw, 0.9rem);">Labs Completed</div>
                     </div>
-                    <div style="background: rgba(0, 217, 255, 0.1); border: 1px solid rgba(0, 217, 255, 0.3); border-radius: 10px; padding: 1.5rem; text-align: center; transition: all 0.3s;" onmouseover="this.style.transform='translateY(-5px)'; this.style.boxShadow='var(--glow-blue)';" onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='none';">
-                        <div style="font-size: 2rem; font-weight: 700; color: var(--accent-blue); margin-bottom: 0.5rem;">15+</div>
-                        <div style="color: var(--text-gray); font-size: 0.9rem;">Projects Built</div>
+                    <div style="background: rgba(0, 217, 255, 0.1); border: 1px solid rgba(0, 217, 255, 0.3); border-radius: 10px; padding: 1.2rem; text-align: center; transition: all 0.3s;" onmouseover="this.style.transform='translateY(-5px)'; this.style.boxShadow='var(--glow-blue)';" onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='none';">
+                        <div style="font-size: clamp(1.5rem, 4vw, 2rem); font-weight: 700; color: var(--accent-blue); margin-bottom: 0.5rem;">15+</div>
+                        <div style="color: var(--text-gray); font-size: clamp(0.8rem, 2vw, 0.9rem);">Projects Built</div>
                     </div>
-                    <div style="background: rgba(0, 217, 255, 0.1); border: 1px solid rgba(0, 217, 255, 0.3); border-radius: 10px; padding: 1.5rem; text-align: center; transition: all 0.3s;" onmouseover="this.style.transform='translateY(-5px)'; this.style.boxShadow='var(--glow-blue)';" onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='none';">
-                        <div style="font-size: 2rem; font-weight: 700; color: var(--accent-blue); margin-bottom: 0.5rem;">Daily</div>
-                        <div style="color: var(--text-gray); font-size: 0.9rem;">Learning Streak</div>
+                    <div style="background: rgba(0, 217, 255, 0.1); border: 1px solid rgba(0, 217, 255, 0.3); border-radius: 10px; padding: 1.2rem; text-align: center; transition: all 0.3s;" onmouseover="this.style.transform='translateY(-5px)'; this.style.boxShadow='var(--glow-blue)';" onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='none';">
+                        <div style="font-size: clamp(1.5rem, 4vw, 2rem); font-weight: 700; color: var(--accent-blue); margin-bottom: 0.5rem;">Daily</div>
+                        <div style="color: var(--text-gray); font-size: clamp(0.8rem, 2vw, 0.9rem);">Learning Streak</div>
                     </div>
                 </div>
 
                 <!-- Focus Areas -->
-                <div style="background: linear-gradient(135deg, rgba(0, 217, 255, 0.08), rgba(124, 58, 237, 0.08)); border: 2px solid rgba(0, 217, 255, 0.3); border-radius: 15px; padding: 2rem; margin: 2rem 0;">
-                    <h3 style="color: var(--accent-blue); text-align: center; margin-bottom: 1.5rem; font-size: 1.3rem;">🎓 CURRENT FOCUS AREAS</h3>
-                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem;">
-                        <div style="display: flex; align-items: flex-start; gap: 1rem;">
-                            <div style="font-size: 2rem; min-width: 50px;">🔍</div>
+                <div style="background: linear-gradient(135deg, rgba(0, 217, 255, 0.08), rgba(124, 58, 237, 0.08)); border: 2px solid rgba(0, 217, 255, 0.3); border-radius: 15px; padding: 1.5rem; margin: 1.5rem 0;">
+                    <h3 style="color: var(--accent-blue); text-align: center; margin-bottom: 1rem; font-size: clamp(1.1rem, 3vw, 1.3rem);">🎓 CURRENT FOCUS AREAS</h3>
+                    <div class="home-focus-grid">
+                        <div class="home-focus-item">
+                            <div style="font-size: clamp(1.5rem, 4vw, 2rem);">🔍</div>
                             <div style="text-align: left;">
-                                <h4 style="color: var(--accent-blue); margin-bottom: 0.5rem; font-size: 1.05rem;">Vulnerability Research</h4>
-                                <p style="color: var(--text-gray); font-size: 0.9rem; line-height: 1.6;">Finding and analyzing security flaws in web applications and systems. Building skills in identifying zero-day vulnerabilities and security misconfigurations.</p>
+                                <h4 style="color: var(--accent-blue); margin-bottom: 0.5rem; font-size: clamp(0.95rem, 2.5vw, 1.05rem);">Vulnerability Research</h4>
+                                <p style="color: var(--text-gray); font-size: clamp(0.85rem, 2vw, 0.9rem); line-height: 1.5;">Finding and analyzing security flaws in web applications and systems. Building skills in identifying zero-day vulnerabilities and security misconfigurations.</p>
                             </div>
                         </div>
-                        <div style="display: flex; align-items: flex-start; gap: 1rem;">
-                            <div style="font-size: 2rem; min-width: 50px;">⚔️</div>
+                        <div class="home-focus-item">
+                            <div style="font-size: clamp(1.5rem, 4vw, 2rem);">⚔️</div>
                             <div style="text-align: left;">
-                                <h4 style="color: var(--accent-pink); margin-bottom: 0.5rem; font-size: 1.05rem;">Exploitation Techniques</h4>
-                                <p style="color: var(--text-gray); font-size: 0.9rem; line-height: 1.6;">Practicing safe and ethical exploitation methods in controlled environments. Learning advanced payload generation and social engineering tactics.</p>
+                                <h4 style="color: var(--accent-pink); margin-bottom: 0.5rem; font-size: clamp(0.95rem, 2.5vw, 1.05rem);">Exploitation Techniques</h4>
+                                <p style="color: var(--text-gray); font-size: clamp(0.85rem, 2vw, 0.9rem); line-height: 1.5;">Practicing safe and ethical exploitation methods in controlled environments. Learning advanced payload generation and social engineering tactics.</p>
                             </div>
                         </div>
-                        <div style="display: flex; align-items: flex-start; gap: 1rem;">
-                            <div style="font-size: 2rem; min-width: 50px;">🏆</div>
+                        <div class="home-focus-item">
+                            <div style="font-size: clamp(1.5rem, 4vw, 2rem);">🏆</div>
                             <div style="text-align: left;">
-                                <h4 style="color: var(--accent-green); margin-bottom: 0.5rem; font-size: 1.05rem;">Bug Bounty Programs</h4>
-                                <p style="color: var(--text-gray); font-size: 0.9rem; line-height: 1.6;">Building reputation on platforms like HackerOne and Bugcrowd. Actively hunting for vulnerabilities in real-world applications.</p>
+                                <h4 style="color: var(--accent-green); margin-bottom: 0.5rem; font-size: clamp(0.95rem, 2.5vw, 1.05rem);">Bug Bounty Programs</h4>
+                                <p style="color: var(--text-gray); font-size: clamp(0.85rem, 2vw, 0.9rem); line-height: 1.5;">Building reputation on platforms like HackerOne and Bugcrowd. Actively hunting for vulnerabilities in real-world applications.</p>
                             </div>
                         </div>
-                        <div style="display: flex; align-items: flex-start; gap: 1rem;">
-                            <div style="font-size: 2rem; min-width: 50px;">📊</div>
+                        <div class="home-focus-item">
+                            <div style="font-size: clamp(1.5rem, 4vw, 2rem);">📊</div>
                             <div style="text-align: left;">
-                                <h4 style="color: var(--accent-purple); margin-bottom: 0.5rem; font-size: 1.05rem;">Security Automation</h4>
-                                <p style="color: var(--text-gray); font-size: 0.9rem; line-height: 1.6;">Creating Python and Bash scripts for security testing automation. Building tools to streamline vulnerability assessment workflows.</p>
+                                <h4 style="color: var(--accent-purple); margin-bottom: 0.5rem; font-size: clamp(0.95rem, 2.5vw, 1.05rem);">Security Automation</h4>
+                                <p style="color: var(--text-gray); font-size: clamp(0.85rem, 2vw, 0.9rem); line-height: 1.5;">Creating Python and Bash scripts for security testing automation. Building tools to streamline vulnerability assessment workflows.</p>
                             </div>
                         </div>
                     </div>
                 </div>
 
                 <!-- CTAs -->
-                <div style="display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; margin-top: 2rem;">
-                    <button class="btn" onclick="showPage('portfolio')"><i class="fas fa-briefcase"></i> VIEW PORTFOLIO</button>
-                    <button class="btn btn-pink" onclick="showPage('quiz')"><i class="fas fa-gamepad"></i> TRY QUIZ</button>
+                <div style="display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; margin-top: 1.5rem;">
+                    <button class="btn" onclick="showPage('portfolio')" style="font-size: clamp(0.9rem, 2.5vw, 1rem); padding: clamp(12px, 3vw, 16px) clamp(25px, 4vw, 35px);"><i class="fas fa-briefcase"></i> VIEW PORTFOLIO</button>
+                    <button class="btn btn-pink" onclick="showPage('quiz')" style="font-size: clamp(0.9rem, 2.5vw, 1rem); padding: clamp(12px, 3vw, 16px) clamp(25px, 4vw, 35px);"><i class="fas fa-gamepad"></i> TRY QUIZ</button>
                 </div>
             </div>
         </div>
@@ -991,7 +1099,7 @@
                     <div style="background: rgba(0, 217, 255, 0.1); padding: 0.8rem; border-radius: 8px; margin-bottom: 0.5rem;">
                         <p style="color: var(--text-gray); font-size: 0.9rem;">▸ Security+ (60%)</p>
                         <p style="color: var(--text-gray); font-size: 0.9rem;">▸ CEH Prep (45%)</p>
-                        <p style="color: var(--accent-yellow); font-size: 0.9rem;">Target: 2024</p>
+                        <p style="color: var(--accent-yellow); font-size: 0.9rem;">Target: 2025</p>
                     </div>
                 </div>
             </div>
